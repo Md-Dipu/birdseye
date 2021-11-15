@@ -37,7 +37,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get('/', (req, res) => {
-    res.send('Hello from server');
+    res.send('Running tourism server');
 });
 
 app.listen(port, () => {
