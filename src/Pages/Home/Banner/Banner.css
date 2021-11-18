@@ -1,0 +1,13 @@
+/* Banner */
+.tourism-banner {
+    background-image: url("https://i.ibb.co/BtY7pS6/travel-banner.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-height: 90vh;
+}
+
+.banner-title {
+    font-size: 3em;
+    padding-top: 10%;
+}
