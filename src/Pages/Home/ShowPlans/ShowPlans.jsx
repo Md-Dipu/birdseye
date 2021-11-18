@@ -9,7 +9,7 @@ const ShowPlans = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/plans')
+        axios.get('https://calm-tor-26955.herokuapp.com/plans?limit=3')
             .then(res => {
                 setPlans(res.data.plans);
             })
