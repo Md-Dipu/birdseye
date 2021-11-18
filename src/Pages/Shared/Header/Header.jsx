@@ -5,23 +5,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
+    const user = null;
     return (
         <>
             <Navbar variant="dark" bg="dark" expand="lg" sticky="top">
             <Container>
-                <Navbar.Brand as={Link} to="#home">Birdeye</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/#home">Birdeye</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto">
-                    <Nav.Link as={Link} to="#home">Home</Nav.Link>
-                    <Nav.Link as={Link} to="#link">About us</Nav.Link>
-                    <NavDropdown title={<FontAwesomeIcon icon={faUser} />} id="basic-nav-dropdown">
-                        <NavDropdown.Item as={Link} to="#action/3.1">My Orders</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#action/3.2">Manage All Orders</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#action/3.3">Add a New Service</NavDropdown.Item>
+                    <Nav.Link as={Link} to="/#home">Home</Nav.Link>
+                    <Nav.Link as={Link} to="/plans">All Plans</Nav.Link>
+                    <Nav.Link as={Link} to="/about">About us</Nav.Link>
+                    {!user ?  <Nav.Link as={Button} variant="primary" className="ms-2">Login</Nav.Link> :
+                    <NavDropdown title={<><FontAwesomeIcon icon={faUser} /> Md. Dipu</>} menuVariant="dark" id="basic-nav-dropdown">
+                        <NavDropdown.Item as={Link} to="/my-orders">My Orders</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/manage-all-orders">Manage All Orders</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/add-new-plan">Add a New Plan</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item as={Button} variant="link" onClick={() => console.log('logout button clicked')}><FontAwesomeIcon icon={faSignOutAlt} /> Log out</NavDropdown.Item>
-                    </NavDropdown>
+                    </NavDropdown>}
                 </Nav>
                 </Navbar.Collapse>
             </Container>
