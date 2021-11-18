@@ -24,7 +24,7 @@ const Plan = props => {
             </div>
             <div className="d-flex justify-content-between align-items-center">
                 <h4 className="text-uppercase">{starting_date}</h4>
-                <Card.Link as={Button} variant="warning" className="text-uppercase">details</Card.Link>
+                <Card.Link as={Button} variant="warning" className="text-uppercase">book now</Card.Link>
             </div>
             </Card.Body>
         </Card>
