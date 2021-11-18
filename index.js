@@ -20,9 +20,21 @@ async function run() {
         
         // GET API
         app.get('/plans', async (req, res) => {
+            const limit = parseInt(req.query.limit);
+            const page = parseInt(req.query.page) || 0;
+            const toSkip = limit * page;
+
             const cursor = planCollection.find({});
             const count = await cursor.count();
-            const plans = await cursor.toArray();
+            
+            let plans;
+            if (limit) {
+                plans = await cursor.skip(toSkip).limit(limit).toArray();
+            }
+            else {
+                plans = await cursor.toArray();
+            }
+            
             res.send({
                 count,
                 plans
