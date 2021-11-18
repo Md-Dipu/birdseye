@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Col, Container, Row, Spinner } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import Plan from '../Plan/Plan';
+import Loading from '../Shared/Loading/Loading';
 
 const Plans = () => {
     const [totalPlans, setTotalPlans] = useState(0);
@@ -19,11 +20,7 @@ const Plans = () => {
     }, []);
 
     if (loading) {
-        return (
-            <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
-                <Spinner animation="border"  variant="success" />
-            </div>
-        );
+        return <Loading height="80" />;
     }
 
     return (
