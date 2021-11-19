@@ -9,6 +9,7 @@ const Plans = () => {
     const [plans, setPlans] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(0);
+    
     const limit = 1;
     useEffect(() => {
         axios.get(`https://calm-tor-26955.herokuapp.com/plans?limit=${limit}&&page=${currentPage}`)
@@ -39,6 +40,7 @@ const Plans = () => {
                     {[...Array(Math.ceil(totalPlans/limit)).keys()]
                     .map(page => (
                         <Button 
+                            key={page}
                             variant={page === currentPage ? 'primary' : 'outline-primary'}
                             onClick={() => setCurrentPage(page)}
                         >{page+1}</Button>
