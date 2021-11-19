@@ -8,13 +8,19 @@
 import React from 'react';
 import { Navigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
+import Loading from '../../Shared/Loading/Loading';
 
 const RouteProtector = ({ element, from }) => {
-    const { user } = useAuth();
+    const { user, isLoading } = useAuth();
+
+    if (isLoading) {
+        return <Loading height="80" />;
+    }
 
     if (!user) {
         return <Navigate to='/login' state={{ from: from }} />;
     }
+    
     return element;
 };
 
