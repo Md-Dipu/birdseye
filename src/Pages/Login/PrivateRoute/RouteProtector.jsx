@@ -13,6 +13,7 @@ import Loading from '../../Shared/Loading/Loading';
 const RouteProtector = ({ element, from }) => {
     const { user, isLoading } = useAuth();
 
+    // if user information is not loaded
     if (isLoading) {
         return <Loading height="80" />;
     }
@@ -20,7 +21,7 @@ const RouteProtector = ({ element, from }) => {
     if (!user) {
         return <Navigate to='/login' state={{ from: from }} />;
     }
-    
+
     return element;
 };
 
