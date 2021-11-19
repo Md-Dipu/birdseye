@@ -1,5 +1,6 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
+const ObjectId = require('mongodb').ObjectId;
 const cors = require('cors');
 require('dotenv').config();
 const app = express();
@@ -16,9 +17,12 @@ const run = async () => {
     try {
         await client.connect();
         const database = client.db("tourism");
+        
         const planCollection = database.collection("plans");
+        const userCollection = database.collection("users");
         
         // GET API
+        // plans
         app.get('/plans', async (req, res) => {
             const limit = parseInt(req.query.limit);
             const page = parseInt(req.query.page) || 0;
@@ -40,7 +44,25 @@ const run = async () => {
                 plans
             });
         });
-    }         
+
+        // GET single plan
+        app.get('/plans/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await planCollection.findOne(query);
+            res.json(result);
+        });
+
+        // users
+        app.get('/users', async (req, res) => {
+            const userEmail = req.query.email;
+            const query = { email: userEmail };
+            const cursor = userCollection.find(query);
+
+            const user = await cursor.toArray();
+            res.send(user);
+        });
+    }
     finally {
         // await client.close();
     }
