@@ -5,10 +5,9 @@ import { useForm } from 'react-hook-form';
 const Footer = () => {
     const { register, handleSubmit, reset } = useForm();
     const handleSubscribe = data => {
-        console.log(data.email);
         reset();
     }
-    
+
     return (
         <div className="bg-light py-4">
             <Container>
