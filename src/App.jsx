@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './Pages/Shared/Header/Header';
 import Home from './Pages/Home/Home/Home';
 import Login from './Pages/Login/Login/Login';
@@ -8,26 +8,32 @@ import NotFound from './Pages/NotFound/NotFound';
 import Footer from './Pages/Shared/Footer/Footer';
 import AuthProvider from './context/AuthProvider';
 import PrivateRoute from './Pages/Login/PrivateRoute/RouteProtector';
+import AddPlan from './Pages/AddPlan/AddPlan';
 
 function App() {
     return (
         <AuthProvider>
-            <Header />
-            <Switch>
-                <Route exact path="/">
-                    <Home />
-                </Route>
-                <PrivateRoute path="/plans">
-                    <Plans />
-                </PrivateRoute>
-                <Route path="/login">
-                    <Login />
-                </Route>
-                <Route path="*">
-                    <NotFound />
-                </Route>
-            </Switch>
-            <Footer />
+            <Router>
+                <Header />
+                <Switch>
+                    <Route exact path="/">
+                        <Home />
+                    </Route>
+                    <Route path="/plans">
+                        <Plans />
+                    </Route>
+                    <PrivateRoute path="/add-new-plan">
+                        <AddPlan />
+                    </PrivateRoute>
+                    <Route path="/login">
+                        <Login />
+                    </Route>
+                    <Route path="*">
+                        <NotFound />
+                    </Route>
+                </Switch>
+                <Footer />
+            </Router>
         </AuthProvider>
     );
 }
