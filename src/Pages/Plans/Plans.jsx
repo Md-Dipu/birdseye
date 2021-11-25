@@ -10,9 +10,9 @@ const Plans = () => {
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(0);
     
-    const limit = 1;
+    const limit = 9;
     useEffect(() => {
-        axios.get(`https://calm-tor-26955.herokuapp.com/plans?limit=${limit}&&page=${currentPage}`)
+        axios.get(`http://localhost:5000/plans?limit=${limit}&&page=${currentPage}`)
             .then(res => {
                 setTotalPlans(res.data.count);
                 setPlans(res.data.plans);

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Alert, Button, Container } from 'react-bootstrap';
-import { useLocation, useNavigate } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
     const { user, setUser, setIsLoading, signInUsingGoogle } = useAuth();
     const location = useLocation();
-    const navigate = useNavigate();
+    const history = useHistory();
     const redircet_url = location.state?.from || '/#home';
 
     const handleGoogleSignIn = () => {
@@ -14,7 +14,7 @@ const Login = () => {
         signInUsingGoogle()
             .then(result => {
                 setUser(result.user);
-                navigate(redircet_url);
+                history.push(redircet_url);
             })
             .catch(error => console.warn(error))
             .finally(() => {

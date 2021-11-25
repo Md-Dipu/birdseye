@@ -9,7 +9,7 @@ const ShowPlans = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('https://calm-tor-26955.herokuapp.com/plans?limit=3')
+        axios.get('http://localhost:5000/plans?limit=6')
             .then(res => {
                 setPlans(res.data.plans);
             })
@@ -18,7 +18,7 @@ const ShowPlans = () => {
     }, []);
 
     if (loading) {
-        return <Loading height="50" />;
+        return <Loading height="60" />;
     }
 
     return (
