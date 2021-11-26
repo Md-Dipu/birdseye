@@ -62,6 +62,13 @@ const run = async () => {
             const user = await cursor.toArray();
             res.send(user);
         });
+
+        // POST API
+        app.post('/plans', async (req, res) => {
+            const newPlan = req.body;
+            const result = await planCollection.insertOne(newPlan);
+            res.json(result);
+        });
     }
     finally {
         // await client.close();
