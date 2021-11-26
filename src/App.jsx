@@ -9,6 +9,7 @@ import Footer from './Pages/Shared/Footer/Footer';
 import AuthProvider from './context/AuthProvider';
 import PrivateRoute from './Pages/Login/PrivateRoute/RouteProtector';
 import AddPlan from './Pages/AddPlan/AddPlan';
+import PlanDetails from './Pages/PlanDetails/PlanDetails';
 
 function App() {
     return (
@@ -19,8 +20,11 @@ function App() {
                     <Route exact path="/">
                         <Home />
                     </Route>
-                    <Route path="/plans">
+                    <Route exact path="/plans">
                         <Plans />
+                    </Route>
+                    <Route path="/plans/:planId">
+                        <PlanDetails />
                     </Route>
                     <PrivateRoute path="/add-new-plan">
                         <AddPlan />
