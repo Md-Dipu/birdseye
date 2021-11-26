@@ -2,8 +2,10 @@ import axios from 'axios';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { backToTop } from '../../utilities/utilities';
 
 const AddPlan = () => {
+    backToTop();
     const { register, handleSubmit, reset } = useForm();
     const handleAddPlan = data => {
         const { title, img_url, tourDays, rating, cost, starting_date, description } = data;
@@ -27,7 +29,7 @@ const AddPlan = () => {
                 <Col xs={12} md={2} lg={3} />
                 <Col xs={12} md={8} lg={6}>
                 <form onSubmit={handleSubmit(handleAddPlan)}>
-                    <h3 className="text-center my-3">Add a new plan</h3>
+                    <h3 className="text-center my-3 text-uppercase">Add a <span className="text-info">new plan</span></h3>
                     <input type="text" className="form-control mb-3" placeholder="Title" {...register('title', { required: true })} />
                     <input type="text" className="form-control mb-3" placeholder="IBB Image URL" {...register('img_url', { required: true })} />
                     
