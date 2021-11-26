@@ -2,9 +2,13 @@ import { faClock, faDollarSign, faStar } from '@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
+import { useHistory } from 'react-router';
 
 const Plan = props => {
-    const { title, description, img_url, rating, tourDays, cost, starting_date } = props.plan;
+    const { _id, title, description, img_url, rating, tourDays, cost, starting_date } = props.plan;
+
+    // negivator
+    const history = useHistory();
     
     // Styles
     const stylePill = 'border rounded-pill px-2 py-1';
@@ -24,7 +28,14 @@ const Plan = props => {
             </div>
             <div className="d-flex justify-content-between align-items-center">
                 <h4 className="text-uppercase">{starting_date}</h4>
-                <Card.Link as={Button} variant="warning" className="text-uppercase">book now</Card.Link>
+                <Card.Link 
+                    as={Button} 
+                    variant="warning" 
+                    className="text-uppercase"
+                    onClick={() => history.push(`/plans/${_id}`)}
+                >
+                    book now
+                </Card.Link>
             </div>
             </Card.Body>
         </Card>
