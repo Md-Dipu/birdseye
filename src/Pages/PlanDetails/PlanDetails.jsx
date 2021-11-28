@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Col, Container, Image, Row } from 'react-bootstrap';
+import { Button, Col, Container, Image, Row } from 'react-bootstrap';
 import { useParams } from 'react-router';
 
 const PlanDetails = () => {
@@ -27,6 +27,7 @@ const PlanDetails = () => {
                             {description}
                         </p>
                         
+                        {/* Details Table */}
                         <h5>Details</h5>
                         <table className="table my-3">
                             <tbody>
@@ -48,7 +49,8 @@ const PlanDetails = () => {
                                 </tr>
                             </tbody>
                         </table>
-
+                        
+                        {/* Ticket input and book action */}
                         <div className="my-3">
                             <h5>Book ticket for this plan</h5>
                             <form onSubmit={e => e.preventDefault()}>
@@ -80,6 +82,7 @@ const PlanDetails = () => {
                                     >+</button>
                                 </div>
                                 <h6 className="mb-3">You have to pay total <span className="text-warning">{cost * numberOfTickets}</span> for this plan</h6>
+                                <Button variant="warning">Book now</Button>
                             </form>
                         </div>
                     </div>
