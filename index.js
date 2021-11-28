@@ -18,6 +18,7 @@ const run = async () => {
         await client.connect();
         const database = client.db("tourism");
         
+        // Collections
         const planCollection = database.collection("plans");
         const userCollection = database.collection("users");
         
