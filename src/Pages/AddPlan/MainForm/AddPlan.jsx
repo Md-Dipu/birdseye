@@ -9,7 +9,6 @@ const AddPlan = () => {
     backToTop();
     const { register, handleSubmit, reset } = useForm();
     const handleAddPlan = data => {
-        console.log(data);
         const { title, img_url, tourDays, rating, cost, starting_date, description } = data;
         const newPlan = {
             title,
