@@ -8,7 +8,7 @@ import NotFound from './Pages/NotFound/NotFound';
 import Footer from './Pages/Shared/Footer/Footer';
 import AuthProvider from './context/AuthProvider';
 import PrivateRoute from './Pages/Login/PrivateRoute/RouteProtector';
-import AddPlan from './Pages/AddPlan/AddPlan';
+import AddPlan from './Pages/AddPlan/MainForm/AddPlan';
 import PlanDetails from './Pages/PlanDetails/PlanDetails';
 
 function App() {
