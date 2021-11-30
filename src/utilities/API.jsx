@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// plans API
 export const addPlanDB = newPlan => {
     axios.post('http://localhost:5000/plans', newPlan)
         .then(res => alert(`Adding Status:${res.statusText} with plan id:${res.data.insertedId}`))
