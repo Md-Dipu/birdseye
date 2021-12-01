@@ -2,13 +2,16 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Image, Row } from 'react-bootstrap';
 import { useParams } from 'react-router';
+import useAuth from '../../hooks/useAuth';
+import { updateUserBookedDB } from '../../utilities/API';
 
 const PlanDetails = () => {
     const [plan, setPlan] = useState({});
     const [numberOfTickets, setNumberOfTickets] = useState(1);
     const { planId } = useParams();
+    const { user } = useAuth();
 
-    const { title, description, img_url, rating, tourDays, cost, starting_date } = plan;
+    const { _id, title, description, img_url, rating, tourDays, cost, starting_date } = plan;
 
     useEffect(() => {
         axios.get(`http://localhost:5000/plans/${planId}`)
@@ -81,7 +84,15 @@ const PlanDetails = () => {
                             >+</button>
                         </div>
                         <h6 className="mb-3">You have to pay total <span className="text-warning">{cost * numberOfTickets}</span> for this plan</h6>
-                        <Button variant="warning">Book now</Button>
+                        <Button 
+                            variant="warning"
+                            onClick={() => {
+                                const bookedTicket = {}
+                                bookedTicket[_id] = numberOfTickets;
+                                console.log(bookedTicket);
+                                updateUserBookedDB(user, bookedTicket);
+                            }}
+                        >Book now</Button>
                     </form>
                 </Col>
             </Row>
