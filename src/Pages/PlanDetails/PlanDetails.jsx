@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Image, Row } from 'react-bootstrap';
+import { Alert, Button, Col, Container, Image, Row } from 'react-bootstrap';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { updateUserBookedDB } from '../../utilities/API';
 
@@ -22,8 +23,8 @@ const PlanDetails = () => {
     }, [planId]);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/users/${user?.email}`)
-            .then(res => setCurrentOrderedList(res.data.ordered))
+        axios.get(`http://localhost:5000/users/${user?.email || ''}`)
+            .then(res => setCurrentOrderedList(res.data.ordered || {}))
             .catch(error => console.warn(error));
     }, [user]);
 
@@ -31,7 +32,10 @@ const PlanDetails = () => {
         const exists = currentOrderedList[_id];
         if(exists) {
             setPlanExist(true);
-            setNumberOfTickets(exists);
+            setNumberOfTickets(exists.countTicket);
+        }
+        else {
+            setPlanExist(false);
         }
     }, [currentOrderedList, _id]);
     
@@ -46,8 +50,12 @@ const PlanDetails = () => {
                     </div>
                 </Col>
                 
-                <Col classNam="my-3">
+                <Col className="my-3">
                     <h5>Book ticket for this plan</h5>
+                    {/* Login al */}
+                    {!user && <Alert variant="warning">
+                        You must login before book any plan. Go <Link to="/login">Login</Link> page to login or create an account.   
+                    </Alert>}
                     {/* Details Table */}
                     <h5>Details</h5>
                     <table className="table my-3">
@@ -103,8 +111,13 @@ const PlanDetails = () => {
                         <Button 
                             variant="warning"
                             onClick={() => {
+                                const time = new Date();
                                 const bookedTicket = {}
-                                bookedTicket[_id] = numberOfTickets;
+                                bookedTicket[_id] = {
+                                    bookingDate: `${time.getDate()}-${time.getMonth()}-${time.getFullYear()}`,
+                                    bookingHour: `${(time.getHours() <= 12) ? time.getHours() : (time.getHours() - 12)}:${time.getMinutes()} ${(time.getHours() <= 12) ? 'AM' : 'PM'}`,
+                                    countTicket: numberOfTickets
+                                };
                                 updateUserBookedDB(user, {...currentOrderedList, ...bookedTicket}, setPlanExist);
                             }}
                         >{planExist ? 'Update now' : 'Book now'}</Button>
