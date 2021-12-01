@@ -23,7 +23,7 @@ const Plans = () => {
     };
     
     // plan per page
-    const limit = 3;
+    const limit = 9;
     useEffect(() => {
         axios.get(`http://localhost:5000/plans?limit=${limit}&&page=${currentPage}`)
             .then(res => {
