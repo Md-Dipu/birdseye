@@ -9,6 +9,7 @@ const PlanDetails = () => {
     const [plan, setPlan] = useState({});
     const [numberOfTickets, setNumberOfTickets] = useState(1);
     const [currentOrderedList, setCurrentOrderedList] = useState({});
+    const [planExist, setPlanExist] = useState(false);
     const { planId } = useParams();
     const { user } = useAuth();
 
@@ -24,7 +25,15 @@ const PlanDetails = () => {
         axios.get(`http://localhost:5000/users/${user?.email}`)
             .then(res => setCurrentOrderedList(res.data.ordered))
             .catch(error => console.warn(error));
-    }, [user])
+    }, [user]);
+
+    useEffect(() => {
+        const exists = currentOrderedList[_id];
+        if(exists) {
+            setPlanExist(true);
+            setNumberOfTickets(exists);
+        }
+    }, [currentOrderedList, _id]);
     
     return (
         <Container>
@@ -96,9 +105,9 @@ const PlanDetails = () => {
                             onClick={() => {
                                 const bookedTicket = {}
                                 bookedTicket[_id] = numberOfTickets;
-                                updateUserBookedDB(user, {...currentOrderedList, ...bookedTicket});
+                                updateUserBookedDB(user, {...currentOrderedList, ...bookedTicket}, setPlanExist);
                             }}
-                        >Book now</Button>
+                        >{planExist ? 'Update now' : 'Book now'}</Button>
                     </form>
                 </Col>
             </Row>
