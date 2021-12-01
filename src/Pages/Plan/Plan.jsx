@@ -38,7 +38,7 @@ const Plan = props => {
                         history.push(`/plans/${_id}`)
                     }}
                 >
-                    book now
+                    details
                 </Card.Link>
             </div>
             </Card.Body>
