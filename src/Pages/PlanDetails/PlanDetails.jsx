@@ -8,6 +8,7 @@ import { updateUserBookedDB } from '../../utilities/API';
 const PlanDetails = () => {
     const [plan, setPlan] = useState({});
     const [numberOfTickets, setNumberOfTickets] = useState(1);
+    const [currentOrderedList, setCurrentOrderedList] = useState({});
     const { planId } = useParams();
     const { user } = useAuth();
 
@@ -15,9 +16,15 @@ const PlanDetails = () => {
 
     useEffect(() => {
         axios.get(`http://localhost:5000/plans/${planId}`)
-        .then(res => setPlan(res.data))
-        .catch(error => console.warn(error));
+            .then(res => setPlan(res.data))
+            .catch(error => console.warn(error));
     }, [planId]);
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/users/${user?.email}`)
+            .then(res => setCurrentOrderedList(res.data.ordered))
+            .catch(error => console.warn(error));
+    }, [user])
     
     return (
         <Container>
@@ -89,8 +96,7 @@ const PlanDetails = () => {
                             onClick={() => {
                                 const bookedTicket = {}
                                 bookedTicket[_id] = numberOfTickets;
-                                console.log(bookedTicket);
-                                updateUserBookedDB(user, bookedTicket);
+                                updateUserBookedDB(user, {...currentOrderedList, ...bookedTicket});
                             }}
                         >Book now</Button>
                     </form>
