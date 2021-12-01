@@ -56,18 +56,41 @@ const run = async () => {
 
         // users
         app.get('/users', async (req, res) => {
-            const userEmail = req.query.email;
-            const query = { email: userEmail };
-            const cursor = userCollection.find(query);
+            const cursor = userCollection.find({});
+            const users = await cursor.toArray();
+            res.send(users);
+        });
 
-            const user = await cursor.toArray();
-            res.send(user);
+        // user
+        app.get('/users/:userEmail', async (req, res) => {
+            const email = req.params.userEmail;
+            const query = { email: email }
+            const result = await userCollection.findOne(query);
+            res.json(result);
         });
 
         // POST API
         app.post('/plans', async (req, res) => {
             const newPlan = req.body;
             const result = await planCollection.insertOne(newPlan);
+            res.json(result);
+        });
+
+        // update or, upsert
+        app.put('/users', async (req, res) => {
+            const { user, planTicket } = req.body;
+            const query = { email: user.email };
+            
+            // update
+            const result = await userCollection.updateOne(query, {
+                $set: {
+                    userName: user.displayName,
+                    email: user.email,
+                    ordered: planTicket
+                }
+            }, {
+                upsert: true
+            });
             res.json(result);
         });
     }
