@@ -99,7 +99,7 @@ const PlanDetails = () => {
                                 onClick={() => setNumberOfTickets(numberOfTickets + 1)}
                             >+</button>
                         </div>
-                        <h6 className="mb-3">You have to pay total <span className="text-warning">{cost * numberOfTickets}</span> for this plan</h6>
+                        <h6 className="mb-3">You have to pay total <span className="text-warning">{(cost * numberOfTickets) || 0}</span> for this plan</h6>
                         <Button 
                             variant="warning"
                             onClick={() => {
