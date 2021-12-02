@@ -1,12 +1,21 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Col, Image, Row } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import { updateUserBookedDB } from '../../../utilities/API';
 
 const MyOrder = props => {
-    const { planId, orderDetails } = props;
+    const { user, planId, orderDetails, orderedList, setIsCanceled } = props;
     const [planDetails, setPlanDetails] = useState({});
 
-    const { img_url } = planDetails;
+    const { title } = planDetails;
+    const { date, isPending } = orderDetails;
+    const bookingTimeAndDate = new Date(date);
+
+    // time and date
+    const hours = bookingTimeAndDate.getHours();
+    const minutes = bookingTimeAndDate.getMinutes();
+    const bookingTime = `${(hours <= 12) ? hours : (hours - 12)}:${minutes}${(hours <= 12) ? 'AM' : 'PM'}`;
+    const bookingDate = `${bookingTimeAndDate.getDate()}-${bookingTimeAndDate.getMonth()}-${bookingTimeAndDate.getFullYear()}`;
 
     useEffect(() => {
         axios.get(`http://localhost:5000/plans/${planId}`)
@@ -14,15 +23,21 @@ const MyOrder = props => {
             .catch(error => console.warn(error));
     }, [planId]);
 
-
-    // const date = new Date(orderDetails.date);
-    // console.log(`${date.getHours()}:${date.getMinutes()} ${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`);
     return (
-        <Row className="my-3 p-2 rounded bg-light">
-            <Col xs={12} md={2}>
-                <Image src={img_url} className="w-100 rounded block" />
-            </Col>
-        </Row>
+        <div className="d-flex justify-space-between align-items-center bg-light my-3 p-3 rounded">
+            <div>
+                <h6>{title}</h6>
+                <p>Status: {isPending ? 'Pending' : 'Apporoved'} <br />
+                    Orderd at {bookingTime}, {bookingDate}</p>
+            </div>
+            <Button 
+                variant="warning"
+                onClick={() => {
+                    delete orderedList[planId];
+                    updateUserBookedDB(user, { ...orderedList }, setIsCanceled);
+                }}
+            >Cancel Booking</Button>
+        </div>
     );
 };
 
