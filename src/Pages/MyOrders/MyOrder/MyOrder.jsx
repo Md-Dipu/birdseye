@@ -9,7 +9,7 @@ const MyOrder = props => {
     const orderDetails = orderedList[planId];
 
     const { title } = planDetails;
-    const { date, isPending } = orderDetails;
+    const { date, countTicket, isPending } = orderDetails;
     const bookingTimeAndDate = new Date(date);
 
     // time and date
@@ -29,6 +29,7 @@ const MyOrder = props => {
             <div>
                 <h6>{title}</h6>
                 <p>Status: {isPending ? 'Pending' : 'Apporoved'} <br />
+                    Tickets: {countTicket} <br />
                     Orderd at {bookingTime}, {bookingDate}</p>
             </div>
             <Button 
