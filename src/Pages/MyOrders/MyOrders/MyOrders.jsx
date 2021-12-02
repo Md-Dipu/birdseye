@@ -6,6 +6,7 @@ import MyOrder from '../MyOrder/MyOrder';
 
 const MyOrders = () => {
     const [orderedList, setOrderedList] = useState({});
+    const [isCanceled, setIsCanceled] = useState(false);
     const { user } = useAuth();
 
     const orderedItems = Object.keys(orderedList);
@@ -14,7 +15,7 @@ const MyOrders = () => {
         axios.get(`http://localhost:5000/users/${user.email}`)
             .then(res => setOrderedList(res?.data?.ordered))
             .catch(error => console.warn(error));
-    }, [user]);
+    }, [user, isCanceled]);
 
     return (
         <Container className="my-3">
@@ -23,6 +24,9 @@ const MyOrders = () => {
                 key={_idx} 
                 planId={planId} 
                 orderDetails={orderedList[planId]} 
+                orderedList={orderedList}
+                user={user}
+                setIsCanceled={setIsCanceled}
             />)}
         </Container>
     );
