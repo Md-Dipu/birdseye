@@ -22,10 +22,9 @@ const MyOrders = () => {
             <h4 className="text-uppercase text-center">your orders</h4>
             {orderedItems.map((planId, _idx) => <MyOrder 
                 key={_idx} 
-                planId={planId} 
-                orderDetails={orderedList[planId]} 
-                orderedList={orderedList}
                 user={user}
+                planId={planId} 
+                orderedList={orderedList}
                 setIsCanceled={setIsCanceled}
             />)}
         </Container>

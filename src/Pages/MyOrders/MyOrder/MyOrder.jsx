@@ -4,8 +4,9 @@ import { Button } from 'react-bootstrap';
 import { updateUserBookedDB } from '../../../utilities/API';
 
 const MyOrder = props => {
-    const { user, planId, orderDetails, orderedList, setIsCanceled } = props;
+    const { user, planId, orderedList, setIsCanceled } = props;
     const [planDetails, setPlanDetails] = useState({});
+    const orderDetails = orderedList[planId];
 
     const { title } = planDetails;
     const { date, isPending } = orderDetails;
