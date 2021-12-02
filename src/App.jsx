@@ -10,7 +10,7 @@ import AuthProvider from './context/AuthProvider';
 import PrivateRoute from './Pages/Login/PrivateRoute/RouteProtector';
 import AddPlan from './Pages/AddPlan/MainForm/AddPlan';
 import PlanDetails from './Pages/PlanDetails/PlanDetails';
-import ManageOrders from './Pages/ManageAllOrders/ManageOrders/ManageOrders';
+import MyOrders from './Pages/MyOrders/MyOrders/MyOrders';
 
 function App() {
     return (
@@ -27,8 +27,8 @@ function App() {
                     <Route path="/plans/:planId">
                         <PlanDetails />
                     </Route>
-                    <PrivateRoute path="/manage-all-orders">
-                        <ManageOrders />
+                    <PrivateRoute path="/my-orders">
+                        <MyOrders />
                     </PrivateRoute>
                     <PrivateRoute path="/add-new-plan">
                         <AddPlan />
