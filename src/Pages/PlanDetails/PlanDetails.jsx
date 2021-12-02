@@ -114,9 +114,9 @@ const PlanDetails = () => {
                                 const time = new Date();
                                 const bookedTicket = {}
                                 bookedTicket[_id] = {
-                                    bookingDate: `${time.getDate()}-${time.getMonth()}-${time.getFullYear()}`,
-                                    bookingHour: `${(time.getHours() <= 12) ? time.getHours() : (time.getHours() - 12)}:${time.getMinutes()} ${(time.getHours() <= 12) ? 'AM' : 'PM'}`,
-                                    countTicket: numberOfTickets
+                                    date: time,
+                                    countTicket: numberOfTickets,
+                                    isPending: true
                                 };
                                 updateUserBookedDB(user, {...currentOrderedList, ...bookedTicket}, setPlanExist);
                             }}
