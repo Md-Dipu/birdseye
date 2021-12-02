@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useHistory } from 'react-router';
-import { backToTop } from '../../utilities/utilities';
+import { backToTop } from '../../../utilities/utilities';
 
 const Plan = props => {
     const { _id, title, description, img_url, rating, tourDays, cost, starting_date } = props.plan;

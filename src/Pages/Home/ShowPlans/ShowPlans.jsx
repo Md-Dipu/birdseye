@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import Plan from '../../Plan/Plan';
+import Plan from '../../Shared/Plan/Plan';
 import Loading from '../../Shared/Loading/Loading';
 
 const ShowPlans = () => {
