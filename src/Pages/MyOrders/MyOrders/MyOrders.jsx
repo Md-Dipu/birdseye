@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import useAuth from '../../../hooks/useAuth';
 import MyOrder from '../MyOrder/MyOrder';
 
@@ -18,16 +18,18 @@ const MyOrders = () => {
     }, [user, isCanceled]);
 
     return (
-        <Container className="my-3">
-            <h4 className="text-uppercase text-center">your orders</h4>
-            {orderedItems.map((planId, _idx) => <MyOrder 
-                key={_idx} 
-                user={user}
-                planId={planId} 
-                orderedList={orderedList}
-                setIsCanceled={setIsCanceled}
-            />)}
-        </Container>
+        <Row className="justify-content-center my-3">
+            <Col xs={12} md={8} lg={6}>
+                <h4 className="text-uppercase text-center">your <span className="text-info">orders</span></h4>
+                {orderedItems.map((planId, _idx) => <MyOrder 
+                    key={_idx} 
+                    user={user}
+                    planId={planId} 
+                    orderedList={orderedList}
+                    setIsCanceled={setIsCanceled}
+                />)}
+            </Col>
+        </Row>
     );
 };
 
