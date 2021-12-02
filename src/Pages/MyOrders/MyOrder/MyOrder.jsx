@@ -1,12 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { useHistory } from 'react-router';
 import { updateUserBookedDB } from '../../../utilities/API';
+import { backToTop } from '../../../utilities/utilities';
 
 const MyOrder = props => {
     const { user, planId, orderedList, setIsCanceled } = props;
     const [planDetails, setPlanDetails] = useState({});
     const orderDetails = orderedList[planId];
+    const history = useHistory();
 
     const { title } = planDetails;
     const { date, countTicket, isPending } = orderDetails;
@@ -32,13 +35,24 @@ const MyOrder = props => {
                     Tickets: {countTicket} <br />
                     Orderd at {bookingTime}, {bookingDate}</p>
             </div>
-            <Button 
-                variant="warning"
-                onClick={() => {
-                    delete orderedList[planId];
-                    updateUserBookedDB(user, { ...orderedList }, setIsCanceled);
-                }}
-            >Cancel Booking</Button>
+            <div>
+                <Button 
+                    variant="warning"
+                    className="d-block mb-2"
+                    onClick={() => {
+                        delete orderedList[planId];
+                        updateUserBookedDB(user, { ...orderedList }, setIsCanceled);
+                    }}
+                >Cancel Booking</Button>{" "}
+                <Button
+                    variant="info"
+                    className="d-block"
+                    onClick={() => {
+                        backToTop();
+                        history.push(`/plans/${planId}`)
+                    }}
+                >Update</Button>
+            </div>
         </div>
     );
 };
