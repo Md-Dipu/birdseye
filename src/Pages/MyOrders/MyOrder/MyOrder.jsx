@@ -6,12 +6,12 @@ import { updateUserBookedDB } from '../../../utilities/API';
 import { backToTop } from '../../../utilities/utilities';
 
 const MyOrder = props => {
-    const { user, planId, orderedList, setIsCanceled } = props;
+    const { user, planId, orderedList, observeCancel, setObserveCancel } = props;
     const [planDetails, setPlanDetails] = useState({});
     const orderDetails = orderedList[planId];
     const history = useHistory();
 
-    const { title } = planDetails;
+    const { title, cost } = planDetails;
     const { date, countTicket, isPending } = orderDetails;
     const bookingTimeAndDate = new Date(date);
 
@@ -28,22 +28,24 @@ const MyOrder = props => {
     }, [planId]);
 
     return (
-        <div className="d-flex justify-space-between align-items-center bg-light my-3 p-3 rounded">
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-center bg-light my-3 p-3 rounded">
             <div>
                 <h6>{title}</h6>
                 <p>Status: {isPending ? 'Pending' : 'Apporoved'} <br />
                     Tickets: {countTicket} <br />
-                    Orderd at {bookingTime}, {bookingDate}</p>
+                    Cost: {countTicket * cost || '-'} <br />
+                    Orderd at {bookingDate}({bookingTime})</p>
             </div>
-            <div>
+            <div className="d-flex flex-column justify-content-center align-items-center">
                 <Button 
                     variant="warning"
                     className="d-block mb-2"
                     onClick={() => {
                         delete orderedList[planId];
-                        updateUserBookedDB(user, { ...orderedList }, setIsCanceled);
+                        updateUserBookedDB(user, { ...orderedList });
+                        setObserveCancel(!observeCancel);
                     }}
-                >Cancel Booking</Button>{" "}
+                >Cancel Booking</Button>
                 <Button
                     variant="info"
                     className="d-block"
