@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, ButtonGroup, Col, Container, Row } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router';
 import { backToTop } from '../../utilities/utilities';
-import Plan from '../../Shared/Plan/Plan';
+import Plan from '../Shared/Plan/Plan';
 import Loading from '../Shared/Loading/Loading';
 
 const Plans = () => {
