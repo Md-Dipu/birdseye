@@ -11,6 +11,7 @@ import PrivateRoute from './Pages/Login/PrivateRoute/RouteProtector';
 import AddPlan from './Pages/AddPlan/MainForm/AddPlan';
 import PlanDetails from './Pages/PlanDetails/PlanDetails';
 import MyOrders from './Pages/MyOrders/MyOrders/MyOrders';
+import ManageAllOrders from './Pages/ManageAllOrders/ManageAllOrders/ManageAllOrders';
 
 function App() {
     return (
@@ -29,6 +30,9 @@ function App() {
                     </Route>
                     <PrivateRoute path="/my-orders">
                         <MyOrders />
+                    </PrivateRoute>
+                    <PrivateRoute path="/manage-all-orders">
+                        <ManageAllOrders />
                     </PrivateRoute>
                     <PrivateRoute path="/add-new-plan">
                         <AddPlan />
