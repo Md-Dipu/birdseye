@@ -4,10 +4,12 @@ import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import { updateUserBookedDB } from '../../../utilities/API';
 import { backToTop } from '../../../utilities/utilities';
+import OrderPlaceholder from '../../Shared/OrderPlaceholder/OrderPlaceholder';
 
 const MyOrder = props => {
     const { user, planId, orderedList, observeCancel, setObserveCancel } = props;
     const [planDetails, setPlanDetails] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
     const orderDetails = orderedList[planId];
     const history = useHistory();
 
@@ -24,8 +26,13 @@ const MyOrder = props => {
     useEffect(() => {
         axios.get(`http://localhost:5000/plans/${planId}`)
             .then(res => setPlanDetails(res.data))
-            .catch(error => console.warn(error));
+            .catch(error => console.warn(error))
+            .then(() => setIsLoading(false));
     }, [planId]);
+
+    if (isLoading) {
+        return <OrderPlaceholder />
+    }
 
     return (
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-center bg-light my-3 p-3 rounded">
