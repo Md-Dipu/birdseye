@@ -84,7 +84,7 @@ const run = async () => {
             // update
             const result = await userCollection.updateOne(query, {
                 $set: {
-                    userName: user.displayName,
+                    displayName: user.displayName,
                     email: user.email,
                     ordered: planTicket
                 }
