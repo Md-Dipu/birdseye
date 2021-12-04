@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Alert, Button, Col, Container, Image, Row } from 'react-bootstrap';
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { updateUserBookedDB } from '../../utilities/API';
@@ -11,6 +11,7 @@ const PlanDetails = () => {
     const [numberOfTickets, setNumberOfTickets] = useState(1);
     const [currentOrderedList, setCurrentOrderedList] = useState({});
     const [planExist, setPlanExist] = useState(false);
+    const location = useLocation();
     const { planId } = useParams();
     const { user } = useAuth();
 
@@ -54,7 +55,7 @@ const PlanDetails = () => {
                     <h5>Book ticket for this plan</h5>
                     {/* Login al */}
                     {!user && <Alert variant="warning">
-                        You must login before book any plan. Go <Link to="/login">Login</Link> page to login or create an account.   
+                        You must login before book any plan. Go <Link to={ { pathname: "/login", state: { from: location } } }>Login</Link> page to login or create an account.   
                     </Alert>}
                     {/* Details Table */}
                     <h5>Details</h5>
