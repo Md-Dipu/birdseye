@@ -39,7 +39,6 @@ const MyOrders = () => {
                             user={user}
                             planId={planId} 
                             orderedList={orderedList}
-                            observeCancel={observeCancel}
                             setObserveCancel={setObserveCancel}
                         />)
                     }
