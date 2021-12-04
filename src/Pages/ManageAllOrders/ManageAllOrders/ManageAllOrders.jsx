@@ -3,17 +3,20 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
+import Loading from '../../Shared/Loading/Loading';
 import ManageOrder from '../ManageOrder/ManageOrder';
 
 const ManageAllOrders = () => {
     const [users, setUsers] = useState([]);
     const [allOrders, setAllOrders] = useState([]);
     const [observeDelete, setObserveDelete] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         axios.get('http://localhost:5000/users')
             .then(res => setUsers(res.data))
-            .catch(error => console.warn(error));
+            .catch(error => console.warn(error))
+            .then(() => setIsLoading(false));
     }, []);
 
     useEffect(() => {
@@ -38,17 +41,26 @@ const ManageAllOrders = () => {
         }
     }, [observeDelete, allOrders]);
 
+    if (isLoading) {
+        return <Loading height="60" />;
+    }
+
     return (
         <Container>
             <Row className="justify-content-center my-3">
-                <Col xs={12} md={8} lg={6}>
+                <Col xs={12} md={8} lg={6} style={{ minHeight: '60vh' }}>
                     <h4 className="text-uppercase text-center"><span className="text-info">manage</span> all orders</h4>
-                    {allOrders.map((order, _idx) => <ManageOrder 
-                        key={_idx}
-                        order={order}
-                        user={users.find(user => user.email === order.from)}
-                        setObserveDelete={setObserveDelete}
-                    />)}
+                    {(allOrders.length === 0) ?
+                        <div>
+                            <h3 className="text-uppercase text-center">no order found</h3>
+                        </div>
+                        : allOrders.map((order, _idx) => <ManageOrder 
+                            key={_idx}
+                            order={order}
+                            user={users.find(user => user.email === order.from)}
+                            setObserveDelete={setObserveDelete}
+                        />)
+                    }
                 </Col>
             </Row>
         </Container>

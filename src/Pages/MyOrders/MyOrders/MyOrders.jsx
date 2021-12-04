@@ -21,22 +21,28 @@ const MyOrders = () => {
     }, [user]);
 
     if (isLoading) {
-        return <Loading height="80" />;
+        return <Loading height="60" />;
     }
 
     return (
         <Container>
             <Row className="justify-content-center my-3">
-                <Col xs={12} md={8} lg={6}>
+                <Col xs={12} md={8} lg={6} style={{ minHeight: '60vh' }}>
                     <h4 className="text-uppercase text-center">your <span className="text-info">orders</span></h4>
-                    {orderedItems.map((planId, _idx) => <MyOrder 
-                        key={_idx} 
-                        user={user}
-                        planId={planId} 
-                        orderedList={orderedList}
-                        observeCancel={observeCancel}
-                        setObserveCancel={setObserveCancel}
-                    />)}
+                    {(orderedItems.length === 0) ? 
+                        <div>
+                            <h3 className="text-uppercase text-center">no order found</h3>
+                        </div>
+                        
+                        : orderedItems.map((planId, _idx) => <MyOrder 
+                            key={_idx} 
+                            user={user}
+                            planId={planId} 
+                            orderedList={orderedList}
+                            observeCancel={observeCancel}
+                            setObserveCancel={setObserveCancel}
+                        />)
+                    }
                 </Col>
             </Row>
         </Container>

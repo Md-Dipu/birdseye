@@ -7,7 +7,7 @@ const PrivateRoute = ({ children, ...rest }) => {
     const { user, isLoading } = useAuth();
     if (isLoading) {
         return (
-            <Loading height="80" />
+            <Loading height="60" />
         );
     }
     return (
