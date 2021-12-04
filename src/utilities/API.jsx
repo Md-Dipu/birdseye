@@ -9,11 +9,11 @@ export const addPlanDB = newPlan => {
 
 
 // user API
-export const updateUserBookedDB = (user, planTicket, boolCallBack = () => {}) => {
+export const updateUserBookedDB = (user, planTicket, additionalCallBack = () => {}, callBackValue = true) => {
     axios.put('http://localhost:5000/users', {
         user,
         planTicket
     })
-        .then(res => boolCallBack(true))
+        .then(res => additionalCallBack(callBackValue))
         .catch(error => console.warn(error));
 }
