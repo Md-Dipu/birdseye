@@ -7,7 +7,7 @@ import { backToTop } from '../../../utilities/utilities';
 import OrderPlaceholder from '../../Shared/OrderPlaceholder/OrderPlaceholder';
 
 const MyOrder = props => {
-    const { user, planId, orderedList, observeCancel, setObserveCancel } = props;
+    const { user, planId, orderedList, setObserveCancel } = props;
     const [planDetails, setPlanDetails] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const orderDetails = orderedList[planId];
@@ -38,7 +38,7 @@ const MyOrder = props => {
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-center bg-light my-3 p-3 rounded">
             <div>
                 <h6>{title}</h6>
-                <p>Status: {isPending ? 'Pending' : 'Apporoved'} <br />
+                <p>Status: {isPending ? 'Pending' : 'Approved'} <br />
                     Tickets: {countTicket} <br />
                     Cost: {countTicket * cost || '-'} <br />
                     Orderd at {bookingDate}({bookingTime})</p>
@@ -48,9 +48,10 @@ const MyOrder = props => {
                     variant="warning"
                     className="d-block mb-2"
                     onClick={() => {
-                        delete orderedList[planId];
-                        updateUserBookedDB(user, { ...orderedList });
-                        setObserveCancel(!observeCancel);
+                        if (planId) {
+                            delete orderedList[planId];
+                            updateUserBookedDB(user, { ...orderedList }, setObserveCancel, planId);
+                        }
                     }}
                 >Cancel Booking</Button>
                 <Button
