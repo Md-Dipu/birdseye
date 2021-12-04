@@ -17,13 +17,13 @@ const PlanDetails = () => {
     const { _id, title, description, img_url, rating, tourDays, cost, starting_date } = plan;
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/plans/${planId}`)
+        axios.get(`https://intense-cliffs-52842.herokuapp.com/plans/${planId}`)
             .then(res => setPlan(res.data))
             .catch(error => console.warn(error));
     }, [planId]);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/users/${user?.email || ''}`)
+        axios.get(`https://intense-cliffs-52842.herokuapp.com/users/${user?.email || ''}`)
             .then(res => setCurrentOrderedList(res.data.ordered || {}))
             .catch(error => console.warn(error));
     }, [user]);

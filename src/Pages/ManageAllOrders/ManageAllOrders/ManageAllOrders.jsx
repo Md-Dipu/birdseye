@@ -13,7 +13,7 @@ const ManageAllOrders = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/users')
+        axios.get('https://intense-cliffs-52842.herokuapp.com/users')
             .then(res => setUsers(res.data))
             .catch(error => console.warn(error))
             .then(() => setIsLoading(false));

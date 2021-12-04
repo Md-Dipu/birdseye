@@ -14,7 +14,7 @@ const MyOrders = () => {
     const orderedItems = Object.keys(orderedList);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/users/${user.email}`)
+        axios.get(`https://intense-cliffs-52842.herokuapp.com/users/${user.email}`)
             .then(res => setOrderedList(res?.data?.ordered))
             .catch(error => console.warn(error))
             .then(() => setIsLoading(false));

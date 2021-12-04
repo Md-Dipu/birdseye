@@ -21,7 +21,7 @@ const ManageOrder = props => {
     const bookingDate = `${bookingTimeAndDate.getDate()}-${bookingTimeAndDate.getMonth()}-${bookingTimeAndDate.getFullYear()}`;
     
     useEffect(() => {
-        axios.get(`http://localhost:5000/plans/${id}`)
+        axios.get(`https://intense-cliffs-52842.herokuapp.com/plans/${id}`)
             .then(res => setOrderDetails(res.data))
             .catch(error => console.warn(error))
             .then(() => setIsLoading(false));

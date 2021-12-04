@@ -25,7 +25,7 @@ const Plans = () => {
     // plan per page
     const limit = 9;
     useEffect(() => {
-        axios.get(`http://localhost:5000/plans?limit=${limit}&&page=${currentPage}`)
+        axios.get(`https://intense-cliffs-52842.herokuapp.com/plans?limit=${limit}&&page=${currentPage}`)
             .then(res => {
                 setTotalPlans(res.data.count);
                 setPlans(res.data.plans);

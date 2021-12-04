@@ -9,7 +9,7 @@ const ShowPlans = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/plans?limit=6')
+        axios.get('https://intense-cliffs-52842.herokuapp.com/plans?limit=6')
             .then(res => {
                 setPlans(res.data.plans);
             })
