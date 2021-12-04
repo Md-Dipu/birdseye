@@ -39,7 +39,7 @@ const ManageAllOrders = () => {
             const restOrders = allOrders.filter(order => order.id !== observeDelete);
             setAllOrders([...restOrders])
         }
-    }, [observeDelete, allOrders]);
+    }, [observeDelete]);
 
     if (isLoading) {
         return <Loading height="60" />;
