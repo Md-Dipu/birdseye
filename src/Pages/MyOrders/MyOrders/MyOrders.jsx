@@ -18,7 +18,7 @@ const MyOrders = () => {
             .then(res => setOrderedList(res?.data?.ordered))
             .catch(error => console.warn(error))
             .then(() => setIsLoading(false));
-    }, [user, observeCancel]);
+    }, [user]);
 
     if (isLoading) {
         return <Loading height="80" />;
