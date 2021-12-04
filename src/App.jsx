@@ -12,6 +12,7 @@ import AddPlan from './Pages/AddPlan/MainForm/AddPlan';
 import PlanDetails from './Pages/PlanDetails/PlanDetails';
 import MyOrders from './Pages/MyOrders/MyOrders/MyOrders';
 import ManageAllOrders from './Pages/ManageAllOrders/ManageAllOrders/ManageAllOrders';
+import AboutUs from './Pages/AboutUs/AboutUs';
 
 function App() {
     return (
@@ -37,6 +38,9 @@ function App() {
                     <PrivateRoute path="/add-new-plan">
                         <AddPlan />
                     </PrivateRoute>
+                    <Route path="/about-us">
+                        <AboutUs />
+                    </Route>
                     <Route path="/login">
                         <Login />
                     </Route>
