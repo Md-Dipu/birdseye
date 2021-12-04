@@ -10,6 +10,7 @@ const ManageOrder = props => {
     const bookingTimeAndDate = new Date(date);
     const { ordered: orderedList } = user;
     const [orderDetails, setOrderDetails] = useState({});
+    const [isApproved, setIsApproved] = useState(!isPending);
     const [isLoading, setIsLoading] = useState(true);
 
     const { title, cost } = orderDetails;
@@ -38,7 +39,7 @@ const ManageOrder = props => {
                     Tickets: {countTicket} <br />
                     Cost: {countTicket * cost || '-'} <br />
                     Orderd at {bookingDate}({bookingTime}) <br />
-                    <span className={`text-${isPending ? 'warning' : 'success'}`}>{isPending ? 'Pending' : 'Approved'}</span></p>
+                    <span className={`text-${isPending ? 'warning' : 'success'}`}>{!isApproved ? 'Pending' : 'Approved'}</span></p>
             </div>
             <div className="d-flex flex-column justify-content-center align-items-center">
                 <Button 
@@ -47,8 +48,7 @@ const ManageOrder = props => {
                     onClick={() => {
                         if (id) {
                             delete orderedList[id];
-                            updateUserBookedDB(user, { ...orderedList });
-                            setObserveDelete(id);
+                            updateUserBookedDB(user, { ...orderedList }, setObserveDelete, id);
                         }
                     }}
                 >Delete</Button>
@@ -58,7 +58,7 @@ const ManageOrder = props => {
                     onClick={() => {
                         if (id) {
                             orderedList[id].isPending = false;
-                            updateUserBookedDB(user, { ...orderedList });
+                            updateUserBookedDB(user, { ...orderedList }, setIsApproved);
                         }
                     }}
                 >Approved</Button>}
