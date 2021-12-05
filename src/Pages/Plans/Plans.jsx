@@ -61,7 +61,10 @@ const Plans = () => {
                         <Button 
                             key={page}
                             variant={page === currentPage ? 'primary' : 'outline-primary'}
-                            onClick={() => setCurrentPage(page)}
+                            onClick={() => {
+                                setLoading(true);
+                                setCurrentPage(page);
+                            }}
                         >{page+1}</Button>
                     ))}
                 </ButtonGroup>
