@@ -2,7 +2,7 @@ import axios from "axios";
 
 // plans API
 export const addPlanDB = newPlan => {
-    axios.post('http://localhost:5000/plans', newPlan)
+    axios.post('https://intense-cliffs-52842.herokuapp.com/plans', newPlan)
         .then(res => alert(`Adding Status:${res.statusText} with plan id:${res.data.insertedId}`))
         .catch(error => console.warn(error));
 }
@@ -10,7 +10,7 @@ export const addPlanDB = newPlan => {
 
 // user API
 export const updateUserBookedDB = (user, planTicket, additionalCallBack = () => {}, callBackValue = true) => {
-    axios.put('http://localhost:5000/users', {
+    axios.put('https://intense-cliffs-52842.herokuapp.com/users', {
         user,
         planTicket
     })
