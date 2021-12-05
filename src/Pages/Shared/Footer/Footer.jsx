@@ -28,7 +28,7 @@ const Footer = () => {
                             </Col>
                             <Col>
                                 <h4>Stay Updated</h4>
-                                <p>To get message from your site please subscribe us by email address.</p>
+                                <p>To get message from our site please subscribe us by email address.</p>
                                 <form onSubmit={handleSubmit(handleSubscribe)}>
                                     <input type="email" className="form-control" placeholder="Email" {...register('email')} />
                                     <input type="submit" className="btn btn-primary form-control mt-2" value="Subscribe" />
