@@ -21,6 +21,11 @@ const Plans = () => {
         location.search = searchQueary.toString();
         history.push(location);
     };
+
+    // backtotop
+    if (!location.hash) {
+        backToTop();
+    }
     
     // plan per page
     const limit = 9;

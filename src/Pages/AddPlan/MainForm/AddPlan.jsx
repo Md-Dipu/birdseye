@@ -1,12 +1,16 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { useLocation } from 'react-router';
 import { addPlanDB } from '../../../utilities/API';
 import { backToTop } from '../../../utilities/utilities';
 import InfoForm from '../InfoForm/InfoForm';
 
 const AddPlan = () => {
-    backToTop();
+    const location = useLocation();
+    if (!location.hash) {
+        backToTop();
+    }
     const { register, handleSubmit, reset } = useForm();
     const handleAddPlan = data => {
         const { title, img_url, tourDays, rating, cost, starting_date, description } = data;

@@ -2,12 +2,18 @@ import React from 'react';
 import { Alert, Button, Container } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
+import { backToTop } from '../../../utilities/utilities';
 
 const Login = () => {
     const { user, setUser, setIsLoading, signInUsingGoogle } = useAuth();
     const location = useLocation();
     const history = useHistory();
-    const redircet_url = location.state?.from || '/#home';
+    const redircet_url = location.state?.from || '/';
+
+    // back-to-top
+    if (!location.hash) {
+        backToTop();
+    }
 
     const handleGoogleSignIn = () => {
         setIsLoading(true);

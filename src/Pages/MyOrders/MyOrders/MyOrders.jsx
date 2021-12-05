@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { useLocation } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
+import { backToTop } from '../../../utilities/utilities';
 import Loading from '../../Shared/Loading/Loading';
 import MyOrder from '../MyOrder/MyOrder';
 
@@ -10,6 +12,10 @@ const MyOrders = () => {
     const [observeCancel, setObserveCancel] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const { user } = useAuth();
+    const location = useLocation();
+    if (!location.hash) {
+        backToTop();
+    }
 
     const orderedItems = Object.keys(orderedList);
 

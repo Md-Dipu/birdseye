@@ -1,9 +1,14 @@
 import React from 'react';
 import { Button, Col, Container, Image, Row } from 'react-bootstrap';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
+import { backToTop } from '../../utilities/utilities';
 
 const AboutUs = () => {
     const history = useHistory();
+    const location = useLocation();
+    if (!location.hash) {
+        backToTop();
+    }
 
     return (
         <>

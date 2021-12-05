@@ -3,6 +3,8 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
+import { useLocation } from 'react-router';
+import { backToTop } from '../../../utilities/utilities';
 import Loading from '../../Shared/Loading/Loading';
 import ManageOrder from '../ManageOrder/ManageOrder';
 
@@ -11,6 +13,10 @@ const ManageAllOrders = () => {
     const [allOrders, setAllOrders] = useState([]);
     const [observeDelete, setObserveDelete] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const location = useLocation();
+    if (!location.hash) {
+        backToTop();
+    }
 
     useEffect(() => {
         axios.get('https://intense-cliffs-52842.herokuapp.com/users')
