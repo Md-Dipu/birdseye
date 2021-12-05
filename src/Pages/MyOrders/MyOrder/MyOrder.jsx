@@ -50,7 +50,7 @@ const MyOrder = props => {
                     onClick={() => {
                         if (planId) {
                             delete orderedList[planId];
-                            updateUserBookedDB(user, { ...orderedList }, setObserveCancel, planId);
+                            updateUserBookedDB(user, { ...orderedList }, [setObserveCancel], [planId]);
                         }
                     }}
                 >Cancel Booking</Button>
