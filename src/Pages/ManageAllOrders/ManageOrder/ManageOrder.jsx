@@ -48,7 +48,7 @@ const ManageOrder = props => {
                     onClick={() => {
                         if (id) {
                             delete orderedList[id];
-                            updateUserBookedDB(user, { ...orderedList }, setObserveDelete, id);
+                            updateUserBookedDB(user, { ...orderedList }, [setObserveDelete], [id]);
                         }
                     }}
                 >Delete</Button>
@@ -58,7 +58,7 @@ const ManageOrder = props => {
                     onClick={() => {
                         if (id) {
                             orderedList[id].isPending = false;
-                            updateUserBookedDB(user, { ...orderedList }, setIsApproved);
+                            updateUserBookedDB(user, { ...orderedList }, [setIsApproved], [true]);
                         }
                     }}
                 >Approved</Button>}
