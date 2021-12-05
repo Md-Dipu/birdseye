@@ -12,11 +12,11 @@ const Header = () => {
         <>
             <Navbar variant="dark" bg="dark" expand="lg" sticky="top">
             <Container>
-                <Navbar.Brand as={Link} to="/#home">Birdeye</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/">Birdeye</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto">
-                    <Nav.Link as={Link} to="/#home">Home</Nav.Link>
+                    <Nav.Link as={Link} to="/">Home</Nav.Link>
                     <Nav.Link as={Link} to="/plans">All Plans</Nav.Link>
                     <Nav.Link as={Link} to="/about-us">About us</Nav.Link>
                     {!user ?  <Nav.Link as={Button} variant="primary" onClick={() => history.push('/login')}><FontAwesomeIcon icon={faSignInAlt} /> Login</Nav.Link> :

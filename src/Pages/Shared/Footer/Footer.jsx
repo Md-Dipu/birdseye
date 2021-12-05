@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     const { register, handleSubmit, reset } = useForm();
@@ -20,10 +21,11 @@ const Footer = () => {
                         <Row  xs={1} md={2}>
                             <Col>
                                 <h4>Quick Link</h4>
-                                <ul type="square">
-                                    <li>Home</li>
-                                    <li>About</li>
-                                    <li>Plans</li>
+                                <ul type="square" className="text-decoration-none">
+                                    <li><Link to="/" className="text-decoration-none">Home</Link></li>
+                                    <li><Link to="/plans" className="text-decoration-none">Plans</Link></li>
+                                    <li><Link to="/about-us" className="text-decoration-none">About</Link></li>
+                                    <li><Link to="/about-us#contact" className="text-decoration-none">Contact</Link></li>
                                 </ul>
                             </Col>
                             <Col>
