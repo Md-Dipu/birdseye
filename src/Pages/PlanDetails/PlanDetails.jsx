@@ -5,12 +5,17 @@ import { useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { updateUserBookedDB } from '../../utilities/API';
+import { InfoModal, WarnModal } from '../Shared/Modals/Modals';
 
 const PlanDetails = () => {
     const [plan, setPlan] = useState({});
     const [numberOfTickets, setNumberOfTickets] = useState(1);
     const [currentOrderedList, setCurrentOrderedList] = useState({});
     const [planExist, setPlanExist] = useState(false);
+    const [showWarnModal, setShowWarnModal] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [showFailedModal, setShowFailedModal] = useState(false);
+    const [confirmOrder, setComfirmOrder] = useState(false);
     const location = useLocation();
     const { planId } = useParams();
     const { user } = useAuth();
@@ -39,93 +44,139 @@ const PlanDetails = () => {
             setPlanExist(false);
         }
     }, [currentOrderedList, _id]);
+
+    // Model shower
+    useEffect(() => {
+        if (confirmOrder) {
+            const time = new Date();
+            const bookedTicket = {}
+            bookedTicket[_id] = {
+                date: time,
+                countTicket: numberOfTickets,
+                isPending: true
+            };
+            updateUserBookedDB(user, {...currentOrderedList, ...bookedTicket})
+                .then(res => {
+                    setShowSuccessModal(true);
+                    setPlanExist(true);
+                })
+                .catch(error => setShowFailedModal(true));
+        }
+    }, [confirmOrder]);
     
     return (
-        <Container>
-            <Row xs={1} lg={2} className="my-3">
-                <Col>
-                    <Image src={img_url} className="w-100" />
-                    <div className="my-3">
-                        <h4>{title}</h4>
-                        <p>{description}</p>
-                    </div>
-                </Col>
-                
-                <Col className="my-3">
-                    <h5>Book ticket for this plan</h5>
-                    {/* Login al */}
-                    {!user && <Alert variant="warning">
-                        You must login before book any plan. Go <Link to={ { pathname: "/login", state: { from: location } } }>Login</Link> page to login or create an account.   
-                    </Alert>}
-                    {/* Details Table */}
-                    <h5>Details</h5>
-                    <table className="table my-3">
-                        <tbody>
-                            <tr className="border-top">
-                                <th scope="row">Cost</th>
-                                <td>$ {cost}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Rating</th>
-                                <td>{rating}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Tour Days</th>
-                                <td>{tourDays} days</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Starting date</th>
-                                <td className="text-uppercase">{starting_date}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    {/* Ticket input and book action */} 
-                    <form onSubmit={e => e.preventDefault()}>
-                        <label className="form-label" htmlFor="number-of-tickets">How much ticket you need?</label>
-                        <div className="input-group mb-3" style={{ width: '10rem' }}>
-                            <button 
-                                className="btn btn-light"
-                                onClick={() => {
-                                    if (!(numberOfTickets - 1 < 1))
-                                        setNumberOfTickets(numberOfTickets - 1);
-                                }}
-                            >-</button>
-                            
-                            <input 
-                                className="form-control border-light" 
-                                name="number-of-tickets"
-                                value={numberOfTickets}
-                                onChange={e => {
-                                    const inputValue = parseInt(e.target.value);
-                                    isNaN(inputValue) ?
-                                    setNumberOfTickets(0) :
-                                    setNumberOfTickets(inputValue);
-                                }}
-                            />
-                            
-                            <button 
-                                className="btn btn-light"
-                                onClick={() => setNumberOfTickets(numberOfTickets + 1)}
-                            >+</button>
+        <>
+            {/* Confirmation Modal */}
+            <WarnModal
+                heading="Confirmation"
+                messageText={`Are you sure to ${ planExist ? 'update infomation to' : 'book'} ${numberOfTickets} tickets for plan "${title}"?`}
+                buttonVariant="primary"
+                show={showWarnModal}
+                handleClose={() => setShowWarnModal(false)}
+                handleAction={() => {
+                    setComfirmOrder(true);
+                    setShowWarnModal(false);
+                }}
+            />
+
+            {/* Show success message */}
+            <InfoModal 
+                heading="Success"
+                messageText="Process have completed successfully."
+                buttonVariant="success"
+                show={showSuccessModal}
+                handleClose={() => setShowSuccessModal(false)}
+            />
+            
+            {/* Show Failed message */}
+            <InfoModal 
+                heading="Failed"
+                messageText="Process have failed to complete."
+                buttonVariant="danger"
+                show={showFailedModal}
+                handleClose={() => setShowFailedModal(false)}
+            />
+
+            <Container>
+                <Row xs={1} lg={2} className="my-3">
+                    <Col>
+                        <Image src={img_url} className="w-100" />
+                        <div className="my-3">
+                            <h4>{title}</h4>
+                            <p>{description}</p>
                         </div>
-                        <h6 className="mb-3">You have to pay total <span className="text-warning">{(cost * numberOfTickets) || 0}</span> for this plan</h6>
-                        <Button 
-                            variant="warning"
-                            onClick={() => {
-                                const time = new Date();
-                                const bookedTicket = {}
-                                bookedTicket[_id] = {
-                                    date: time,
-                                    countTicket: numberOfTickets,
-                                    isPending: true
-                                };
-                                updateUserBookedDB(user, {...currentOrderedList, ...bookedTicket}, setPlanExist);
-                            }}
-                        >{planExist ? 'Update now' : 'Book now'}</Button>
-                    </form>
-                </Col>
-            </Row>
-        </Container>
+                    </Col>
+                    
+                    <Col className="my-3">
+                        <h5>Book ticket for this plan</h5>
+                        {/* Login al */}
+                        {!user && <Alert variant="warning">
+                            You must login before book any plan. Go <Link to={ { pathname: "/login", state: { from: location } } }>Login</Link> page to login or create an account.   
+                        </Alert>}
+                        {/* Details Table */}
+                        <h5>Details</h5>
+                        <table className="table my-3">
+                            <tbody>
+                                <tr className="border-top">
+                                    <th scope="row">Cost</th>
+                                    <td>$ {cost}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Rating</th>
+                                    <td>{rating}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Tour Days</th>
+                                    <td>{tourDays} days</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Starting date</th>
+                                    <td className="text-uppercase">{starting_date}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        {/* Ticket input and book action */} 
+                        <form onSubmit={e => e.preventDefault()}>
+                            <label className="form-label" htmlFor="number-of-tickets">How much ticket you need?</label>
+                            <div className="input-group mb-3" style={{ width: '10rem' }}>
+                                <button 
+                                    className="btn btn-light"
+                                    onClick={() => {
+                                        if (!(numberOfTickets - 1 < 1))
+                                            setNumberOfTickets(numberOfTickets - 1);
+                                    }}
+                                >-</button>
+                                
+                                <input 
+                                    className="form-control border-light" 
+                                    name="number-of-tickets"
+                                    value={numberOfTickets}
+                                    onChange={e => {
+                                        const inputValue = parseInt(e.target.value);
+                                        isNaN(inputValue) ?
+                                        setNumberOfTickets(0) :
+                                        setNumberOfTickets(inputValue);
+                                    }}
+                                />
+                                
+                                <button 
+                                    className="btn btn-light"
+                                    onClick={() => setNumberOfTickets(numberOfTickets + 1)}
+                                >+</button>
+                            </div>
+                            <h6 className="mb-3">You have to pay total <span className="text-warning">{(cost * numberOfTickets) || 0}</span> for this plan</h6>
+                            <Button 
+                                variant="warning"
+                                onClick={() => {
+                                    setComfirmOrder(false);
+                                    setShowWarnModal(true);
+                                }}
+                            >{planExist ? 'Update now' : 'Book now'}</Button>
+                        </form>
+                    </Col>
+                </Row>
+            </Container>
+        </>
     );
 };
 
