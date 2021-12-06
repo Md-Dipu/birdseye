@@ -44,8 +44,9 @@ const ManageOrder = props => {
                 setForDelete(false);
             }
             else if (forApproval) {
-                orderedList[id].isPending = false;
-                updateUserBookedDB(user, { ...orderedList })
+                const tempList = { ...orderedList };
+                tempList[id].isPending = false;
+                updateUserBookedDB(user, { ...tempList })
                     .then(() => setIsApproved(true))
                     .catch(() => setShowFailedModal(true));
                 setForApproval(false);
