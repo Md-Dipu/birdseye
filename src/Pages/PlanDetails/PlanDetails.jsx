@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Alert, Button, Col, Container, Image, Row } from 'react-bootstrap';
-import { useLocation, useParams } from 'react-router';
+import { useHistory, useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { updateUserBookedDB } from '../../utilities/API';
@@ -17,6 +17,7 @@ const PlanDetails = () => {
     const [showFailedModal, setShowFailedModal] = useState(false);
     const [confirmOrder, setComfirmOrder] = useState(false);
     const location = useLocation();
+    const history = useHistory();
     const { planId } = useParams();
     const { user } = useAuth();
 
@@ -168,8 +169,13 @@ const PlanDetails = () => {
                             <Button 
                                 variant="warning"
                                 onClick={() => {
-                                    setComfirmOrder(false);
-                                    setShowWarnModal(true);
+                                    if (user) {
+                                        setComfirmOrder(false);
+                                        setShowWarnModal(true);
+                                    }
+                                    else {
+                                        history.push({pathname: '/login', state: { from : location}});
+                                    }
                                 }}
                             >{planExist ? 'Update now' : 'Book now'}</Button>
                         </form>
