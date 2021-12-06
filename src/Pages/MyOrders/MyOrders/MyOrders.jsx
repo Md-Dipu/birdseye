@@ -26,6 +26,14 @@ const MyOrders = () => {
             .then(() => setIsLoading(false));
     }, [user]);
 
+    useEffect(() => {
+        if (observeCancel) {
+            const tepmList = orderedList;
+            delete tepmList[observeCancel];
+            setOrderedList({ ...tepmList });
+        }
+    }, [observeCancel]);
+
     if (isLoading) {
         return <Loading height="60" />;
     }

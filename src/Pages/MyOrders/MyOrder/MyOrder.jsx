@@ -36,8 +36,9 @@ const MyOrder = props => {
 
     useEffect(() => {
         if (confirmCancel && !!planId) {
-            delete orderedList[planId];
-            updateUserBookedDB(user, { ...orderedList })
+            const tempList = { ...orderedList };
+            delete tempList[planId];
+            updateUserBookedDB(user, { ...tempList })
                 .then(() => {
                     setObserveCancel(planId);
                 })
