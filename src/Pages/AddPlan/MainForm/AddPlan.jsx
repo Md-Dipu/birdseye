@@ -73,7 +73,7 @@ const AddPlan = () => {
             {/* Show Failed message */}
             <InfoModal 
                 heading="Failed"
-                messageText="Process have failed complete."
+                messageText="Process have failed to complete."
                 buttonVariant="danger"
                 show={showFailedModal}
                 handleClose={() => setShowFailedModal(false)}
