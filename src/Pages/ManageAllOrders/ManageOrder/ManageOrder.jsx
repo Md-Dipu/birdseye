@@ -53,6 +53,10 @@ const ManageOrder = props => {
         }
     }, [confirmAcion]);
 
+    useEffect(() => {
+        setIsApproved(!isPending);
+    }, [isPending]);
+
     if (isLoading) {
         return <OrderPlaceholder />;
     }
