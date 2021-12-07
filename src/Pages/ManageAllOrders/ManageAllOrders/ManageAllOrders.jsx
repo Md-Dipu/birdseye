@@ -43,10 +43,10 @@ const ManageAllOrders = () => {
     useEffect(() => {
         if (observeDelete) {
             const restOrders = allOrders.filter(order => order.id !== observeDelete);
-            setAllOrders([...restOrders])
+            setAllOrders([...restOrders]);
         }
     }, [observeDelete]);
-
+    
     if (isLoading) {
         return <Loading height="60" />;
     }
