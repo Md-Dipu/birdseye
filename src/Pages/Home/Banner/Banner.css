@@ -4,10 +4,16 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    min-height: 90vh;
+    min-height: 95vh;
+    display: flex;
+    align-items: center;
 }
 
 .banner-title {
     font-size: 3em;
-    padding-top: 10%;
+}
+
+/* Search Bar */
+.home-search-bar {
+    background-color: #77777777;
 }
