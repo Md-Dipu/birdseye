@@ -10,7 +10,7 @@ const Banner = () => {
             <Container>
                 <Row className="justify-content-center">
                     <Col xs={12} md={8} lg={6}>
-                        <Form className="mb-3">
+                        <Form className="mb-3" onSubmit={e => e.preventDefault()}>
                             <InputGroup>
                                 <Form.Control type="text" className="home-search-bar" />
                                 <Button variant="success"><FontAwesomeIcon icon={faSearch} /></Button>
