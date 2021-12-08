@@ -23,8 +23,8 @@ const ShowPlans = () => {
 
     return (
         <Container>
-            <h3 className="text-center text-uppercase mt-3">our plans</h3>
-            <Row xs={1} md={2} lg={3} className="g-4 my-3">
+            <h3 className="text-center text-uppercase my-3"><span className="text-info">popular</span> plans</h3>
+            <Row xs={1} md={2} lg={3} className="g-4 mb-3">
                 {plans.map(plan => (
                     <Col key={plan._id}>
                         <Plan plan={plan} />
