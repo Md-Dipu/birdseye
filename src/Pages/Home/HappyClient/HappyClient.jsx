@@ -27,7 +27,7 @@ const HappyClient = () => {
                 </Col>
                 <Col className="shadow rounded d-flex">
                     <Carousel variant="dark" controls={false} className="p-3 text-center">
-                        {clientsQuotes.map((quote, _idx) => <Carousel.Item>
+                        {clientsQuotes.map((quote, _idx) => <Carousel.Item key={_idx}>
                             <h4>{quote.clientName}</h4>
                             <blockquote className="fst-italic fs-5">"{quote.quote}"</blockquote>
                         </Carousel.Item>)}
