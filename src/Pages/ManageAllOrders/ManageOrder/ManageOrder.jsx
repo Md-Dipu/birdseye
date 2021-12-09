@@ -47,7 +47,10 @@ const ManageOrder = props => {
                 orderedList[id].isPending = false;
                 updateUserBookedDB(user, { ...orderedList })
                     .then(() => setIsApproved(true))
-                    .catch(() => setShowFailedModal(true));
+                    .catch(() => {
+                        setShowFailedModal(true);
+                        setIsApproved(false);
+                    });
                 setForApproval(false);
             }
         }
