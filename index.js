@@ -21,6 +21,7 @@ const run = async () => {
         // Collections
         const planCollection = database.collection("plans");
         const userCollection = database.collection("users");
+        const additionalDocCollection = database.collection("additionalDocs");
         
         // GET API
         // plans
@@ -67,6 +68,14 @@ const run = async () => {
             const query = { email: email }
             const result = await userCollection.findOne(query);
             res.json(result);
+        });
+
+        // Clients Quotes
+        app.get('/quotes', async (req, res) => {
+            const query = { docTypes: 'quotes' };
+            const cursor = additionalDocCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
         });
 
         // POST API
