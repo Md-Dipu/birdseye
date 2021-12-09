@@ -1,3 +1,5 @@
+import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Image, Row } from 'react-bootstrap';
@@ -122,7 +124,7 @@ const PlaceOrder = () => {
                             <tbody>
                                 <tr className="border-top">
                                     <th scope="row">Cost</th>
-                                    <td>$ {cost}</td>
+                                    <td><FontAwesomeIcon icon={faDollarSign} /> {cost}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Rating</th>

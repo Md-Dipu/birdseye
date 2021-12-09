@@ -1,3 +1,5 @@
+import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
@@ -82,7 +84,7 @@ const MyOrder = props => {
                         Ordered by: <span className="fst-italic">{ordererInfo.name}({ordererInfo.email})</span> <br />
                         Address: {ordererInfo.address} <br />
                         Tickets: {countTicket} <br />
-                        Cost: {countTicket * cost || '-'} <br />
+                        Cost: <FontAwesomeIcon icon={faDollarSign} /> {countTicket * cost || '-'} <br />
                         Orderd at {bookingDate}({bookingTime})
                     </p>
                 </div>

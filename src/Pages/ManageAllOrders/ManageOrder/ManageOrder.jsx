@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 import OrderPlaceholder from '../../Shared/OrderPlaceholder/OrderPlaceholder';
 import { updateUserBookedDB } from '../../../utilities/API';
 import { InfoModal, WarnModal } from '../../Shared/Modals/Modals';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 
 const ManageOrder = props => {
     const { user, order, setObserveDelete } = props;
@@ -99,7 +101,7 @@ const ManageOrder = props => {
                         Orderded by: <span className="fst-italic">{ordererInfo.name}({ordererInfo.email})</span> <br />
                         Address: {ordererInfo.address} <br />
                         Tickets: {countTicket} <br />
-                        Cost: {countTicket * cost || '-'} <br />
+                        Cost: <FontAwesomeIcon icon={faDollarSign} /> {countTicket * cost || '-'} <br />
                         Orderd at {bookingDate}({bookingTime}) <br />
                         <span className={`text-${!isApproved ? 'warning' : 'success'}`}>{!isApproved ? 'Pending' : 'Approved'}</span>
                     </p>
