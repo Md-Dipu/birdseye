@@ -3,7 +3,7 @@ import { Carousel, Col, Container, Row } from 'react-bootstrap';
 
 const HappyClient = () => {
     const clientsQuotes = [
-        { clientName: 'Marqus Deved', quote: 'It was one of the most I enjoyable tour I ever go. Actully you gonna miss if you\'re not going in this vication. Happy tour!' },
+        { clientName: 'Marqus Deved', quote: 'It was one of the most I enjoyable tour I ever go. Actully you gonna miss if you\'re not going in this vication. Good wishes from me. Happy tour!' },
         { clientName: 'Deson Monro', quote: 'I love to visite and I love to tour with a group. They has everything what you need and you will like. Just book a ticket and have some fun.' },
         { clientName: 'Maria Afrin', quote: 'I Love to enjoy my and visiting the world Birdeye made it easy for me and now its may hobby to go with birdeye tips and watching the world.' }
     ];
