@@ -9,10 +9,10 @@ import Footer from './Pages/Shared/Footer/Footer';
 import AuthProvider from './context/AuthProvider';
 import PrivateRoute from './Pages/Login/PrivateRoute/RouteProtector';
 import AddPlan from './Pages/AddPlan/MainForm/AddPlan';
-import PlanDetails from './Pages/PlanDetails/PlanDetails';
 import MyOrders from './Pages/MyOrders/MyOrders/MyOrders';
 import ManageAllOrders from './Pages/ManageAllOrders/ManageAllOrders/ManageAllOrders';
 import AboutUs from './Pages/AboutUs/AboutUs';
+import PlaceOrder from './Pages/PlaceOrder/PlaceOrder';
 
 function App() {
     return (
@@ -27,7 +27,7 @@ function App() {
                         <Plans />
                     </Route>
                     <PrivateRoute path="/plans/:planId">
-                        <PlanDetails />
+                        <PlaceOrder />
                     </PrivateRoute>
                     <PrivateRoute path="/my-orders">
                         <MyOrders />

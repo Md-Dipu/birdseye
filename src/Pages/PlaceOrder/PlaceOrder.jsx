@@ -1,13 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Alert, Button, Col, Container, Image, Row } from 'react-bootstrap';
-import { useHistory, useLocation, useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Button, Col, Container, Image, Row } from 'react-bootstrap';
+import { useParams } from 'react-router';
 import useAuth from '../../hooks/useAuth';
 import { updateUserBookedDB } from '../../utilities/API';
 import { InfoModal, WarnModal } from '../Shared/Modals/Modals';
 
-const PlanDetails = () => {
+const PlaceOrder = () => {
     const [plan, setPlan] = useState({});
     const [numberOfTickets, setNumberOfTickets] = useState(1);
     const [currentOrderedList, setCurrentOrderedList] = useState({});
@@ -16,12 +15,22 @@ const PlanDetails = () => {
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [showFailedModal, setShowFailedModal] = useState(false);
     const [confirmOrder, setComfirmOrder] = useState(false);
-    const location = useLocation();
-    const history = useHistory();
     const { planId } = useParams();
     const { user } = useAuth();
 
+    // orderer information
+    const [ordererName, setOrdererName] = useState(user.displayName);
+    const [ordererEmail, setOrdererEmail] = useState(user.email);
+    const [deliveryAddress, setDeliveryAddress] = useState('');
+
     const { _id, title, description, img_url, rating, tourDays, cost, starting_date } = plan;
+
+    // handle submission
+    const handleSubmit = e => {
+        setComfirmOrder(false);
+        setShowWarnModal(true);
+        e.preventDefault();
+    }
 
     useEffect(() => {
         axios.get(`https://intense-cliffs-52842.herokuapp.com/plans/${planId}`)
@@ -46,7 +55,7 @@ const PlanDetails = () => {
         }
     }, [currentOrderedList, _id]);
 
-    // Model shower
+    // confirmation action
     useEffect(() => {
         if (confirmOrder) {
             const time = new Date();
@@ -54,6 +63,7 @@ const PlanDetails = () => {
             bookedTicket[_id] = {
                 date: time,
                 countTicket: numberOfTickets,
+                ordererInfo: { name: ordererName, email: ordererEmail, address: deliveryAddress },
                 isPending: true
             };
             updateUserBookedDB(user, {...currentOrderedList, ...bookedTicket})
@@ -106,14 +116,6 @@ const PlanDetails = () => {
                             <h4>{title}</h4>
                             <p>{description}</p>
                         </div>
-                    </Col>
-                    
-                    <Col className="my-3">
-                        <h5>Book ticket for this plan</h5>
-                        {/* Login al */}
-                        {!user && <Alert variant="warning">
-                            You must login before book any plan. Go <Link to={ { pathname: "/login", state: { from: location } } }>Login</Link> page to login or create an account.   
-                        </Alert>}
                         {/* Details Table */}
                         <h5>Details</h5>
                         <table className="table my-3">
@@ -136,11 +138,52 @@ const PlanDetails = () => {
                                 </tr>
                             </tbody>
                         </table>
+                    </Col>
+                    
+                    <Col className="my-3">
+                        <h5 className="text-center text-uppercase"><span className="text-info">Book ticket</span> for this plan</h5>
                         {/* Ticket input and book action */} 
-                        <form onSubmit={e => e.preventDefault()}>
+                        <form onSubmit={handleSubmit}>
+                            <div className="mb-3">
+                                <label className="form-label" htmlFor="orderer-name">Name<span className="text-danger">*</span></label>
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    name="orderer-name" 
+                                    value={ordererName} 
+                                    onChange={e => setOrdererName(e.target.value)}
+                                    required
+                                />
+                            </div>
+
+                            <div className="mb-3">
+                                <label className="form-label" htmlFor="orderer-email">Email<span className="text-danger">*</span></label>
+                                <input 
+                                    type="email" 
+                                    className="form-control" 
+                                    name="orderer-email" 
+                                    value={ordererEmail} 
+                                    onChange={e => setOrdererEmail(e.target.value)}
+                                    required
+                                />
+                            </div>
+
+                            <div className="mb-3">
+                                <label className="form-label" htmlFor="delivery-address">Address<span className="text-danger">*</span></label>
+                                <textarea 
+                                    className="form-control" 
+                                    name="delivery-address" 
+                                    value={deliveryAddress} 
+                                    rows="8"
+                                    onChange={e => setDeliveryAddress(e.target.value)}
+                                    required
+                                />
+                            </div>
+
                             <label className="form-label" htmlFor="number-of-tickets">How much ticket you need?</label>
                             <div className="input-group mb-3" style={{ width: '10rem' }}>
                                 <button 
+                                    type="button"
                                     className="btn btn-light"
                                     onClick={() => {
                                         if (!(numberOfTickets - 1 < 1))
@@ -158,26 +201,22 @@ const PlanDetails = () => {
                                         setNumberOfTickets(0) :
                                         setNumberOfTickets(inputValue);
                                     }}
+                                    onBlur={e => {
+                                        const inputValue = parseInt(e.target.value);
+                                        (inputValue < 1) ?
+                                        setNumberOfTickets(1) :
+                                        setNumberOfTickets(inputValue);
+                                    }}
                                 />
                                 
                                 <button 
+                                    type="button"
                                     className="btn btn-light"
                                     onClick={() => setNumberOfTickets(numberOfTickets + 1)}
                                 >+</button>
                             </div>
                             <h6 className="mb-3">You have to pay total <span className="text-warning">{(cost * numberOfTickets) || 0}</span> for this plan</h6>
-                            <Button 
-                                variant="warning"
-                                onClick={() => {
-                                    if (user) {
-                                        setComfirmOrder(false);
-                                        setShowWarnModal(true);
-                                    }
-                                    else {
-                                        history.push({pathname: '/login', state: { from : location}});
-                                    }
-                                }}
-                            >{planExist ? 'Update now' : 'Book now'}</Button>
+                            <Button variant="warning" type="submit" >{planExist ? 'Update now' : 'Book now'}</Button>
                         </form>
                     </Col>
                 </Row>
@@ -186,4 +225,4 @@ const PlanDetails = () => {
     );
 };
 
-export default PlanDetails;
+export default PlaceOrder;
