@@ -7,7 +7,7 @@ import { InfoModal, WarnModal } from '../../Shared/Modals/Modals';
 
 const ManageOrder = props => {
     const { user, order, setObserveDelete } = props;
-    const { id, from, countTicket, isPending, date } = order;
+    const { id, ordererInfo, countTicket, isPending, date } = order;
     const bookingTimeAndDate = new Date(date);
     const { ordered: orderedList } = user;
     const [orderDetails, setOrderDetails] = useState({});
@@ -90,13 +90,16 @@ const ManageOrder = props => {
             />
 
             <div className="d-flex flex-column flex-md-row justify-content-between align-items-center bg-light my-3 p-3 rounded">
-                <div>
+                <div className="overflow-hidden">
                     <h6>{title}</h6>
-                    <p><span className="fst-italic">from: {from}</span> <br />
+                    <p className="text-break">
+                        Orderded by: <span className="fst-italic">{ordererInfo.name}({ordererInfo.email})</span> <br />
+                        Address: {ordererInfo.address} <br />
                         Tickets: {countTicket} <br />
                         Cost: {countTicket * cost || '-'} <br />
                         Orderd at {bookingDate}({bookingTime}) <br />
-                        <span className={`text-${!isApproved ? 'warning' : 'success'}`}>{!isApproved ? 'Pending' : 'Approved'}</span></p>
+                        <span className={`text-${!isApproved ? 'warning' : 'success'}`}>{!isApproved ? 'Pending' : 'Approved'}</span>
+                    </p>
                 </div>
                 <div className="d-flex flex-column justify-content-center align-items-center">
                     <Button 

@@ -58,7 +58,7 @@ const ManageAllOrders = () => {
                     <h4 className="text-uppercase text-center"><span className="text-info">manage</span> all orders</h4>
                     {(allOrders.length === 0) ?
                         <div>
-                            <h3 className="text-uppercase text-center">no order found</h3>
+                            <h3 className="text-uppercase text-center text-danger">no order found</h3>
                         </div>
                         : allOrders.map((order, _idx) => <ManageOrder 
                             key={_idx}
