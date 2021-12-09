@@ -45,7 +45,7 @@ const MyOrders = () => {
                     <h4 className="text-uppercase text-center">your <span className="text-info">orders</span></h4>
                     {(orderedItems.length === 0) ? 
                         <div>
-                            <h3 className="text-uppercase text-center">no order found</h3>
+                            <h3 className="text-uppercase text-center text-danger">no order found</h3>
                         </div>
                         
                         : orderedItems.map((planId, _idx) => <MyOrder 

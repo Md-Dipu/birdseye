@@ -18,7 +18,7 @@ const MyOrder = props => {
     const history = useHistory();
 
     const { title, cost } = planDetails;
-    const { date, countTicket, isPending } = orderDetails;
+    const { date, countTicket, ordererInfo, isPending } = orderDetails;
     const bookingTimeAndDate = new Date(date);
 
     // time and date
@@ -78,6 +78,8 @@ const MyOrder = props => {
                 <div>
                     <h6>{title}</h6>
                     <p>Status: {isPending ? 'Pending' : 'Approved'} <br />
+                        Ordered by: {ordererInfo.name}({ordererInfo.email}) <br />
+                        Address: {ordererInfo.address} <br />
                         Tickets: {countTicket} <br />
                         Cost: {countTicket * cost || '-'} <br />
                         Orderd at {bookingDate}({bookingTime})</p>
