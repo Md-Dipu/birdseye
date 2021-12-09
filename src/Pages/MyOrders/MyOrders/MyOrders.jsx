@@ -17,7 +17,7 @@ const MyOrders = () => {
         backToTop();
     }
 
-    const orderedItems = Object.keys(orderedList);
+    const orderedItems = Object.keys(orderedList || {});
 
     useEffect(() => {
         axios.get(`https://intense-cliffs-52842.herokuapp.com/users/${user.email}`)
