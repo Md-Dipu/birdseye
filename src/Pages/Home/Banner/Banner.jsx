@@ -1,6 +1,6 @@
+import React from 'react';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
 import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 import './Banner.css';
 
@@ -13,7 +13,10 @@ const Banner = () => {
                         <Form className="mb-3" onSubmit={e => e.preventDefault()}>
                             <InputGroup>
                                 <Form.Control type="text" className="home-search-bar" />
-                                <Button variant="success"><FontAwesomeIcon icon={faSearch} /></Button>
+                                <Button
+                                    type="submit"
+                                    variant="success"
+                                ><FontAwesomeIcon icon={faSearch} /></Button>
                             </InputGroup>
                         </Form>
                         <h1 className="banner-title text-uppercase">Travel and Learn</h1>
