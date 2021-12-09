@@ -1,7 +1,7 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import { updateUserBookedDB } from '../../../utilities/API';
