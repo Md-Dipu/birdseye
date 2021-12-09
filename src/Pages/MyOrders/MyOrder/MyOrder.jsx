@@ -75,14 +75,16 @@ const MyOrder = props => {
             />
 
             <div className="d-flex flex-column flex-md-row justify-content-between align-items-center bg-light my-3 p-3 rounded">
-                <div>
+                <div className="overflow-hidden">
                     <h6>{title}</h6>
-                    <p>Status: {isPending ? 'Pending' : 'Approved'} <br />
-                        Ordered by: {ordererInfo.name}({ordererInfo.email}) <br />
+                    <p className="text-break">
+                        Status: <span className={`text-${isPending ? 'warning' : 'success'}`}>{isPending ? 'Pending' : 'Approved'}</span> <br />
+                        Ordered by: <span className="fst-italic">{ordererInfo.name}({ordererInfo.email})</span> <br />
                         Address: {ordererInfo.address} <br />
                         Tickets: {countTicket} <br />
                         Cost: {countTicket * cost || '-'} <br />
-                        Orderd at {bookingDate}({bookingTime})</p>
+                        Orderd at {bookingDate}({bookingTime})
+                    </p>
                 </div>
                 <div className="d-flex flex-column justify-content-center align-items-center">
                     <Button 
