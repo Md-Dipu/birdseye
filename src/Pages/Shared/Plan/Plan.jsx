@@ -24,7 +24,7 @@ const Plan = props => {
                 </Card.Text>
                 <div className="d-flex justify-content-between">
                     <h6 className={stylePill}><FontAwesomeIcon icon={faClock} /> {tourDays} Day</h6>
-                    <h6 className={stylePill}><FontAwesomeIcon icon={faStar} /> {rating.toFixed(1)}</h6>
+                    <h6 className={stylePill}><FontAwesomeIcon icon={faStar} /> {(rating || 0).toFixed(1)}</h6>
                     <h6 className={stylePill}><FontAwesomeIcon icon={faDollarSign} /> {cost}</h6>
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
