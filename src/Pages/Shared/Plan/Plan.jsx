@@ -8,6 +8,11 @@ import { backToTop } from '../../../utilities/utilities';
 const Plan = props => {
     const { _id, title, description, img_url, rating, tourDays, cost, starting_date } = props.plan;
 
+    // get date string
+    const month = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+    const date = new Date(starting_date);
+    const dateStr = `${month[date.getMonth()].substring(0, 3).toUpperCase()} ${date.getDate()}, ${date.getFullYear()}`;
+
     // negivator
     const history = useHistory();
     
@@ -28,7 +33,7 @@ const Plan = props => {
                     <h6 className={stylePill}><FontAwesomeIcon icon={faDollarSign} /> {cost}</h6>
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
-                    <h4 className="text-uppercase">{starting_date}</h4>
+                    <h4 className="text-uppercase">{dateStr}</h4>
                     <Card.Link 
                         as={Button} 
                         variant="warning" 

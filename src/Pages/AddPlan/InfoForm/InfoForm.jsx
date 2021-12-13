@@ -14,7 +14,7 @@ const InfoForm = props => {
                 <input type="text" className="form-control" placeholder="Cost" {...register('cost', { required: true })} />
             </div>
             
-            <input type="text" className="form-control mb-3" placeholder="Starting Date" {...register('starting_date', { required: true })} />
+            <input type="date" className="form-control mb-3" placeholder="Starting Date" {...register('starting_date', { required: true })} />
             <textarea className="form-control mb-3" placeholder="Description" rows="6" {...register('description', { required: true })} />
             
             <div>
