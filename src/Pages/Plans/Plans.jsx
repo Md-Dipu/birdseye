@@ -47,7 +47,7 @@ const Plans = () => {
     return (
         <Container>
             <h3 className="text-center text-uppercase my-3">our all <span className="text-info">plans</span></h3>
-            <Row xs={1} md={2} lg={3} className="g-4 mb-4 mt-2">
+            <Row xs={1} md={2} lg={3} className="g-4 mb-4">
                 {plans.map(plan => (
                     <Col key={plan._id}>
                         <Plan plan={plan} />
