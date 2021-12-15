@@ -5,6 +5,7 @@ import { useHistory, useLocation } from 'react-router';
 import { backToTop } from '../../utilities/utilities';
 import Plan from '../Shared/Plan/Plan';
 import Loading from '../Shared/Loading/Loading';
+import { APIUrl } from '../../utilities/API';
 
 const Plans = () => {
     const [totalPlans, setTotalPlans] = useState(0);
@@ -30,7 +31,7 @@ const Plans = () => {
     // plan per page
     const limit = 9;
     useEffect(() => {
-        axios.get(`https://intense-cliffs-52842.herokuapp.com/plans?limit=${limit}&&page=${currentPage}`)
+        axios.get(APIUrl(`/plans?limit=${limit}&&page=${currentPage}`))
             .then(res => {
                 setTotalPlans(res.data.count);
                 setPlans(res.data.plans);

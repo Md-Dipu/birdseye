@@ -1,12 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Carousel, Col, Container, Row } from 'react-bootstrap';
+import { APIUrl } from '../../../utilities/API';
 
 const HappyClient = () => {
     const [clientsQuotes, setClientsQuotes] = useState([]);
 
     useEffect(() => {
-        axios.get('https://intense-cliffs-52842.herokuapp.com/quotes')
+        axios.get(APIUrl('/quotes'))
             .then(res => setClientsQuotes(res.data))
             .catch(error => console.warn(error));
     }, []);

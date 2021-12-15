@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Image, Row } from 'react-bootstrap';
 import { useParams } from 'react-router';
 import useAuth from '../../hooks/useAuth';
-import { updateUserBookedDB } from '../../utilities/API';
+import { APIUrl, updateUserBookedDB } from '../../utilities/API';
 import { InfoModal, WarnModal } from '../Shared/Modals/Modals';
 
 const PlaceOrder = () => {
@@ -35,13 +35,13 @@ const PlaceOrder = () => {
     }
 
     useEffect(() => {
-        axios.get(`https://intense-cliffs-52842.herokuapp.com/plans/${planId}`)
+        axios.get(APIUrl(`/plans/${planId}`))
             .then(res => setPlan(res.data))
             .catch(error => console.warn(error));
     }, [planId]);
 
     useEffect(() => {
-        axios.get(`https://intense-cliffs-52842.herokuapp.com/users/${user?.email || ''}`)
+        axios.get(APIUrl(`/users/${user?.email || ''}`))
             .then(res => setCurrentOrderedList(res.data.ordered || {}))
             .catch(error => console.warn(error));
     }, [user]);

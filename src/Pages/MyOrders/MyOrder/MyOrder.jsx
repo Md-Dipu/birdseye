@@ -4,7 +4,7 @@ import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
-import { updateUserBookedDB } from '../../../utilities/API';
+import { APIUrl, updateUserBookedDB } from '../../../utilities/API';
 import { backToTop } from '../../../utilities/utilities';
 import { InfoModal, WarnModal } from '../../Shared/Modals/Modals';
 import OrderPlaceholder from '../../Shared/OrderPlaceholder/OrderPlaceholder';
@@ -30,7 +30,7 @@ const MyOrder = props => {
     const bookingDate = `${bookingTimeAndDate.getDate()}-${bookingTimeAndDate.getMonth()}-${bookingTimeAndDate.getFullYear()}`;
 
     useEffect(() => {
-        axios.get(`https://intense-cliffs-52842.herokuapp.com/plans/${planId}`)
+        axios.get(APIUrl(`/plans/${planId}`))
             .then(res => setPlanDetails(res.data))
             .catch(error => console.warn(error))
             .then(() => setIsLoading(false));

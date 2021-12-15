@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useLocation } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
+import { APIUrl } from '../../../utilities/API';
 import { backToTop } from '../../../utilities/utilities';
 import Loading from '../../Shared/Loading/Loading';
 import MyOrder from '../MyOrder/MyOrder';
@@ -20,7 +21,7 @@ const MyOrders = () => {
     const orderedItems = Object.keys(orderedList || {});
 
     useEffect(() => {
-        axios.get(`https://intense-cliffs-52842.herokuapp.com/users/${user.email}`)
+        axios.get(APIUrl(`/users/${user.email}`))
             .then(res => setOrderedList(res?.data?.ordered))
             .catch(error => console.warn(error))
             .then(() => setIsLoading(false));

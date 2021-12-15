@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import { useLocation } from 'react-router';
+import { APIUrl } from '../../../utilities/API';
 import { backToTop } from '../../../utilities/utilities';
 import Loading from '../../Shared/Loading/Loading';
 import ManageOrder from '../ManageOrder/ManageOrder';
@@ -19,7 +20,7 @@ const ManageAllOrders = () => {
     }
 
     useEffect(() => {
-        axios.get('https://intense-cliffs-52842.herokuapp.com/users')
+        axios.get(APIUrl('/users'))
             .then(res => setUsers(res.data))
             .catch(error => console.warn(error))
             .then(() => setIsLoading(false));
