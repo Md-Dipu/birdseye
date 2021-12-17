@@ -2,7 +2,7 @@ import axios from "axios";
 
 // server API url
 export const APIUrl = path => 
-    'https://intense-cliffs-52842.herokuapp.com' + path;
+    'https://birdeye-server.herokuapp.com' + path;
 
 // plans API
 export const addPlanDB = newPlan => {
