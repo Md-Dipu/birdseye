@@ -25,7 +25,16 @@ const Footer = () => {
                                     <li><Link to="/" className="text-decoration-none">Home</Link></li>
                                     <li><Link to="/plans" className="text-decoration-none">Plans</Link></li>
                                     <li><Link to="/about-us" className="text-decoration-none">About</Link></li>
-                                    <li><Link to="/about-us#contact" className="text-decoration-none">Contact</Link></li>
+                                    <li>
+                                        <Link 
+                                            to="/about-us#contact" 
+                                            className="text-decoration-none"
+                                            onClick={() => 
+                                                setTimeout(() => 
+                                                    document.getElementById('contact')
+                                                        .scrollIntoView({ block: "start" }))}
+                                        >Contact</Link>
+                                    </li>
                                 </ul>
                             </Col>
                             <Col>
