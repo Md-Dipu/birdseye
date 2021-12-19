@@ -24,7 +24,7 @@ const Plan = props => {
             <Card.Img variant="top" src={img_url} />
             <Card.Body>
                 <Card.Title>{title}</Card.Title>
-                <Card.Text>
+                <Card.Text style={{ color: '#626262' }}>
                     {description}
                 </Card.Text>
                 <div className="d-flex justify-content-between">

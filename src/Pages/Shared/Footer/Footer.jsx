@@ -15,7 +15,7 @@ const Footer = () => {
                 <Row xs={1} md={2}>
                     <Col>
                         <h3>About Birdeye</h3>
-                        <p>Birdeye is one of the most popular travel agenci in Bangladesh. Because of services and awesome plans. If you want to join our next tour book one or more tickets now. If your have any question please contact us.</p>
+                        <p style={{ color: '#626262' }}>Birdeye is one of the most popular travel agenci in Bangladesh. Because of services and awesome plans. If you want to join our next tour book one or more tickets now. If your have any question please contact us.</p>
                     </Col>
                     <Col>
                         <Row  xs={1} md={2}>
@@ -39,7 +39,7 @@ const Footer = () => {
                             </Col>
                             <Col>
                                 <h4>Stay Updated</h4>
-                                <p>To get message from our site please subscribe us by email address.</p>
+                                <p style={{ color: '#626262' }}>To get message from our site please subscribe us by email address.</p>
                                 <form onSubmit={handleSubmit(handleSubscribe)}>
                                     <input type="email" className="form-control" placeholder="Email" {...register('email')} />
                                     <input type="submit" className="btn btn-primary form-control mt-2" value="Subscribe" />
