@@ -19,7 +19,7 @@ const Header = () => {
                     <Nav.Link as={Link} to="/">Home</Nav.Link>
                     <Nav.Link as={Link} to="/plans">All Plans</Nav.Link>
                     <Nav.Link as={Link} to="/about-us">About us</Nav.Link>
-                    {!user ?  <Nav.Link as={Button} variant="primary" onClick={() => history.push('/login')}><FontAwesomeIcon icon={faSignInAlt} /> Login</Nav.Link> :
+                    {!user ?  <Nav.Link as={Button} variant="primary" className="text-white" onClick={() => history.push('/login')}><FontAwesomeIcon icon={faSignInAlt} /> Login</Nav.Link> :
                     <NavDropdown title={<><FontAwesomeIcon icon={faUser} /> {user.displayName}</>} menuVariant="dark" id="basic-nav-dropdown">
                         <NavDropdown.Item as={Link} to="/my-orders">My Orders</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/manage-all-orders">Manage All Orders</NavDropdown.Item>
