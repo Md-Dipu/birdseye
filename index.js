@@ -2,6 +2,7 @@ const express = require('express');
 const { MongoClient } = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
 const cors = require('cors');
+const admin = require("firebase-admin");
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
@@ -10,8 +11,30 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// firebase admin init
+const serviceAccount = require("./tourism-client-firebase-adminsdk-qchz4-fbade17ac9.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+
+
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.kovux.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const verifyToken = async (req, res, next) => {
+    if (req.headers?.authorization?.startsWith('Bearer ')) {
+        const idToken = req.headers.authorization.split(' ')[1];
+        try {
+            const decodedUser = await admin.auth().verifyIdToken(idToken);
+            req.decodedUserEmail = decodedUser.email;
+        }
+        catch {
+
+        }
+    }
+    next();
+}
 
 const run = async () => {
     try {
@@ -63,11 +86,15 @@ const run = async () => {
         });
 
         // user
-        app.get('/users/:userEmail', async (req, res) => {
+        app.get('/users/:userEmail', verifyToken, async (req, res) => {
             const email = req.params.userEmail;
-            const query = { email: email }
-            const result = await userCollection.findOne(query);
-            res.json(result);
+            if (req.decodedUserEmail === email) {
+                const query = { email: email }
+                const result = await userCollection.findOne(query);
+                res.json(result);
+            }
+            else 
+                res.status(401).json({ message: 'User not authorized' });
         });
 
         // Clients Quotes
