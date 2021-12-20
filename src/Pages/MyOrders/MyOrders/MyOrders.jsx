@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import { APIUrl } from '../../../utilities/API';
 import { backToTop } from '../../../utilities/utilities';
@@ -13,6 +13,7 @@ const MyOrders = () => {
     const [observeCancel, setObserveCancel] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const { user } = useAuth();
+    const history = useHistory();
     const location = useLocation();
     if (!location.hash) {
         backToTop();
@@ -21,9 +22,18 @@ const MyOrders = () => {
     const orderedItems = Object.keys(orderedList || {});
 
     useEffect(() => {
-        axios.get(APIUrl(`/users/${user.email}`))
+        axios.get(APIUrl(`/users/${user.email}`), {
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('idToken')}`
+            }
+        })
             .then(res => setOrderedList(res?.data?.ordered))
-            .catch(error => console.warn(error))
+            .catch(error => {
+                if (error.response.status === 401)
+                    history.push('/login');
+                else
+                    console.warn(error);
+            })
             .then(() => setIsLoading(false));
     }, [user]);
 
