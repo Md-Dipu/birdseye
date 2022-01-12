@@ -12,10 +12,10 @@ app.use(cors());
 app.use(express.json());
 
 // firebase admin init
-const serviceAccount = require("./tourism-client-firebase-adminsdk-qchz4-fbade17ac9.json");
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_INFO);
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+    credential: admin.credential.cert(serviceAccount)
 });
 
 
@@ -40,12 +40,12 @@ const run = async () => {
     try {
         await client.connect();
         const database = client.db("tourism");
-        
+
         // Collections
         const planCollection = database.collection("plans");
         const userCollection = database.collection("users");
         const additionalDocCollection = database.collection("additionalDocs");
-        
+
         // GET API
         // plans
         app.get('/plans', async (req, res) => {
@@ -55,7 +55,7 @@ const run = async () => {
 
             const cursor = planCollection.find({});
             const count = await cursor.count();
-            
+
             let plans;
             if (limit) {
                 plans = await cursor.skip(toSkip).limit(limit).toArray();
@@ -63,7 +63,7 @@ const run = async () => {
             else {
                 plans = await cursor.toArray();
             }
-            
+
             res.send({
                 count,
                 plans
@@ -93,7 +93,7 @@ const run = async () => {
                 const result = await userCollection.findOne(query);
                 res.json(result);
             }
-            else 
+            else
                 res.status(401).json({ message: 'User not authorized' });
         });
 
@@ -116,7 +116,7 @@ const run = async () => {
         app.put('/users', async (req, res) => {
             const { user, planTicket } = req.body;
             const query = { email: user.email };
-            
+
             // update
             const result = await userCollection.updateOne(query, {
                 $set: {
