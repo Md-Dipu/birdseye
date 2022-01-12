@@ -29,7 +29,7 @@ const MyOrders = () => {
         })
             .then(res => setOrderedList(res?.data?.ordered))
             .catch(error => {
-                if (error.response.status === 401)
+                if (error?.response?.status === 401)
                     history.push('/login');
                 else
                     console.warn(error);
@@ -54,15 +54,15 @@ const MyOrders = () => {
             <Row className="justify-content-center my-3">
                 <Col xs={12} md={8} lg={6} style={{ minHeight: '60vh' }}>
                     <h4 className="text-uppercase text-center">your <span className="text-info">orders</span></h4>
-                    {(orderedItems.length === 0) ? 
+                    {(orderedItems.length === 0) ?
                         <div>
                             <h3 className="text-uppercase text-center text-danger">no order found</h3>
                         </div>
-                        
-                        : orderedItems.map((planId, _idx) => <MyOrder 
-                            key={_idx} 
+
+                        : orderedItems.map((planId, _idx) => <MyOrder
+                            key={_idx}
                             user={user}
-                            planId={planId} 
+                            planId={planId}
                             orderedList={orderedList}
                             setObserveCancel={setObserveCancel}
                         />)
