@@ -131,11 +131,19 @@ const run = async () => {
             res.json(result);
         });
 
-        // post bookings or update booking
+        // post booking
         app.post('/booings', async (req, res) => {
             const newBooking = req.body;
             const result = await booingCollection.insertOne(newBooking);
             res.json(result);
+        });
+
+        // get bookings
+        app.get('/bookings', async (req, res) => {
+            const cursor = booingCollection.find({});
+            const count = await cursor.count();
+            const results = await cursor.toArray();
+            res.send({ count, results });
         });
     }
     finally {
