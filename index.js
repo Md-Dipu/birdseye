@@ -44,6 +44,7 @@ const run = async () => {
         // Collections
         const planCollection = database.collection("plans");
         const userCollection = database.collection("users");
+        const booingCollection = database.collection("bookings");
         const additionalDocCollection = database.collection("additionalDocs");
 
         // GET API
@@ -127,6 +128,13 @@ const run = async () => {
             }, {
                 upsert: true
             });
+            res.json(result);
+        });
+
+        // post bookings or update booking
+        app.post('/booings', async (req, res) => {
+            const newBooking = req.body;
+            const result = await booingCollection.insertOne(newBooking);
             res.json(result);
         });
     }
