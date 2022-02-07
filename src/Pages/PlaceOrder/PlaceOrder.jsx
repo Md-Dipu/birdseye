@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Image, Row } from 'react-bootstrap';
 import { useParams } from 'react-router';
 import useAuth from '../../hooks/useAuth';
-import { APIUrl, updateUserBookedDB } from '../../utilities/API';
+import { updateUserBookedDB } from '../../utilities/API';
 import { InfoModal, WarnModal } from '../Shared/Modals/Modals';
 
 const PlaceOrder = () => {
@@ -35,20 +35,20 @@ const PlaceOrder = () => {
     }
 
     useEffect(() => {
-        axios.get(APIUrl(`/plans/${planId}`))
+        axios.get(`https://birdeye-server.herokuapp.com/plans/${planId}`)
             .then(res => setPlan(res.data))
             .catch(error => console.warn(error));
     }, [planId]);
 
     useEffect(() => {
-        axios.get(APIUrl(`/users/${user?.email || ''}`))
+        axios.get(`https://birdeye-server.herokuapp.com/users/${user?.email || ''}`)
             .then(res => setCurrentOrderedList(res.data.ordered || {}))
             .catch(error => console.warn(error));
     }, [user]);
 
     useEffect(() => {
         const exists = currentOrderedList[_id];
-        if(exists) {
+        if (exists) {
             setPlanExist(true);
             setNumberOfTickets(exists.countTicket);
         }
@@ -68,7 +68,7 @@ const PlaceOrder = () => {
                 ordererInfo: { name: ordererName, email: ordererEmail, address: deliveryAddress },
                 isPending: true
             };
-            updateUserBookedDB(user, {...currentOrderedList, ...bookedTicket})
+            updateUserBookedDB(user, { ...currentOrderedList, ...bookedTicket })
                 .then(res => {
                     setShowSuccessModal(true);
                     setPlanExist(true);
@@ -76,13 +76,13 @@ const PlaceOrder = () => {
                 .catch(error => setShowFailedModal(true));
         }
     }, [confirmOrder]);
-    
+
     return (
         <>
             {/* Confirmation Modal */}
             <WarnModal
                 heading="Confirmation"
-                messageText={`Are you sure to ${ planExist ? 'update infomation to' : 'book'} ${numberOfTickets} tickets for plan "${title}"?`}
+                messageText={`Are you sure to ${planExist ? 'update infomation to' : 'book'} ${numberOfTickets} tickets for plan "${title}"?`}
                 buttonVariant="primary"
                 show={showWarnModal}
                 handleClose={() => setShowWarnModal(false)}
@@ -93,16 +93,16 @@ const PlaceOrder = () => {
             />
 
             {/* Show success message */}
-            <InfoModal 
+            <InfoModal
                 heading="Success"
                 messageText="Process have completed successfully."
                 buttonVariant="success"
                 show={showSuccessModal}
                 handleClose={() => setShowSuccessModal(false)}
             />
-            
+
             {/* Show Failed message */}
-            <InfoModal 
+            <InfoModal
                 heading="Failed"
                 messageText="Process have failed to complete."
                 buttonVariant="danger"
@@ -141,18 +141,18 @@ const PlaceOrder = () => {
                             </tbody>
                         </table>
                     </Col>
-                    
+
                     <Col className="my-3">
                         <h5 className="text-center text-uppercase"><span className="text-info">Book ticket</span> for this plan</h5>
-                        {/* Ticket input and book action */} 
+                        {/* Ticket input and book action */}
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3">
                                 <label className="form-label" htmlFor="orderer-name">Name<span className="text-danger">*</span></label>
-                                <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    name="orderer-name" 
-                                    value={ordererName} 
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    name="orderer-name"
+                                    value={ordererName}
                                     onChange={e => setOrdererName(e.target.value)}
                                     required
                                 />
@@ -160,11 +160,11 @@ const PlaceOrder = () => {
 
                             <div className="mb-3">
                                 <label className="form-label" htmlFor="orderer-email">Email<span className="text-danger">*</span></label>
-                                <input 
-                                    type="email" 
-                                    className="form-control" 
-                                    name="orderer-email" 
-                                    value={ordererEmail} 
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    name="orderer-email"
+                                    value={ordererEmail}
                                     onChange={e => setOrdererEmail(e.target.value)}
                                     required
                                 />
@@ -172,10 +172,10 @@ const PlaceOrder = () => {
 
                             <div className="mb-3">
                                 <label className="form-label" htmlFor="delivery-address">Address<span className="text-danger">*</span></label>
-                                <textarea 
-                                    className="form-control" 
-                                    name="delivery-address" 
-                                    value={deliveryAddress} 
+                                <textarea
+                                    className="form-control"
+                                    name="delivery-address"
+                                    value={deliveryAddress}
                                     rows="8"
                                     onChange={e => setDeliveryAddress(e.target.value)}
                                     required
@@ -184,7 +184,7 @@ const PlaceOrder = () => {
 
                             <label className="form-label" htmlFor="number-of-tickets">How much ticket you need?</label>
                             <div className="input-group mb-3" style={{ width: '10rem' }}>
-                                <button 
+                                <button
                                     type="button"
                                     className="btn btn-light"
                                     onClick={() => {
@@ -192,26 +192,26 @@ const PlaceOrder = () => {
                                             setNumberOfTickets(numberOfTickets - 1);
                                     }}
                                 >-</button>
-                                
-                                <input 
-                                    className="form-control border-light" 
+
+                                <input
+                                    className="form-control border-light"
                                     name="number-of-tickets"
                                     value={numberOfTickets}
                                     onChange={e => {
                                         const inputValue = parseInt(e.target.value);
                                         isNaN(inputValue) ?
-                                        setNumberOfTickets(0) :
-                                        setNumberOfTickets(inputValue);
+                                            setNumberOfTickets(0) :
+                                            setNumberOfTickets(inputValue);
                                     }}
                                     onBlur={e => {
                                         const inputValue = parseInt(e.target.value);
                                         (inputValue < 1) ?
-                                        setNumberOfTickets(1) :
-                                        setNumberOfTickets(inputValue);
+                                            setNumberOfTickets(1) :
+                                            setNumberOfTickets(inputValue);
                                     }}
                                 />
-                                
-                                <button 
+
+                                <button
                                     type="button"
                                     className="btn btn-light"
                                     onClick={() => setNumberOfTickets(numberOfTickets + 1)}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import OrderPlaceholder from '../../Shared/OrderPlaceholder/OrderPlaceholder';
-import { APIUrl, updateUserBookedDB } from '../../../utilities/API';
+import { updateUserBookedDB } from '../../../utilities/API';
 import { InfoModal, WarnModal } from '../../Shared/Modals/Modals';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
@@ -27,9 +27,9 @@ const ManageOrder = props => {
     const minutes = bookingTimeAndDate.getMinutes();
     const bookingTime = `${(hours <= 12) ? hours : (hours - 12)}:${minutes}${(hours <= 12) ? 'AM' : 'PM'}`;
     const bookingDate = `${bookingTimeAndDate.getDate()}-${bookingTimeAndDate.getMonth()}-${bookingTimeAndDate.getFullYear()}`;
-    
+
     useEffect(() => {
-        axios.get(APIUrl(`/plans/${id}`))
+        axios.get(`https://birdeye-server.herokuapp.com/plans/${id}`)
             .then(res => setOrderDetails(res.data))
             .catch(error => console.warn(error))
             .then(() => setIsLoading(false));
@@ -65,7 +65,7 @@ const ManageOrder = props => {
     if (isLoading) {
         return <OrderPlaceholder />;
     }
-    
+
     return (
         <>
             {/* Confirmation message */}
@@ -107,7 +107,7 @@ const ManageOrder = props => {
                     </p>
                 </div>
                 <div className="d-flex flex-column justify-content-center align-items-center">
-                    <Button 
+                    <Button
                         variant="danger"
                         className="d-block"
                         onClick={() => {

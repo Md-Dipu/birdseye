@@ -4,7 +4,7 @@ import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
-import { APIUrl, updateUserBookedDB } from '../../../utilities/API';
+import { updateUserBookedDB } from '../../../utilities/API';
 import { backToTop } from '../../../utilities/utilities';
 import { InfoModal, WarnModal } from '../../Shared/Modals/Modals';
 import OrderPlaceholder from '../../Shared/OrderPlaceholder/OrderPlaceholder';
@@ -30,7 +30,7 @@ const MyOrder = props => {
     const bookingDate = `${bookingTimeAndDate.getDate()}-${bookingTimeAndDate.getMonth()}-${bookingTimeAndDate.getFullYear()}`;
 
     useEffect(() => {
-        axios.get(APIUrl(`/plans/${planId}`))
+        axios.get(`https://birdeye-server.herokuapp.com/plans/${planId}`)
             .then(res => setPlanDetails(res.data))
             .catch(error => console.warn(error))
             .then(() => setIsLoading(false));
@@ -89,7 +89,7 @@ const MyOrder = props => {
                     </p>
                 </div>
                 <div className="d-flex flex-column justify-content-center align-items-center">
-                    <Button 
+                    <Button
                         variant="warning"
                         className="d-block mb-2"
                         onClick={() => {

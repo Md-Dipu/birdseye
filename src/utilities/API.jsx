@@ -1,18 +1,14 @@
 import axios from "axios";
 
-// server API url
-export const APIUrl = path => 
-    'https://birdeye-server.herokuapp.com' + path;
-
 // plans API
 export const addPlanDB = newPlan => {
-    return axios.post(APIUrl('/plans'), newPlan);
+    return axios.post('https://birdeye-server.herokuapp.com/plans', newPlan);
 }
 
 
 // user API
 export const updateUserBookedDB = (user, planTicket) => {
-    return axios.put(APIUrl('/users'), {
+    return axios.put('https://birdeye-server.herokuapp.com/users', {
         user,
         planTicket
     });

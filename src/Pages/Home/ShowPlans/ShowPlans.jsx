@@ -3,14 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import Plan from '../../Shared/Plan/Plan';
 import Loading from '../../Shared/Loading/Loading';
-import { APIUrl } from '../../../utilities/API';
 
 const ShowPlans = () => {
     const [plans, setPlans] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get(APIUrl('/plans?limit=6'))
+        axios.get('https://birdeye-server.herokuapp.com/plans?limit=6')
             .then(res => {
                 setPlans(res.data.plans);
             })

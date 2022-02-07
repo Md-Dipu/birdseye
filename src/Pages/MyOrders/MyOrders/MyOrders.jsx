@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
-import { APIUrl } from '../../../utilities/API';
 import { backToTop } from '../../../utilities/utilities';
 import Loading from '../../Shared/Loading/Loading';
 import MyOrder from '../MyOrder/MyOrder';
@@ -22,7 +21,7 @@ const MyOrders = () => {
     const orderedItems = Object.keys(orderedList || {});
 
     useEffect(() => {
-        axios.get(APIUrl(`/users/${user.email}`), {
+        axios.get(`https://birdeye-server.herokuapp.com/users/${user.email}`, {
             headers: {
                 'authorization': `Bearer ${localStorage.getItem('idToken')}`
             }

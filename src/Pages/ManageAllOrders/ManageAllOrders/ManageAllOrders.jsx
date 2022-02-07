@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import { useLocation } from 'react-router';
-import { APIUrl } from '../../../utilities/API';
 import { backToTop } from '../../../utilities/utilities';
 import Loading from '../../Shared/Loading/Loading';
 import ManageOrder from '../ManageOrder/ManageOrder';
@@ -20,7 +19,7 @@ const ManageAllOrders = () => {
     }
 
     useEffect(() => {
-        axios.get(APIUrl('/users'))
+        axios.get('https://birdeye-server.herokuapp.com/users')
             .then(res => setUsers(res.data))
             .catch(error => console.warn(error))
             .then(() => setIsLoading(false));
@@ -47,7 +46,7 @@ const ManageAllOrders = () => {
             setAllOrders([...restOrders]);
         }
     }, [observeDelete]);
-    
+
     if (isLoading) {
         return <Loading height="60" />;
     }
@@ -61,7 +60,7 @@ const ManageAllOrders = () => {
                         <div>
                             <h3 className="text-uppercase text-center text-danger">no order found</h3>
                         </div>
-                        : allOrders.map((order, _idx) => <ManageOrder 
+                        : allOrders.map((order, _idx) => <ManageOrder
                             key={_idx}
                             order={order}
                             user={users.find(user => user.email === order.from)}

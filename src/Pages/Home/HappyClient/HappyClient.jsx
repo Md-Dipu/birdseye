@@ -1,13 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Carousel, Col, Container, Row } from 'react-bootstrap';
-import { APIUrl } from '../../../utilities/API';
 
 const HappyClient = () => {
     const [clientsQuotes, setClientsQuotes] = useState([]);
 
     useEffect(() => {
-        axios.get(APIUrl('/quotes'))
+        axios.get('https://birdeye-server.herokuapp.com/quotes')
             .then(res => setClientsQuotes(res.data))
             .catch(error => console.warn(error));
     }, []);
@@ -20,9 +19,9 @@ const HappyClient = () => {
                     <Container>
                         <Row xs={1} className="gy-3">
                             {[
-                                {title: 'total tips', value: '78'},
-                                {title: 'customers', value: '427'},
-                                {title: 'happy client', value: '390'}
+                                { title: 'total tips', value: '78' },
+                                { title: 'customers', value: '427' },
+                                { title: 'happy client', value: '390' }
                             ].map((item, _idx) => <Col key={_idx} className="rounded shadow text-center py-3">
                                 <span className="text-uppercase">{item.title}</span><br />
                                 <span className="fs-2">{item.value}</span>
