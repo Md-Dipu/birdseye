@@ -1,11 +1,12 @@
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Image, Row } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import axios from 'axios';
+
 import useAuth from '../../hooks/useAuth';
-import { updateUserBookedDB } from '../../utilities/API';
+import { addBookingDB } from '../../utilities/API';
 import { InfoModal, WarnModal } from '../Shared/Modals/Modals';
 
 const PlaceOrder = () => {
@@ -61,14 +62,14 @@ const PlaceOrder = () => {
     useEffect(() => {
         if (confirmOrder) {
             const time = new Date();
-            const bookedTicket = {}
-            bookedTicket[_id] = {
+            addBookingDB({
                 date: time,
                 countTicket: numberOfTickets,
+                user: { displayName: user.displayName, email: user.email },
                 ordererInfo: { name: ordererName, email: ordererEmail, address: deliveryAddress },
+                bookingPlan: { _id, title, cost },
                 isPending: true
-            };
-            updateUserBookedDB(user, { ...currentOrderedList, ...bookedTicket })
+            })
                 .then(res => {
                     setShowSuccessModal(true);
                     setPlanExist(true);
