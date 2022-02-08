@@ -132,7 +132,7 @@ const run = async () => {
         });
 
         // post booking
-        app.post('/booings', async (req, res) => {
+        app.post('/bookings', async (req, res) => {
             const newBooking = req.body;
             const result = await booingCollection.insertOne(newBooking);
             res.json(result);
@@ -144,6 +144,15 @@ const run = async () => {
             const count = await cursor.count();
             const results = await cursor.toArray();
             res.send({ count, results });
+        });
+
+        // update booking
+        app.put('/bookings/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const updateDocs = { $set: req.body };
+            const result = await booingCollection.updateOne(filter, updateDocs);
+            res.json(result);
         });
     }
     finally {
