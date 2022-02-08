@@ -154,6 +154,14 @@ const run = async () => {
             const result = await booingCollection.updateOne(filter, updateDocs);
             res.json(result);
         });
+
+        // delete booking
+        app.delete('/bookings/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const result = await booingCollection.deleteOne(filter);
+            res.json(result);
+        });
     }
     finally {
         // await client.close();
