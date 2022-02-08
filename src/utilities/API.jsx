@@ -23,3 +23,8 @@ export const addBookingDB = (booking) => {
 export const updateBookingDB = (id, updateDocs) => {
     return axios.put(`http://localhost:5000/bookings/${id}`, updateDocs);
 }
+
+// delete booking
+export const deleteBookingDB = (id) => {
+    return axios.delete(`http://localhost:5000/bookings/${id}`);
+}
