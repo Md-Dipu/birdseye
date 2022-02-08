@@ -18,3 +18,8 @@ export const updateUserBookedDB = (user, planTicket) => {
 export const addBookingDB = (booking) => {
     return axios.post('http://localhost:5000/bookings', booking);
 }
+
+// update booking
+export const updateBookingDB = (id, updateDocs) => {
+    return axios.put(`http://localhost:5000/bookings/${id}`, updateDocs);
+}
