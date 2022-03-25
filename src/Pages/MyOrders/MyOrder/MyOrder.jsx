@@ -1,56 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
-import { updateUserBookedDB } from '../../../utilities/API';
 import { backToTop } from '../../../utilities/utilities';
 import { InfoModal, WarnModal } from '../../Shared/Modals/Modals';
-import OrderPlaceholder from '../../Shared/OrderPlaceholder/OrderPlaceholder';
+import { deleteBookingDB } from '../../../utilities/API';
 
 const MyOrder = props => {
-    const { user, planId, orderedList, setObserveCancel } = props;
-    const [planDetails, setPlanDetails] = useState({});
+    const { bookingData, bookingCanceled } = props;
     const [confirmCancel, setConfirmCancel] = useState(false);
     const [showWarnModal, setShowWarnModal] = useState(false);
     const [showFailedModal, setShowFailedModal] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-    const orderDetails = orderedList[planId];
     const history = useHistory();
 
-    const { title, cost } = planDetails;
-    const { date, countTicket, ordererInfo, isPending } = orderDetails;
-    const bookingTimeAndDate = new Date(date);
+    const {
+        bookingPlan: {
+            title,
+            cost,
+            _id: bookingId
+        },
+        date,
+        countTicket,
+        ordererInfo,
+        isPending
+    } = bookingData;
 
     // time and date
+    const bookingTimeAndDate = new Date(date);
     const hours = bookingTimeAndDate.getHours();
     const minutes = bookingTimeAndDate.getMinutes();
     const bookingTime = `${(hours <= 12) ? hours : (hours - 12)}:${minutes}${(hours <= 12) ? 'AM' : 'PM'}`;
     const bookingDate = `${bookingTimeAndDate.getDate()}-${bookingTimeAndDate.getMonth()}-${bookingTimeAndDate.getFullYear()}`;
 
+    // Cancel order
     useEffect(() => {
-        axios.get(`https://birdeye-server.herokuapp.com/plans/${planId}`)
-            .then(res => setPlanDetails(res.data))
-            .catch(error => console.warn(error))
-            .then(() => setIsLoading(false));
-    }, [planId]);
-
-    useEffect(() => {
-        if (confirmCancel && !!planId) {
-            const tempList = { ...orderedList };
-            delete tempList[planId];
-            updateUserBookedDB(user, { ...tempList })
-                .then(() => {
-                    setObserveCancel(planId);
-                })
-                .catch(() => setShowFailedModal(true));
+        if (confirmCancel) {
+            deleteBookingDB(bookingData._id)
+                .then(({ data: { deletedCount } }) => deletedCount && bookingCanceled())
+                .catch(console.warn);
         }
-    }, [confirmCancel]);
-
-    if (isLoading) {
-        return <OrderPlaceholder />
-    }
+    }, [confirmCancel]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>
@@ -102,7 +92,7 @@ const MyOrder = props => {
                         className="d-block"
                         onClick={() => {
                             backToTop();
-                            history.push(`/plans/${planId}`)
+                            history.push(`/plans/${bookingId}`)
                         }}
                     >Update</Button>
                 </div>
