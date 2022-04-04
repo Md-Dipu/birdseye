@@ -1,70 +1,50 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Button from 'react-bootstrap/Button';
-import OrderPlaceholder from '../../Shared/OrderPlaceholder/OrderPlaceholder';
-import { updateUserBookedDB } from '../../../utilities/API';
+import { Button } from 'react-bootstrap';
 import { InfoModal, WarnModal } from '../../Shared/Modals/Modals';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 
 const ManageOrder = props => {
-    const { user, order, setObserveDelete } = props;
-    const { id, ordererInfo, countTicket, isPending, date } = order;
-    const bookingTimeAndDate = new Date(date);
-    const { ordered: orderedList } = user;
-    const [orderDetails, setOrderDetails] = useState({});
-    const [isApproved, setIsApproved] = useState(!isPending);
+    const { bookingData, deletedBooking } = props;
+    const [isApproved, setIsApproved] = useState(false);
     const [confirmAcion, setConfirmAction] = useState(false);
     const [showWarnModal, setShowWarnModal] = useState(false);
     const [showFailedModal, setShowFailedModal] = useState(false);
     const [forDelete, setForDelete] = useState(false);
     const [forApproval, setForApproval] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
 
-    const { title, cost } = orderDetails;
-    // time and date
-    const hours = bookingTimeAndDate.getHours();
-    const minutes = bookingTimeAndDate.getMinutes();
-    const bookingTime = `${(hours <= 12) ? hours : (hours - 12)}:${minutes}${(hours <= 12) ? 'AM' : 'PM'}`;
-    const bookingDate = `${bookingTimeAndDate.getDate()}-${bookingTimeAndDate.getMonth()}-${bookingTimeAndDate.getFullYear()}`;
-
+    // delete and approved action
     useEffect(() => {
-        axios.get(`https://birdeye-server.herokuapp.com/plans/${id}`)
-            .then(res => setOrderDetails(res.data))
-            .catch(error => console.warn(error))
-            .then(() => setIsLoading(false));
-    }, [id]);
-
-    // delete and approval action
-    useEffect(() => {
-        if (confirmAcion && !!id) {
-            if (forDelete) {
-                delete orderedList[id];
-                updateUserBookedDB(user, { ...orderedList })
-                    .then(() => setObserveDelete(id))
-                    .catch(() => setShowFailedModal(true));
-                setForDelete(false);
-            }
-            else if (forApproval) {
-                orderedList[id].isPending = false;
-                updateUserBookedDB(user, { ...orderedList })
-                    .then(() => setIsApproved(true))
-                    .catch(() => {
-                        setShowFailedModal(true);
-                        setIsApproved(false);
-                    });
-                setForApproval(false);
-            }
+        if (confirmAcion) {
+            if (forDelete)
+                deletedBooking();
+            if (forApproval)
+                setIsApproved(true);
         }
-    }, [confirmAcion]);
+    }, [confirmAcion]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    const {
+        bookingPlan: {
+            title,
+            cost,
+            // _id: bookingId
+        },
+        date,
+        countTicket,
+        ordererInfo,
+        isPending
+    } = bookingData;
 
     useEffect(() => {
         setIsApproved(!isPending);
     }, [isPending]);
 
-    if (isLoading) {
-        return <OrderPlaceholder />;
-    }
+    // time and date
+    const bookingTimeAndDate = new Date(date);
+    const hours = bookingTimeAndDate.getHours();
+    const minutes = bookingTimeAndDate.getMinutes();
+    const bookingTime = `${(hours <= 12) ? hours : (hours - 12)}:${minutes}${(hours <= 12) ? 'AM' : 'PM'}`;
+    const bookingDate = `${bookingTimeAndDate.getDate()}-${bookingTimeAndDate.getMonth()}-${bookingTimeAndDate.getFullYear()}`;
 
     return (
         <>
