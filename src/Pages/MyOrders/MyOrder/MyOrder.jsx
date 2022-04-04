@@ -3,6 +3,7 @@ import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
+
 import { backToTop } from '../../../utilities/utilities';
 import { InfoModal, WarnModal } from '../../Shared/Modals/Modals';
 import { deleteBookingDB } from '../../../utilities/API';
@@ -18,7 +19,7 @@ const MyOrder = props => {
         bookingPlan: {
             title,
             cost,
-            _id: bookingId
+            _id: planId
         },
         date,
         countTicket,
@@ -28,10 +29,6 @@ const MyOrder = props => {
 
     // time and date
     const bookingTimeAndDate = new Date(date);
-    const hours = bookingTimeAndDate.getHours();
-    const minutes = bookingTimeAndDate.getMinutes();
-    const bookingTime = `${(hours <= 12) ? hours : (hours - 12)}:${minutes}${(hours <= 12) ? 'AM' : 'PM'}`;
-    const bookingDate = `${bookingTimeAndDate.getDate()}-${bookingTimeAndDate.getMonth()}-${bookingTimeAndDate.getFullYear()}`;
 
     // Cancel order
     useEffect(() => {
@@ -75,7 +72,7 @@ const MyOrder = props => {
                         Address: {ordererInfo.address} <br />
                         Tickets: {countTicket} <br />
                         Cost: <FontAwesomeIcon icon={faDollarSign} /> {countTicket * cost || '-'} <br />
-                        Orderd at {bookingDate}({bookingTime})
+                        Orderd at {bookingTimeAndDate.toLocaleDateString()}({bookingTimeAndDate.toLocaleTimeString()})
                     </p>
                 </div>
                 <div className="d-flex flex-column justify-content-center align-items-center">
@@ -92,9 +89,9 @@ const MyOrder = props => {
                         className="d-block"
                         onClick={() => {
                             backToTop();
-                            history.push(`/plans/${bookingId}`)
+                            history.push(`/plans/${planId}`)
                         }}
-                    >Update</Button>
+                    >Buy more</Button>
                 </div>
             </div>
         </>
