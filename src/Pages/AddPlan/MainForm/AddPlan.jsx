@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router';
@@ -44,7 +44,7 @@ const AddPlan = () => {
                 })
                 .catch(error => showFailedModal(true));
         }
-    }, [confirmAdding]);
+    }, [confirmAdding]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>
@@ -62,28 +62,28 @@ const AddPlan = () => {
             />
 
             {/* Show success message */}
-            <InfoModal 
+            <InfoModal
                 heading="Success"
                 messageText="Process have completed successfully."
                 buttonVariant="success"
                 show={showSuccessModal}
                 handleClose={() => setShowSuccessModal(false)}
             />
-            
+
             {/* Show Failed message */}
-            <InfoModal 
+            <InfoModal
                 heading="Failed"
                 messageText="Process have failed to complete."
                 buttonVariant="danger"
                 show={showFailedModal}
                 handleClose={() => setShowFailedModal(false)}
             />
-            
+
             <Container className="my-3">
                 <Row>
                     <Col xs={12} md={2} lg={3} />
                     <Col xs={12} md={8} lg={6}>
-                        <InfoForm 
+                        <InfoForm
                             register={register}
                             handleSubmit={handleSubmit}
                             handleAddPlan={handleAddPlan}

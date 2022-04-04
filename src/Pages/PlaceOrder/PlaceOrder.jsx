@@ -76,7 +76,7 @@ const PlaceOrder = () => {
                 })
                 .catch(error => setShowFailedModal(true));
         }
-    }, [confirmOrder]);
+    }, [confirmOrder]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>
