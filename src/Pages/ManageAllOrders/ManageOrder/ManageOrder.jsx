@@ -3,10 +3,10 @@ import { Button } from 'react-bootstrap';
 import { InfoModal, WarnModal } from '../../Shared/Modals/Modals';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
-import { updateBookingDB } from '../../../utilities/API';
+import { deleteBookingDB, updateBookingDB } from '../../../utilities/API';
 
 const ManageOrder = props => {
-    const { bookingData, deletedBooking } = props; console.log(bookingData);
+    const { bookingData, deletedBooking } = props;
     const [isApproved, setIsApproved] = useState(false);
     const [confirmAcion, setConfirmAction] = useState(false);
     const [showWarnModal, setShowWarnModal] = useState(false);
@@ -18,7 +18,12 @@ const ManageOrder = props => {
     useEffect(() => {
         if (confirmAcion) {
             if (forDelete) {
-                deletedBooking();
+                deleteBookingDB(bookingId)
+                    .then(res => {
+                        if (res.data.deletedCount)
+                            deletedBooking();
+                    })
+                    .catch(console.error);
             }
             if (forApproval) {
                 updateBookingDB(bookingId, {
