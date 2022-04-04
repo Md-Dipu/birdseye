@@ -12,8 +12,6 @@ import { InfoModal, WarnModal } from '../Shared/Modals/Modals';
 const PlaceOrder = () => {
     const [plan, setPlan] = useState({});
     const [numberOfTickets, setNumberOfTickets] = useState(1);
-    const [currentOrderedList, setCurrentOrderedList] = useState({});
-    const [planExist, setPlanExist] = useState(false);
     const [showWarnModal, setShowWarnModal] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [showFailedModal, setShowFailedModal] = useState(false);
@@ -41,23 +39,6 @@ const PlaceOrder = () => {
             .catch(error => console.warn(error));
     }, [planId]);
 
-    useEffect(() => {
-        axios.get(`https://birdeye-server.herokuapp.com/users/${user?.email || ''}`)
-            .then(res => setCurrentOrderedList(res.data.ordered || {}))
-            .catch(error => console.warn(error));
-    }, [user]);
-
-    useEffect(() => {
-        const exists = currentOrderedList[_id];
-        if (exists) {
-            setPlanExist(true);
-            setNumberOfTickets(exists.countTicket);
-        }
-        else {
-            setPlanExist(false);
-        }
-    }, [currentOrderedList, _id]);
-
     // confirmation action
     useEffect(() => {
         if (confirmOrder) {
@@ -70,10 +51,7 @@ const PlaceOrder = () => {
                 bookingPlan: { _id, title, cost },
                 isPending: true
             })
-                .then(res => {
-                    setShowSuccessModal(true);
-                    setPlanExist(true);
-                })
+                .then(() => setShowSuccessModal(true))
                 .catch(error => setShowFailedModal(true));
         }
     }, [confirmOrder]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -83,7 +61,7 @@ const PlaceOrder = () => {
             {/* Confirmation Modal */}
             <WarnModal
                 heading="Confirmation"
-                messageText={`Are you sure to ${planExist ? 'update infomation to' : 'book'} ${numberOfTickets} tickets for plan "${title}"?`}
+                messageText={`Are you sure to book ${numberOfTickets} tickets for plan "${title}"?`}
                 buttonVariant="primary"
                 show={showWarnModal}
                 handleClose={() => setShowWarnModal(false)}
@@ -219,7 +197,7 @@ const PlaceOrder = () => {
                                 >+</button>
                             </div>
                             <h6 className="mb-3">You have to pay total <span className="text-warning">{(cost * numberOfTickets) || 0}</span> for this plan</h6>
-                            <Button variant="warning" type="submit" >{planExist ? 'Update now' : 'Book now'}</Button>
+                            <Button variant="warning" type="submit" >Book now</Button>
                         </form>
                     </Col>
                 </Row>
