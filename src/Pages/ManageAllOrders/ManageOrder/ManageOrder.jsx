@@ -3,9 +3,10 @@ import { Button } from 'react-bootstrap';
 import { InfoModal, WarnModal } from '../../Shared/Modals/Modals';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
+import { updateBookingDB } from '../../../utilities/API';
 
 const ManageOrder = props => {
-    const { bookingData, deletedBooking } = props;
+    const { bookingData, deletedBooking } = props; console.log(bookingData);
     const [isApproved, setIsApproved] = useState(false);
     const [confirmAcion, setConfirmAction] = useState(false);
     const [showWarnModal, setShowWarnModal] = useState(false);
@@ -16,18 +17,28 @@ const ManageOrder = props => {
     // delete and approved action
     useEffect(() => {
         if (confirmAcion) {
-            if (forDelete)
+            if (forDelete) {
                 deletedBooking();
-            if (forApproval)
-                setIsApproved(true);
+            }
+            if (forApproval) {
+                updateBookingDB(bookingId, {
+                    isPending: false
+                })
+                    .then(res => {
+                        if (res.data.modifiedCount)
+                            setIsApproved(true);
+                    })
+                    .catch(console.error);
+            }
         }
     }, [confirmAcion]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const {
+        _id: bookingId,
         bookingPlan: {
             title,
             cost,
-            // _id: bookingId
+            // _id: planId
         },
         date,
         countTicket,
