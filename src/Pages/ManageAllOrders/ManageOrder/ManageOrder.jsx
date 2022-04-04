@@ -57,10 +57,6 @@ const ManageOrder = props => {
 
     // time and date
     const bookingTimeAndDate = new Date(date);
-    const hours = bookingTimeAndDate.getHours();
-    const minutes = bookingTimeAndDate.getMinutes();
-    const bookingTime = `${(hours <= 12) ? hours : (hours - 12)}:${minutes}${(hours <= 12) ? 'AM' : 'PM'}`;
-    const bookingDate = `${bookingTimeAndDate.getDate()}-${bookingTimeAndDate.getMonth()}-${bookingTimeAndDate.getFullYear()}`;
 
     return (
         <>
@@ -98,7 +94,7 @@ const ManageOrder = props => {
                         Address: {ordererInfo.address} <br />
                         Tickets: {countTicket} <br />
                         Cost: <FontAwesomeIcon icon={faDollarSign} /> {countTicket * cost || '-'} <br />
-                        Orderd at {bookingDate}({bookingTime}) <br />
+                        Orderd at {bookingTimeAndDate.toLocaleDateString()}({bookingTimeAndDate.toLocaleTimeString()}) <br />
                         <span className={`text-${!isApproved ? 'warning' : 'success'}`}>{!isApproved ? 'Pending' : 'Approved'}</span>
                     </p>
                 </div>
