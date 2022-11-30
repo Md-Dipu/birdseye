@@ -19,7 +19,7 @@ admin.initializeApp({
 });
 
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.kovux.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const uri = process.env.ATLAS_URL;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const verifyToken = async (req, res, next) => {
@@ -30,7 +30,7 @@ const verifyToken = async (req, res, next) => {
             req.decodedUserEmail = decodedUser.email;
         }
         catch {
-
+            // if error found
         }
     }
     next();

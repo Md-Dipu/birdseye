@@ -17,5 +17,8 @@
     "express": "^4.17.1",
     "firebase-admin": "^10.0.1",
     "mongodb": "^4.1.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.28.0"
   }
 }
