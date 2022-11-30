@@ -1,6 +1,6 @@
-# Birdeye: Tourism Related site (Client Side)
+# Birdseye: Tourism Related site
 
-View live website: [Birdeye](https://tourism-client.web.app/).
+View live website: [Birdseye](https://tourism-client.web.app/).
 
 ## About Projects (Client)
 - This a React.js projects.
