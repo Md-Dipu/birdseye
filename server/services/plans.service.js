@@ -31,6 +31,7 @@ exports.getPlanByIdService = async (id) => {
  * @property {data} startingDare - Starting date of tour
  * 
  * @param {plan} data
+ * @returns {object} Inserting status from mongodb
  */
 exports.createNewPlanService = async (data) => {
     const result = await db("plans").insertOne(data);
