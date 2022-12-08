@@ -13,7 +13,7 @@ exports.getAllPlansController = async (req, res) => {
     } catch (error) {
         res.status(400).json({
             status: "fail",
-            message: "Some went wrong",
+            message: "Couldn't able to find data",
             error: error.message
         });
     }
@@ -32,7 +32,7 @@ exports.getPlanByIdController = async (req, res) => {
     } catch (error) {
         res.status(400).json({
             status: "fail",
-            message: "Some went wrong",
+            message: "Couldn't able to find data",
             error: error.message
         });
     }
