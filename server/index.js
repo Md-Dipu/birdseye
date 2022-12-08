@@ -4,6 +4,7 @@ const colors = require("colors");
 const cors = require("cors");
 
 const dbConnection = require("./utils/dbConnection");
+const plansRoutes = require("./routes/v1/plans.route");
 
 dotenv.config();
 
@@ -13,7 +14,15 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// database connection
+app.use("/api/v1/plans", plansRoutes);
+
+app.get("/", (req, res) => {
+    res.status(200).json({
+        status: "success",
+        message: "Running Birdseye server"
+    });
+});
+
 dbConnection.connectToServer((err) => {
     if (err) {
         console.error(err);
@@ -23,144 +32,6 @@ dbConnection.connectToServer((err) => {
     app.listen(port, () => {
         console.log(colors.yellow.bold("Listening at port:"), port);
     });
-});
-
-
-
-/* const run = async () => {
-    try {
-        await client.connect();
-        const database = client.db("tourism");
-
-        // Collections
-        const planCollection = database.collection("plans");
-        const userCollection = database.collection("users");
-        const booingCollection = database.collection("bookings");
-        const additionalDocCollection = database.collection("additionalDocs");
-
-        // GET API
-        // plans
-        app.get('/plans', async (req, res) => {
-            const limit = parseInt(req.query.limit);
-            const page = parseInt(req.query.page) || 0;
-            const toSkip = limit * page;
-
-            const cursor = planCollection.find({});
-            const count = await cursor.count();
-
-            let plans;
-            if (limit) {
-                plans = await cursor.skip(toSkip).limit(limit).toArray();
-            }
-            else {
-                plans = await cursor.toArray();
-            }
-
-            res.send({
-                count,
-                plans
-            });
-        });
-
-        // GET single plan
-        app.get('/plans/:id', async (req, res) => {
-            const id = req.params.id;
-            const query = { _id: ObjectId(id) };
-            const result = await planCollection.findOne(query);
-            res.json(result);
-        });
-
-        // users
-        app.get('/users', async (req, res) => {
-            const cursor = userCollection.find({});
-            const users = await cursor.toArray();
-            res.send(users);
-        });
-
-        // user
-        app.get('/users/:userEmail', verifyToken, async (req, res) => {
-            const email = req.params.userEmail;
-            if (req.decodedUserEmail === email) {
-                const query = { email: email }
-                const result = await userCollection.findOne(query);
-                res.json(result);
-            }
-            else
-                res.status(401).json({ message: 'User not authorized' });
-        });
-
-        // Clients Quotes
-        app.get('/quotes', async (req, res) => {
-            const query = { docTypes: 'quotes' };
-            const cursor = additionalDocCollection.find(query);
-            const result = await cursor.toArray();
-            res.send(result);
-        });
-
-        // POST API
-        app.post('/plans', async (req, res) => {
-            const newPlan = req.body;
-            const result = await planCollection.insertOne(newPlan);
-            res.json(result);
-        });
-
-        // update or, upsert
-        app.put('/users', async (req, res) => {
-            const { user, planTicket } = req.body;
-            const query = { email: user.email };
-
-            // update
-            const result = await userCollection.updateOne(query, {
-                $set: {
-                    displayName: user.displayName,
-                    email: user.email,
-                    ordered: planTicket
-                }
-            }, {
-                upsert: true
-            });
-            res.json(result);
-        });
-
-        // post booking
-        app.post('/bookings', async (req, res) => {
-            const newBooking = req.body;
-            const result = await booingCollection.insertOne(newBooking);
-            res.json(result);
-        });
-
-        // get bookings
-        app.get('/bookings', async (req, res) => {
-            const cursor = booingCollection.find({});
-            const count = await cursor.count();
-            const results = await cursor.toArray();
-            res.send({ count, results });
-        });
-
-        // update booking
-        app.put('/bookings/:id', async (req, res) => {
-            const id = req.params.id;
-            const filter = { _id: ObjectId(id) };
-            const updateDocs = { $set: req.body };
-            const result = await booingCollection.updateOne(filter, updateDocs);
-            res.json(result);
-        });
-
-        // delete booking
-        app.delete('/bookings/:id', async (req, res) => {
-            const id = req.params.id;
-            const filter = { _id: ObjectId(id) };
-            const result = await booingCollection.deleteOne(filter);
-            res.json(result);
-        });
-    }
-    finally {
-        // await client.close();
-    }
-} */
-
-app.get('/', (req, res) => {
-    res.send('Running tourism server');
 });
 
 process.on("unhandledRejection", (err) => {
