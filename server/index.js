@@ -1,42 +1,33 @@
-const express = require('express');
-const { MongoClient } = require('mongodb');
-const ObjectId = require('mongodb').ObjectId;
-const cors = require('cors');
-const admin = require("firebase-admin");
-require('dotenv').config();
+const express = require("express");
+const dotenv = require("dotenv");
+const colors = require("colors");
+const cors = require("cors");
+
+const dbConnection = require("./utils/dbConnection");
+
+dotenv.config();
+
 const app = express();
 const port = process.env.PORT || 5000;
 
-// middleware
 app.use(cors());
 app.use(express.json());
 
-// firebase admin init
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_INFO);
+// database connection
+dbConnection.connectToServer((err) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
+    app.listen(port, () => {
+        console.log(colors.yellow.bold("Listening at port:"), port);
+    });
 });
 
 
-const uri = process.env.ATLAS_URL;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const verifyToken = async (req, res, next) => {
-    if (req.headers?.authorization?.startsWith('Bearer ')) {
-        const idToken = req.headers.authorization.split(' ')[1];
-        try {
-            const decodedUser = await admin.auth().verifyIdToken(idToken);
-            req.decodedUserEmail = decodedUser.email;
-        }
-        catch {
-            // if error found
-        }
-    }
-    next();
-}
-
-const run = async () => {
+/* const run = async () => {
     try {
         await client.connect();
         const database = client.db("tourism");
@@ -166,14 +157,15 @@ const run = async () => {
     finally {
         // await client.close();
     }
-}
-
-run().catch(console.dir);
+} */
 
 app.get('/', (req, res) => {
     res.send('Running tourism server');
 });
 
-app.listen(port, () => {
-    console.log('Listen at port:%d', port);
+process.on("unhandledRejection", (err) => {
+    console.error(err);
+    app.close(() => {
+        process.exit(1);
+    });
 });
