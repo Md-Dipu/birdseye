@@ -26,7 +26,11 @@ module.exports = {
         });
     },
 
-    getDb: function () {
+    db: function (collectionName) {
+        if (collectionName) {
+            return dbConnection.collection(collectionName);
+        }
+
         return dbConnection;
     },
 };
