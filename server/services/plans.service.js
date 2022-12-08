@@ -17,3 +17,22 @@ exports.getPlanByIdService = async (id) => {
 
     return planData;
 };
+
+/**
+ * Insert new plan on database
+ * 
+ * @typedef {object} plan
+ * @property {string} title - Plan title
+ * @property {string} description - Plan Description
+ * @property {string} imageURL - Plan front image url
+ * @property {number} rating - Plan user rating
+ * @property {number} tourDays - Total days of tour plan
+ * @property {number} cost - Coast of plan
+ * @property {data} startingDare - Starting date of tour
+ * 
+ * @param {plan} data
+ */
+exports.createNewPlanService = async (data) => {
+    const result = await db("plans").insertOne(data);
+    return result;
+};
