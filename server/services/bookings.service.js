@@ -75,3 +75,12 @@ exports.updateBookingByIdService = async (bookingId, data) => {
     });
     return result;
 };
+
+exports.deleteBookingByIdService = async (bookingId) => {
+    if (!ObjectId.isValid(bookingId)) {
+        throw new Error("Booking isn't valid.");
+    }
+
+    const result = await db("bookings").deleteOne({ _id: ObjectId(bookingId) });
+    return result;
+};

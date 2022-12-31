@@ -2,7 +2,8 @@ const {
     createNewBookingService,
     getAllBookingsService,
     getBookingByIdService,
-    updateBookingByIdService
+    updateBookingByIdService,
+    deleteBookingByIdService
 } = require("../services/bookings.service");
 
 exports.createNewBookingController = async (req, res) => {
@@ -76,6 +77,25 @@ exports.updateBookingByIdController = async (req, res) => {
         res.status(400).json({
             status: "fail",
             message: "Couldn't able to update booking",
+            error: error.message
+        });
+    }
+};
+
+exports.deleteBookingByIdController = async (req, res) => {
+    try {
+        const result = await deleteBookingByIdService(req.params.id);
+
+        res.status(200).json({
+            status: "success",
+            message: "Booking deleted successfully",
+            data: result
+        });
+
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            message: "Couldn't able to delete booking",
             error: error.message
         });
     }
