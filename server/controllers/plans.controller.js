@@ -12,7 +12,7 @@ exports.getAllPlansController = async (req, res) => {
             status: "success",
             message: "Plans data found successfully",
             data: result
-        })
+        });
 
     } catch (error) {
         res.status(400).json({
@@ -31,7 +31,7 @@ exports.getPlanByIdController = async (req, res) => {
             status: "success",
             message: "Plans data found successfully",
             data: result
-        })
+        });
 
     } catch (error) {
         res.status(400).json({
@@ -50,7 +50,7 @@ exports.createNewPlanController = async (req, res) => {
             status: "success",
             message: "Plans data inserted successfully",
             data: result
-        })
+        });
 
     } catch (error) {
         res.status(400).json({
