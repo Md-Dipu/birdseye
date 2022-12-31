@@ -53,3 +53,12 @@ exports.getAllBookingsService = async () => {
     const results = await db("bookings").find({}).toArray();
     return results;
 };
+
+exports.getBookingByIdService = async (bookingId) => {
+    if (!ObjectId.isValid(bookingId)) {
+        throw new Error("Booking isn't valid.");
+    }
+
+    const result = await db("bookings").findOne({ _id: ObjectId(bookingId) });
+    return result;
+};
