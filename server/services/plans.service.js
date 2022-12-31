@@ -25,7 +25,7 @@ exports.getPlanByIdService = async (id) => {
  * @property {string} name - Plan title
  * @property {string} description - Plan Description
  * @property {string} coverImageURL - Plan cover image 
- * @property {[string]} imageURLs - Plan images
+ * @property {string[]} imageURLs - Plan images
  * @property {number} price - Coast of plan
  * @property {number} rating - Plan users rating avg
  * @property {number} tourDays - Total days of tour plan
