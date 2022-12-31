@@ -8,6 +8,7 @@ router.route("/")
     .get(bookingsController.getAllBookingsController);
 
 router.route("/:id")
-    .get(bookingsController.getBookingByIdController);
+    .get(bookingsController.getBookingByIdController)
+    .patch(bookingsController.updateBookingByIdController);
 
 module.exports = router;

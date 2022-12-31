@@ -1,4 +1,9 @@
-const { createNewBookingService, getAllBookingsService, getBookingByIdService } = require("../services/bookings.service");
+const {
+    createNewBookingService,
+    getAllBookingsService,
+    getBookingByIdService,
+    updateBookingByIdService
+} = require("../services/bookings.service");
 
 exports.createNewBookingController = async (req, res) => {
     try {
@@ -52,6 +57,25 @@ exports.getBookingByIdController = async (req, res) => {
         res.status(400).json({
             status: "fail",
             message: "Couldn't able to find booking",
+            error: error.message
+        });
+    }
+};
+
+exports.updateBookingByIdController = async (req, res) => {
+    try {
+        const result = await updateBookingByIdService(req.params.id, req.body);
+
+        res.status(200).json({
+            status: "success",
+            message: "Booking updated successfully",
+            data: result
+        });
+
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            message: "Couldn't able to update booking",
             error: error.message
         });
     }

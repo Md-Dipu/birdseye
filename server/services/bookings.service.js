@@ -62,3 +62,16 @@ exports.getBookingByIdService = async (bookingId) => {
     const result = await db("bookings").findOne({ _id: ObjectId(bookingId) });
     return result;
 };
+
+exports.updateBookingByIdService = async (bookingId, data) => {
+    if (!ObjectId.isValid(bookingId)) {
+        throw new Error("Booking isn't valid.");
+    }
+
+    const result = await db("bookings").updateOne({
+        _id: ObjectId(bookingId)
+    }, {
+        $set: data
+    });
+    return result;
+};
