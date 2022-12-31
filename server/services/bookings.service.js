@@ -48,3 +48,8 @@ exports.createNewBookingService = async (data) => {
     const result = await db("bookings").insertOne(data);
     return result;
 };
+
+exports.getAllBookingsService = async () => {
+    const results = await db("bookings").find({}).toArray();
+    return results;
+};
