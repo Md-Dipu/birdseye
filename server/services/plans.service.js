@@ -21,19 +21,33 @@ exports.getPlanByIdService = async (id) => {
 /**
  * Insert new plan on database
  * 
- * @typedef {object} plan
- * @property {string} title - Plan title
+ * @typedef {object} Plan
+ * @property {string} name - Plan title
  * @property {string} description - Plan Description
- * @property {string} imageURL - Plan front image url
- * @property {number} rating - Plan user rating
+ * @property {string} coverImageURL - Plan cover image 
+ * @property {[string]} imageURLs - Plan images
+ * @property {number} price - Coast of plan
+ * @property {number} rating - Plan users rating avg
  * @property {number} tourDays - Total days of tour plan
- * @property {number} cost - Coast of plan
- * @property {data} startingDare - Starting date of tour
+ * @property {number} globalDiscount - In percentages
+ * @property {User} manager - Manager of this plan
+ * @property {[string, number] | null} promoCode - Special discount with promo code
+ * @property {Date} startingDate - Starting date of tour
+ * @property {Date} createdAt - creating time
+ * @property {Date} updatedAt - updating time
  * 
- * @param {plan} data
+ * @typedef {object} User
+ * @property {ObjectId} userId - User object id of mongodb
+ * @property {string} name - User name
+ * @property {string} email - User email
+ * @property {string} contactNumber - User contact number
+ * 
+ * @param {Plan} data
  * @returns {object} Inserting status from mongodb
  */
 exports.createNewPlanService = async (data) => {
+    data.createdAt = data.updatedAt = new Date();
+
     const result = await db("plans").insertOne(data);
     return result;
 };
