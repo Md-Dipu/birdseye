@@ -5,6 +5,7 @@ const cors = require("cors");
 
 const dbConnection = require("./utils/dbConnection");
 const plansRoutes = require("./routes/v1/plans.route");
+const bookingsRoutes = require("./routes/v1/bookings.route");
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/v1/plans", plansRoutes);
+app.use("/api/v1/bookings", bookingsRoutes);
 
 app.get("/", (req, res) => {
     res.status(200).json({
