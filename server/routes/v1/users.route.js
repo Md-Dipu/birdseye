@@ -3,6 +3,10 @@ const usersController = require("../../controllers/users.controller");
 
 const router = express.Router();
 
-router.route("/").put(usersController.createNewUserController);
+router.route("/")
+    .post(usersController.createNewUserController);
+
+router.route("/:email")
+    .patch(usersController.updateUserByEmailController);
 
 module.exports = router;

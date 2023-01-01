@@ -30,3 +30,16 @@ exports.createNewUserService = async (data) => {
     const result = await db("users").insertOne(data);
     return result;
 };
+
+/**
+ * Update user 
+ * 
+ * @param {string} email 
+ * @param {User} data 
+ * @returns {object} Updating response from mongodb
+ */
+exports.updateUserByEmailService = async (email, data) => {
+    data.updatedAt = new Date();
+    const result = await db("users").updateOne({ email }, { $set: data });
+    return result;
+};
