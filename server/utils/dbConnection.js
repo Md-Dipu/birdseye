@@ -1,10 +1,8 @@
 const { MongoClient } = require("mongodb");
-const dotenv = require("dotenv");
 const colors = require("colors");
+const config = require("../config/server.config");
 
-dotenv.config();
-
-const connectionString = process.env.LOCAL_URI;
+const connectionString = config.db.uri;
 const client = new MongoClient(connectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,

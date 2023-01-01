@@ -1,17 +1,15 @@
 const express = require("express");
-const dotenv = require("dotenv");
 const colors = require("colors");
 const cors = require("cors");
 
+const config = require("./config/server.config");
 const dbConnection = require("./utils/dbConnection");
 const plansRoutes = require("./routes/v1/plans.route");
 const bookingsRoutes = require("./routes/v1/bookings.route");
 const usersRoutes = require("./routes/v1/users.route");
 
-dotenv.config();
-
 const app = express();
-const port = process.env.PORT || 5000;
+const port = config.app.port;
 
 app.use(cors());
 app.use(express.json());
