@@ -1,8 +1,14 @@
 const { ObjectId } = require("mongodb");
 const { db } = require("../utils/dbConnection");
 
-exports.getAllPlansService = async () => {
-    const plans = await db("plans").find({}).toArray();
+exports.getAllPlansService = async (filters, queries) => {
+    const plans = await db("plans").find(filters)
+        .sort(queries.sortby)
+        .limit(queries.limit)
+        .skip(queries.skip)
+        .project(queries.fields)
+        .toArray();
+
     return plans;
 };
 

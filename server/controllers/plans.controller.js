@@ -3,10 +3,13 @@ const {
     getPlanByIdService,
     createNewPlanService
 } = require("../services/plans.service");
+const queryProcessor = require("../utils/queryProcessor");
 
 exports.getAllPlansController = async (req, res) => {
+    const [filters, queries] = queryProcessor(req.query);
+
     try {
-        const result = await getAllPlansService();
+        const result = await getAllPlansService(filters, queries);
 
         res.status(200).json({
             status: "success",
