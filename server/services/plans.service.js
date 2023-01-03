@@ -30,6 +30,7 @@ exports.getPlanByIdService = async (id) => {
  * 
  * @typedef {object} Plan
  * @property {string} name - Plan title
+ * @property {string} shortDescription - Plan short description
  * @property {string} description - Plan Description
  * @property {string} coverImageURL - Plan cover image 
  * @property {string[]} imageURLs - Plan images
