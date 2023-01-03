@@ -1,17 +1,17 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import Plan from '../../Shared/Plan/Plan';
+import { getPlans } from '../../../api/plansAPI';
 import Loading from '../../Shared/Loading/Loading';
+import Plan from '../../Shared/Plan/Plan';
 
 const ShowPlans = () => {
     const [plans, setPlans] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('https://birdeye-server.herokuapp.com/plans?limit=6')
+        getPlans('?status=active&sort=-views&limit=6&fields=name,shortDescription,coverImageURL,price,rating,tourDays,startingDate')
             .then(res => {
-                setPlans(res.data.plans);
+                setPlans(res.data.data);
             })
             .catch(error => console.warn(error))
             .then(() => setLoading(false));
@@ -27,7 +27,7 @@ const ShowPlans = () => {
             <Row xs={1} md={2} lg={3} className="g-4 mb-3">
                 {plans.map(plan => (
                     <Col key={plan._id}>
-                        <Plan plan={plan} />
+                        <Plan {...plan} />
                     </Col>
                 ))}
             </Row>
