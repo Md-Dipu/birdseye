@@ -39,6 +39,7 @@ exports.getPlanByIdService = async (id) => {
  * @property {User} manager - Manager of this plan
  * @property {[string, number] | null} promoCode - Special discount with promo code
  * @property {Date} startingDate - Starting date of tour
+ * @property {number} views - View counter
  * @property {Date} createdAt - creating time
  * @property {Date} updatedAt - updating time
  * 
