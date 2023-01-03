@@ -1,3 +1,4 @@
+const validator = require("validator");
 const { ObjectId } = require("mongodb");
 const { db } = require("../utils/dbConnection");
 
@@ -39,6 +40,7 @@ exports.getPlanByIdService = async (id) => {
  * @property {User} manager - Manager of this plan
  * @property {[string, number] | null} promoCode - Special discount with promo code
  * @property {Date} startingDate - Starting date of tour
+ * @property {'active' | 'inactive' | 'discontinued'} status - Current status of plan
  * @property {number} views - View counter
  * @property {Date} createdAt - creating time
  * @property {Date} updatedAt - updating time
@@ -53,7 +55,26 @@ exports.getPlanByIdService = async (id) => {
  * @returns {object} Inserting status from mongodb
  */
 exports.createNewPlanService = async (data) => {
-    data.createdAt = data.updatedAt = new Date();
+    // validate properties
+    if (!validator.isURL(data.coverImageURL)) {
+        new Error("Cover image url isn't valid");
+    }
+
+    data.imageURLs.forEach(url => {
+        if (!validator.isURL(url)) {
+            new Error("\"" + url + "\" isn't valid url");
+        }
+    });
+
+    if (!ObjectId.isValid(data.manager.userId) && !validator.isEmail(data.manager.email)) {
+        new Error("Manager's data isn't valid");
+    }
+
+    // setting default value
+    data.promoCode = null;
+    data.status = "active";
+    data.createdAt = new Date();
+    data.updatedAt = data.createdAt;
 
     const result = await db("plans").insertOne(data);
     return result;
