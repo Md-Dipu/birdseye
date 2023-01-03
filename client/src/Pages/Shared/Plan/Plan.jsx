@@ -6,41 +6,31 @@ import { useHistory } from 'react-router';
 import { backToTop } from '../../../utilities/utilities';
 
 const Plan = props => {
-    const { _id, title, description, img_url, rating, tourDays, cost, starting_date } = props.plan;
-
-    // get date string
-    const month = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
-    const date = new Date(starting_date);
-    const dateStr = `${month[date.getMonth()].substring(0, 3).toUpperCase()} ${date.getDate()}, ${date.getFullYear()}`;
-
-    // negivator
     const history = useHistory();
-    
-    // Styles
     const stylePill = 'border rounded-pill px-2 py-1';
 
     return (
         <Card>
-            <Card.Img variant="top" src={img_url} />
+            <Card.Img variant="top" src={props.coverImageURL} />
             <Card.Body>
-                <Card.Title>{title}</Card.Title>
+                <Card.Title>{props.name}</Card.Title>
                 <Card.Text style={{ color: '#626262' }}>
-                    {description}
+                    {props.shortDescription}
                 </Card.Text>
                 <div className="d-flex justify-content-between">
-                    <h6 className={stylePill}><FontAwesomeIcon icon={faClock} /> {tourDays} Day</h6>
-                    <h6 className={stylePill}><FontAwesomeIcon icon={faStar} /> {(rating || 0).toFixed(1)}</h6>
-                    <h6 className={stylePill}><FontAwesomeIcon icon={faDollarSign} /> {cost}</h6>
+                    <h6 className={stylePill}><FontAwesomeIcon icon={faClock} /> {props.tourDays} Day</h6>
+                    <h6 className={stylePill}><FontAwesomeIcon icon={faStar} /> {(props.rating).toFixed(1)}</h6>
+                    <h6 className={stylePill}><FontAwesomeIcon icon={faDollarSign} /> {props.price}</h6>
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
-                    <h4 className="text-uppercase">{dateStr}</h4>
-                    <Card.Link 
-                        as={Button} 
-                        variant="warning" 
+                    <h4 className="text-uppercase">{new Date(props.startingDate).toLocaleDateString()}</h4>
+                    <Card.Link
+                        as={Button}
+                        variant="warning"
                         className="text-uppercase"
                         onClick={() => {
                             backToTop();
-                            history.push(`/plans/${_id}`)
+                            history.push(`/plans/${props._id}`)
                         }}
                     >
                         details
