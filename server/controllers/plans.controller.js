@@ -14,7 +14,8 @@ exports.getAllPlansController = async (req, res) => {
         res.status(200).json({
             status: "success",
             message: "Plans data found successfully",
-            data: result
+            data: result.plans,
+            count: result.count
         });
 
     } catch (error) {

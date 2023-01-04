@@ -10,7 +10,9 @@ exports.getAllPlansService = async (filters, queries) => {
         .project(queries.fields)
         .toArray();
 
-    return plans;
+    const count = await db("plans").countDocuments(filters);
+
+    return { plans, count };
 };
 
 exports.getPlanByIdService = async (id) => {
