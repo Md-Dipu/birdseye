@@ -11,3 +11,8 @@ export const postPlan = async (data) => {
     const plan = await planAPI.post(data);
     return plan;
 };
+
+export const getPlanById = async (id) => {
+    const plan = await planAPI.get(`/${id}`);
+    return plan;
+};
