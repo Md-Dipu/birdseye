@@ -44,3 +44,13 @@ exports.updateUserByEmailService = async (email, data) => {
     const result = await db("users").updateOne({ email }, { $set: data });
     return result;
 };
+
+exports.getUserByEmailService = async (email) => {
+    const user = await db("users").findOne({ email });
+
+    if (user === null) {
+        throw new Error("User doesn't exists or email is wrong");
+    }
+
+    return user;
+};

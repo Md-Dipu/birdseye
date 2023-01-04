@@ -1,4 +1,8 @@
-const { createNewUserService, updateUserByEmailService } = require("../services/users.service");
+const {
+    createNewUserService,
+    updateUserByEmailService,
+    getUserByEmailService
+} = require("../services/users.service");
 
 exports.createNewUserController = async (req, res) => {
     try {
@@ -33,6 +37,25 @@ exports.updateUserByEmailController = async (req, res) => {
         res.status(400).json({
             status: "fail",
             message: "Couldn't able to update user",
+            error: error.message
+        });
+    }
+};
+
+exports.getUserByEmailController = async (req, res) => {
+    try {
+        const result = await getUserByEmailService(req.params.email);
+
+        res.status(200).json({
+            status: "success",
+            message: "User found successfully",
+            data: result
+        });
+
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            message: "Couldn't able to find user",
             error: error.message
         });
     }

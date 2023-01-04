@@ -7,6 +7,7 @@ router.route("/")
     .post(usersController.createNewUserController);
 
 router.route("/:email")
-    .patch(usersController.updateUserByEmailController);
+    .patch(usersController.updateUserByEmailController)
+    .get(usersController.getUserByEmailController);
 
 module.exports = router;
