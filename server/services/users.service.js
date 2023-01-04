@@ -1,3 +1,4 @@
+const validator = require("validator");
 const { db } = require("../utils/dbConnection");
 
 /**
@@ -23,7 +24,7 @@ exports.createNewUserService = async (data) => {
     data.createdAt = new Date();
     data.updatedAt = data.createdAt;
 
-    if (!data.email || await db("users").find({ email: data.email }).count() !== 0) {
+    if (!validator.isEmail(data.email) || await db("users").countDocuments({ email: data.email }) !== 0) {
         throw new Error("Email address isn't valid or this email address already exists.");
     }
 

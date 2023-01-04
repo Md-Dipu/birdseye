@@ -6,14 +6,14 @@ exports.createNewUserController = async (req, res) => {
 
         res.status(200).json({
             status: "success",
-            message: "User created/updated successfully",
+            message: "User created successfully",
             data: result
         });
 
     } catch (error) {
         res.status(400).json({
             status: "fail",
-            message: "Couldn't able to create/update user",
+            message: "Couldn't able to create user",
             error: error.message
         });
     }
