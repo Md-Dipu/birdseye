@@ -33,7 +33,7 @@ exports.getPlanByIdService = async (id) => {
  * @typedef {object} Plan
  * @property {string} name - Plan title
  * @property {string} shortDescription - Plan short description
- * @property {string} description - Plan Description
+ * @property {Description[]} description - Plan Description
  * @property {string} coverImageURL - Plan cover image 
  * @property {string[]} imageURLs - Plan images
  * @property {number} price - Coast of plan
@@ -47,6 +47,10 @@ exports.getPlanByIdService = async (id) => {
  * @property {number} views - View counter
  * @property {Date} createdAt - creating time
  * @property {Date} updatedAt - updating time
+ * 
+ * @typedef Description
+ * @property {string} title - Title of description
+ * @property {string} text - Description details text
  * 
  * @typedef {object} User
  * @property {ObjectId} userId - User object id of mongodb
@@ -63,22 +67,34 @@ exports.createNewPlanService = async (data) => {
         new Error("Cover image url isn't valid");
     }
 
-    data.imageURLs.forEach(url => {
-        if (!validator.isURL(url)) {
-            new Error("\"" + url + "\" isn't valid url");
-        }
-    });
-
     if (!ObjectId.isValid(data.manager.userId) && !validator.isEmail(data.manager.email)) {
         new Error("Manager's data isn't valid");
     }
 
     // setting default value
+    data.description = [];
     data.promoCode = null;
     data.status = "active";
     data.createdAt = new Date();
     data.updatedAt = data.createdAt;
 
     const result = await db("plans").insertOne(data);
+    return result;
+};
+
+/**
+ * Update Plan data on database
+ * 
+ * @param {Plan} data 
+ * @returns {object} Updating status
+ */
+exports.updatePlanByIdService = async (id, data) => {
+    data?.imageURLs.forEach(url => {
+        if (!validator.isURL(url)) {
+            new Error("\"" + url + "\" isn't valid url");
+        }
+    });
+
+    const result = await db("plans").updateOne({ _id: ObjectId(id) }, data);
     return result;
 };

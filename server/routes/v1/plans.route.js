@@ -7,6 +7,8 @@ router.route("/")
     .get(plansControllers.getAllPlansController)
     .post(plansControllers.createNewPlanController);
 
-router.route("/:id").get(plansControllers.getPlanByIdController);
+router.route("/:id")
+    .get(plansControllers.getPlanByIdController)
+    .patch(plansControllers.updatePlanByIdController);
 
 module.exports = router;

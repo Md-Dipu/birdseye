@@ -1,7 +1,8 @@
 const {
     getAllPlansService,
     getPlanByIdService,
-    createNewPlanService
+    createNewPlanService,
+    updatePlanByIdService
 } = require("../services/plans.service");
 const queryProcessor = require("../utils/queryProcessor");
 
@@ -60,6 +61,25 @@ exports.createNewPlanController = async (req, res) => {
         res.status(400).json({
             status: "fail",
             message: "Couldn't able to insert data",
+            error: error.message
+        });
+    }
+};
+
+exports.updatePlanByIdController = async (req, res) => {
+    try {
+        const result = await updatePlanByIdService(req.params.id, req.body);
+
+        res.status(200).json({
+            status: "success",
+            message: "Plans data updated successfully",
+            data: result
+        });
+
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            message: "Couldn't able to update data",
             error: error.message
         });
     }
