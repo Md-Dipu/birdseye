@@ -1,97 +1,69 @@
 import React, { useEffect, useState } from 'react';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router';
-import { addPlanDB } from '../../../utilities/API';
+import { storage } from '../../../config/Firebase/firebase.init';
 import { backToTop } from '../../../utilities/utilities';
-import { InfoModal, WarnModal } from '../../Shared/Modals/Modals';
 import InfoForm from '../InfoForm/InfoForm';
+import { postPlan } from '../../../api/plansAPI';
 
 const AddPlan = () => {
-    const [newPlan, setNewPlan] = useState({});
-    const [confirmAdding, setConfirmAdding] = useState(false);
-    const [showWarnModal, setShowWarnModal] = useState(false);
-    const [showSuccessModal, setShowSuccessModal] = useState(false);
-    const [showFailedModal, setShowFailedModal] = useState(false);
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        if (!data) return;
+
+        postPlan(data).then(res => console.log(res.data))
+            .catch(error => console.log(error.message));
+    }, [data]);
+
     const location = useLocation();
     if (!location.hash) {
         backToTop();
     }
-    const { register, handleSubmit, reset } = useForm();
-    const handleAddPlan = data => {
-        const { title, img_url, tourDays, rating, cost, starting_date, description } = data;
-        const getNewPlan = {
-            title,
-            description,
-            img_url,
-            rating: parseFloat(rating),
-            tourDays: parseInt(tourDays),
-            cost: parseFloat(cost),
-            starting_date
-        };
-        setNewPlan(getNewPlan);
-        setConfirmAdding(false);
-        setShowWarnModal(true);
-    }
 
-    // adding to database
-    useEffect(() => {
-        if (confirmAdding) {
-            addPlanDB(newPlan)
-                .then(res => {
-                    setShowSuccessModal(true);
-                    reset();
+    const { register, handleSubmit } = useForm();
+    const handleAddPlan = data => {
+        const fileRef = ref(storage, `images/plans/cover images/${data.image[0].name}`);
+        const uploadTask = uploadBytesResumable(fileRef, data.image[0]);
+        uploadTask.on(
+            'state_changed',
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log(`Upload is ${progress}% done`);
+            },
+            (error) => {
+                console.log(error.message);
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then(downloadUrl => {
+                    setData({
+                        name: data.name,
+                        shortDescription: data.shortDescription,
+                        coverImageURL: downloadUrl,
+                        price: parseFloat(data.price),
+                        tourDays: parseInt(data.tourDays),
+                        startingDate: data.startingDate
+                    });
                 })
-                .catch(error => showFailedModal(true));
-        }
-    }, [confirmAdding]); // eslint-disable-line react-hooks/exhaustive-deps
+            }
+        );
+    };
 
     return (
-        <>
-            {/* Confirmation Modal */}
-            <WarnModal
-                heading="Confirmation"
-                messageText="Are you sure to add a new new plan?"
-                buttonVariant="primary"
-                show={showWarnModal}
-                handleAction={() => {
-                    setConfirmAdding(true);
-                    setShowWarnModal(false);
-                }}
-                handleClose={() => setShowWarnModal(false)}
-            />
-
-            {/* Show success message */}
-            <InfoModal
-                heading="Success"
-                messageText="Process have completed successfully."
-                buttonVariant="success"
-                show={showSuccessModal}
-                handleClose={() => setShowSuccessModal(false)}
-            />
-
-            {/* Show Failed message */}
-            <InfoModal
-                heading="Failed"
-                messageText="Process have failed to complete."
-                buttonVariant="danger"
-                show={showFailedModal}
-                handleClose={() => setShowFailedModal(false)}
-            />
-
-            <Container className="my-3">
-                <Row>
-                    <Col xs={12} md={2} lg={3} />
-                    <Col xs={12} md={8} lg={6}>
-                        <InfoForm
-                            register={register}
-                            handleSubmit={handleSubmit}
-                            handleAddPlan={handleAddPlan}
-                        />
-                    </Col>
-                </Row>
-            </Container>
-        </>
+        <Container className="my-3">
+            <Row>
+                <Col xs={12} md={2} lg={3} />
+                <Col xs={12} md={8} lg={6}>
+                    <InfoForm
+                        register={register}
+                        handleSubmit={handleSubmit}
+                        onSubmit={handleAddPlan}
+                    />
+                </Col>
+            </Row>
+        </Container>
     );
 };
 
