@@ -29,8 +29,10 @@ const useFirebase = () => {
                     setUser(res.data.data);
                     setIsLoading(false);
                 }).catch(error => {
-                    console.log(error.message);
-                    setIsLoading(false);
+                    console.warn(error.message);
+                    signOut(auth)
+                        .then(() => { })
+                        .finally(() => setIsLoading(false));
                 });
             }
             else {
