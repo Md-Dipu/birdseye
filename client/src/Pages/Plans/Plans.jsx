@@ -1,39 +1,24 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Button, ButtonGroup, Col, Container, Row } from 'react-bootstrap';
-import { useHistory, useLocation } from 'react-router';
+import { Col, Container, Row } from 'react-bootstrap';
 import { backToTop } from '../../utilities/utilities';
-import Plan from '../Shared/Plan/Plan';
+import { getPlans } from '../../api/plansAPI';
+import Pagination from '../Shared/Pagination/Pagination';
 import Loading from '../Shared/Loading/Loading';
+import Plan from '../Shared/Plan/Plan';
 
 const Plans = () => {
     const [totalPlans, setTotalPlans] = useState(0);
     const [plans, setPlans] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
 
-    // pagination
-    const history = useHistory();
-    const location = useLocation();
-    const searchQueary = new URLSearchParams(location.search);
-    const currentPage = (parseInt(searchQueary.get('page')) - 1) || 0;
-    const setCurrentPage = pageNumber => {
-        searchQueary.set('page', String(pageNumber + 1));
-        location.search = searchQueary.toString();
-        history.push(location);
-    };
+    const limit = 12;
 
-    // backtotop
-    if (!location.hash) {
-        backToTop();
-    }
-
-    // plan per page
-    const limit = 9;
     useEffect(() => {
-        axios.get(`https://birdeye-server.herokuapp.com/plans?limit=${limit}&&page=${currentPage}`)
+        getPlans(`?status=active&limit=${limit}&page=${currentPage}&fields=name,shortDescription,coverImageURL,price,rating,tourDays,startingDate`)
             .then(res => {
                 setTotalPlans(res.data.count);
-                setPlans(res.data.plans);
+                setPlans(res.data.data);
                 backToTop();
             })
             .catch(error => console.warn(error))
@@ -50,24 +35,19 @@ const Plans = () => {
             <Row xs={1} md={2} lg={3} className="g-4 mb-4">
                 {plans.map(plan => (
                     <Col key={plan._id}>
-                        <Plan plan={plan} />
+                        <Plan {...plan} />
                     </Col>
                 ))}
             </Row>
             {limit < totalPlans && <div className="text-center my-3">
-                <ButtonGroup className="text-center">
-                    {[...Array(Math.ceil(totalPlans / limit)).keys()]
-                        .map(page => (
-                            <Button
-                                key={page}
-                                variant={page === currentPage ? 'primary' : 'outline-primary'}
-                                onClick={() => {
-                                    setLoading(true);
-                                    setCurrentPage(page);
-                                }}
-                            >{page + 1}</Button>
-                        ))}
-                </ButtonGroup>
+                <Pagination
+                    currentPage={currentPage}
+                    numberOfButtons={Math.ceil(totalPlans / limit)}
+                    changePage={page => {
+                        setLoading(true);
+                        setCurrentPage(page);
+                    }}
+                />
             </div>}
         </Container>
     );
