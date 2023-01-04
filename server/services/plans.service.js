@@ -67,12 +67,9 @@ exports.createNewPlanService = async (data) => {
         new Error("Cover image url isn't valid");
     }
 
-    if (!ObjectId.isValid(data.manager.userId) && !validator.isEmail(data.manager.email)) {
-        new Error("Manager's data isn't valid");
-    }
-
     // setting default value
     data.description = [];
+    data.rating = 0;
     data.promoCode = null;
     data.status = "active";
     data.createdAt = new Date();
@@ -94,6 +91,12 @@ exports.updatePlanByIdService = async (id, data) => {
             new Error("\"" + url + "\" isn't valid url");
         }
     });
+
+    if (data.manager) {
+        if (!ObjectId.isValid(data.manager.userId) && !validator.isEmail(data.manager.email)) {
+            new Error("Manager's data isn't valid");
+        }
+    }
 
     const result = await db("plans").updateOne({ _id: ObjectId(id) }, data);
     return result;
