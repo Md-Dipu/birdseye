@@ -4,7 +4,8 @@ const usersController = require("../../controllers/users.controller");
 const router = express.Router();
 
 router.route("/")
-    .post(usersController.createNewUserController);
+    .post(usersController.createNewUserController)
+    .get(usersController.getUsersController);
 
 router.route("/:email")
     .patch(usersController.updateUserByEmailController)

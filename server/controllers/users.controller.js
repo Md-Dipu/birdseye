@@ -1,8 +1,10 @@
 const {
     createNewUserService,
     updateUserByEmailService,
-    getUserByEmailService
+    getUserByEmailService,
+    getUsersService
 } = require("../services/users.service");
+const queryProcessor = require("../utils/queryProcessor");
 
 exports.createNewUserController = async (req, res) => {
     try {
@@ -56,6 +58,28 @@ exports.getUserByEmailController = async (req, res) => {
         res.status(400).json({
             status: "fail",
             message: "Couldn't able to find user",
+            error: error.message
+        });
+    }
+};
+
+exports.getUsersController = async (req, res) => {
+    const [filters, queries] = queryProcessor(req.query);
+
+    try {
+        const result = await getUsersService(filters, queries);
+
+        res.status(200).json({
+            status: "success",
+            message: "Users found successfully",
+            data: result.users,
+            count: result.count
+        });
+
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            message: "Couldn't able to find users",
             error: error.message
         });
     }

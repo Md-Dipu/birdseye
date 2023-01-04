@@ -54,3 +54,16 @@ exports.getUserByEmailService = async (email) => {
 
     return user;
 };
+
+exports.getUsersService = async (filters, queries) => {
+    const users = await db("users").find(filters)
+        .sort(queries.sortby)
+        .limit(queries.limit)
+        .skip(queries.skip)
+        .project(queries.fields)
+        .toArray();
+
+    const count = await db("users").countDocuments(filters);
+
+    return { users, count };
+};
