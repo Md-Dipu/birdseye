@@ -11,25 +11,25 @@ const Header = () => {
     return (
         <>
             <Navbar variant="dark" bg="dark" expand="lg" sticky="top">
-            <Container>
-                <Navbar.Brand as={Link} to="/">Birdeye</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="ms-auto">
-                    <Nav.Link as={Link} to="/">Home</Nav.Link>
-                    <Nav.Link as={Link} to="/plans">All Plans</Nav.Link>
-                    <Nav.Link as={Link} to="/about-us">About us</Nav.Link>
-                    {!user ?  <Nav.Link as={Button} variant="primary" className="text-white" onClick={() => history.push('/login')}><FontAwesomeIcon icon={faSignInAlt} /> Login</Nav.Link> :
-                    <NavDropdown title={<><FontAwesomeIcon icon={faUser} /> {user.displayName}</>} menuVariant="dark" id="basic-nav-dropdown">
-                        <NavDropdown.Item as={Link} to="/my-orders">My Orders</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="/manage-all-orders">Manage All Orders</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="/add-new-plan">Add a New Plan</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item as={Button} variant="link" onClick={logOut}><FontAwesomeIcon icon={faSignOutAlt} /> Log out</NavDropdown.Item>
-                    </NavDropdown>}
-                </Nav>
-                </Navbar.Collapse>
-            </Container>
+                <Container>
+                    <Navbar.Brand as={Link} to="/">Birdseye</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="ms-auto">
+                            <Nav.Link as={Link} to="/">Home</Nav.Link>
+                            <Nav.Link as={Link} to="/plans">All Plans</Nav.Link>
+                            <Nav.Link as={Link} to="/about-us">About us</Nav.Link>
+                            {!user ? <Nav.Link as={Button} variant="primary" className="text-white" onClick={() => history.push('/login')}><FontAwesomeIcon icon={faSignInAlt} /> Login</Nav.Link> :
+                                <NavDropdown title={<><FontAwesomeIcon icon={faUser} /> {user.displayName}</>} menuVariant="dark" id="basic-nav-dropdown">
+                                    <NavDropdown.Item as={Link} to="/my-orders">My Orders</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="/manage-all-orders">Manage All Orders</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="/add-new-plan">Add a New Plan</NavDropdown.Item>
+                                    <NavDropdown.Divider />
+                                    <NavDropdown.Item as={Button} variant="link" onClick={logOut}><FontAwesomeIcon icon={faSignOutAlt} /> Log out</NavDropdown.Item>
+                                </NavDropdown>}
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
             </Navbar>
         </>
     );
