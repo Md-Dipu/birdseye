@@ -8,6 +8,7 @@ import { backToTop } from '../../../utilities/utilities';
 const Plan = props => {
     const history = useHistory();
     const stylePill = 'border rounded-pill px-2 py-1';
+    const date = new Date(props.startingDate);
 
     return (
         <Card>
@@ -23,7 +24,7 @@ const Plan = props => {
                     <h6 className={stylePill}><FontAwesomeIcon icon={faDollarSign} /> {props.price}</h6>
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
-                    <h4 className="text-uppercase">{new Date(props.startingDate).toLocaleDateString()}</h4>
+                    <h4>{new Intl.DateTimeFormat(['ban', 'id']).format(date)}</h4>
                     <Card.Link
                         as={Button}
                         variant="warning"
