@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getAuth, signInWithPopup, signOut, GoogleAuthProvider, onAuthStateChanged, getIdToken } from "firebase/auth";
 import { firebaseAppInitializer } from "../config/Firebase/firebase.init";
+import { getUserByEmail } from '../api/usersAPI';
 
 // initialize firebase for this App
 firebaseAppInitializer();
@@ -24,7 +25,9 @@ const useFirebase = () => {
         const unsubscribed = onAuthStateChanged(auth, user => {
             if (user) {
                 getIdToken(user).then(idToken => localStorage.setItem('idToken', idToken));
-                setUser(user);
+                getUserByEmail(user.email).then(res => {
+                    setUser(res.data.data);
+                }).catch(error => console.log(error.message));
             }
             else {
                 setUser(null)
