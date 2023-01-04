@@ -27,12 +27,16 @@ const useFirebase = () => {
                 getIdToken(user).then(idToken => localStorage.setItem('idToken', idToken));
                 getUserByEmail(user.email).then(res => {
                     setUser(res.data.data);
-                }).catch(error => console.log(error.message));
+                    setIsLoading(false);
+                }).catch(error => {
+                    console.log(error.message);
+                    setIsLoading(false);
+                });
             }
             else {
                 setUser(null)
+                setIsLoading(false);
             }
-            setIsLoading(false);
         });
         return () => unsubscribed;
     }, [auth])
