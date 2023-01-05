@@ -1,9 +1,12 @@
 import React from 'react';
-import { Alert, Button, Container } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { Button, Container } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router';
 import { createUser, getUserByEmail } from '../../../api/usersAPI';
 import useAuth from '../../../hooks/useAuth';
 import { backToTop } from '../../../utilities/utilities';
+import QuickAlert from '../../Shared/QuickAlert/QuickAlert';
 
 const Login = () => {
     const { user, setUser, setIsLoading, signInUsingGoogle, logOut } = useAuth();
@@ -51,14 +54,14 @@ const Login = () => {
 
     return (
         <Container className="text-center py-4" style={{ minHeight: '50vh' }}>
-            {user && <Alert variant="success">
-                <h6>Signed in as {user.name}({user.email})</h6>
-            </Alert>}
+            {user && <QuickAlert variant="warning" heading="You're logged in already!" icon={<FontAwesomeIcon icon={faExclamationTriangle} />}>
+                Please logout to login from another account.
+            </QuickAlert>}
             <h5>Login with 3rd party</h5>
             <Button
                 variant={user ? "secondary" : "outline-primary"}
                 onClick={handleGoogleSignIn}
-                disabled={user !== null}
+                disabled={user}
             >Sign in with Google</Button>
         </Container>
     );
