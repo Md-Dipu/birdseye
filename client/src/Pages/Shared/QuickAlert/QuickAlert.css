@@ -1,0 +1,28 @@
+.be-custom-quick-alert {
+    max-width: 300px;
+    top: 60px;
+    animation: be-c-vanish 2s forwards 3s;
+    -webkit-animation: be-c-vanish 2s forwards 3s;
+}
+
+@keyframes be-c-vanish {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@-webkit-keyframes be-c-vanish {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        display: none;
+    }
+}
