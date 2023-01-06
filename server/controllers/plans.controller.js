@@ -4,10 +4,10 @@ const {
     createNewPlanService,
     updatePlanByIdService
 } = require("../services/plans.service");
-const queryProcessor = require("../utils/queryProcessor");
+const { queryParser } = require("../utils/queryParser");
 
 exports.getAllPlansController = async (req, res) => {
-    const [filters, queries] = queryProcessor(req.query);
+    const [filters, queries] = queryParser(req.query);
 
     try {
         const result = await getAllPlansService(filters, queries);

@@ -4,7 +4,7 @@ const {
     getUserByEmailService,
     getUsersService
 } = require("../services/users.service");
-const queryProcessor = require("../utils/queryProcessor");
+const { queryParser } = require("../utils/queryParser");
 
 exports.createNewUserController = async (req, res) => {
     try {
@@ -64,7 +64,7 @@ exports.getUserByEmailController = async (req, res) => {
 };
 
 exports.getUsersController = async (req, res) => {
-    const [filters, queries] = queryProcessor(req.query);
+    const [filters, queries] = queryParser(req.query);
 
     try {
         const result = await getUsersService(filters, queries);
