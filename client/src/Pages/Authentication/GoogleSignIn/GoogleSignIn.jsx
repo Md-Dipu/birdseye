@@ -18,7 +18,7 @@ const GoogleSignIn = ({ handleSavingUser, onError, ...rest }) => {
 
     return (
         <Button {...rest}
-            variant={user ? "secondary" : "outline-primary"}
+            variant={user ? "secondary" : "outline-secondary"}
             onClick={handleGoogleSignIn}
             disabled={user}
         >Sign in with Google</Button>
