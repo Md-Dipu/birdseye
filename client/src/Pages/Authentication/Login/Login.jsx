@@ -21,7 +21,7 @@ const Login = () => {
 
     const handleSavingUser = async (result) => {
         try {
-            const data = await getUserByEmail(result.user.email);
+            const data = await getUserByEmail(`/email/${result.user.email}`);
             setUser(data.data.data);
             history.push(redirectUrl);
 
@@ -38,7 +38,7 @@ const Login = () => {
                 logOut();
             }
 
-            const data = await getUserByEmail(newUserData.email);
+            const data = await getUserByEmail(`/email/${newUserData.email}`);
             setUser(data.data.data);
             history.push(redirectUrl);
         }

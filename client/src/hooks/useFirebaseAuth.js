@@ -25,7 +25,7 @@ const useFirebase = () => {
         const unsubscribed = onAuthStateChanged(auth, user => {
             if (user) {
                 getIdToken(user).then(idToken => localStorage.setItem('idToken', idToken));
-                getUserByEmail(user.email).then(res => {
+                getUserByEmail(`/email/${user.email}`).then(res => {
                     setUser(res.data.data);
                     setIsLoading(false);
                 }).catch(error => {
