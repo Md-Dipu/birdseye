@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationTriangle, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { Container } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router';
 import { createUser, getUserByEmail } from '../../../api/usersAPI';
@@ -10,6 +10,8 @@ import QuickAlert from '../../Shared/QuickAlert/QuickAlert';
 import GoogleSignIn from '../GoogleSignIn/GoogleSignIn';
 
 const Login = () => {
+    const [error, setError] = useState(null);
+
     const { user, setUser, logOut } = useAuth();
     const location = useLocation();
     const history = useHistory();
@@ -19,6 +21,11 @@ const Login = () => {
     if (!location.hash) {
         backToTop();
     }
+
+    const onError = (error) => {
+        setError(null);
+        setError(error);
+    };
 
     const handleSavingUser = async (result) => {
         try {
@@ -45,7 +52,11 @@ const Login = () => {
                 history.push(redirectUrl);
 
             } catch (error) {
-                console.warn(error.message);
+                onError({
+                    heading: 'Failed to login',
+                    message: error.message
+                });
+
                 logOut();
             }
         }
@@ -56,8 +67,10 @@ const Login = () => {
             {user && <QuickAlert variant="warning" heading="You're logged in already!" icon={<FontAwesomeIcon icon={faExclamationTriangle} />}>
                 Please logout to login from another account.
             </QuickAlert>}
-            <h5>Login with 3rd party</h5>
-            <GoogleSignIn handleSavingUser={handleSavingUser} />
+            {error && <QuickAlert variant="danger" heading={error.heading} icon={<FontAwesomeIcon icon={faExclamationCircle} />}>
+                {error.message}
+            </QuickAlert>}
+            <GoogleSignIn handleSavingUser={handleSavingUser} onError={onError} />
         </Container>
     );
 };

@@ -2,19 +2,22 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import useAuth from '../../../hooks/useAuth';
 
-const GoogleSignIn = ({ handleSavingUser }) => {
+const GoogleSignIn = ({ handleSavingUser, onError, ...rest }) => {
     const { user, signInUsingGoogle, setIsLoading } = useAuth();
 
     const handleGoogleSignIn = () => {
         setIsLoading(true);
         signInUsingGoogle()
             .then(handleSavingUser)
-            .catch(error => console.warn(error.message))
+            .catch(error => onError({
+                heading: 'Failed to login',
+                message: error.message
+            }))
             .finally(() => setIsLoading(false));
     };
 
     return (
-        <Button
+        <Button {...rest}
             variant={user ? "secondary" : "outline-primary"}
             onClick={handleGoogleSignIn}
             disabled={user}
