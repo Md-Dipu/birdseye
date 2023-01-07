@@ -7,7 +7,7 @@ router.route("/")
     .post(usersController.createNewUserController)
     .get(usersController.getUsersController);
 
-router.route("/:email")
+router.route("/email/:email")
     .patch(usersController.updateUserByEmailController)
     .get(usersController.getUserByEmailController);
 
