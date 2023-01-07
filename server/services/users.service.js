@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const validator = require("validator");
 const { db } = require("../utils/dbConnection");
 
@@ -35,13 +36,17 @@ exports.createNewUserService = async (data) => {
 /**
  * Update user 
  * 
- * @param {string} email 
- * @param {User} data 
+ * @param {ObjectId} id - User mongodb ObjectId
+ * @param {User} data - Updating data
  * @returns {object} Updating response from mongodb
  */
-exports.updateUserByEmailService = async (email, data) => {
+exports.updateUserByIdService = async (id, data) => {
+    if (!ObjectId.isValid(id)) {
+        throw new Error("ObjectId isn't valid.");
+    }
+
     data.updatedAt = new Date();
-    const result = await db("users").updateOne({ email }, { $set: data });
+    const result = await db("users").updateOne({ _id: ObjectId(id) }, { $set: data });
     return result;
 };
 

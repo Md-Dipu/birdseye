@@ -1,6 +1,6 @@
 const {
     createNewUserService,
-    updateUserByEmailService,
+    updateUserByIdService,
     getUserByEmailService,
     getUsersService
 } = require("../services/users.service");
@@ -25,9 +25,9 @@ exports.createNewUserController = async (req, res) => {
     }
 };
 
-exports.updateUserByEmailController = async (req, res) => {
+exports.updateUserByIdController = async (req, res) => {
     try {
-        const result = await updateUserByEmailService(req.params.email, req.body);
+        const result = await updateUserByIdService(req.params.id, req.body);
 
         res.status(200).json({
             status: "success",
