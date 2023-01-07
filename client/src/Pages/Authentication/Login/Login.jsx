@@ -1,15 +1,16 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import { Button, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router';
 import { createUser, getUserByEmail } from '../../../api/usersAPI';
 import useAuth from '../../../hooks/useAuth';
 import { backToTop } from '../../../utilities/utilities';
 import QuickAlert from '../../Shared/QuickAlert/QuickAlert';
+import GoogleSignIn from '../GoogleSignIn/GoogleSignIn';
 
 const Login = () => {
-    const { user, setUser, setIsLoading, signInUsingGoogle, logOut } = useAuth();
+    const { user, setUser, logOut } = useAuth();
     const location = useLocation();
     const history = useHistory();
     const redirectUrl = location.state?.from || '/';
@@ -33,24 +34,22 @@ const Login = () => {
                 newUserData.imageURL = result.user.photoURL;
             }
 
-            const res = await createUser(newUserData);
-            if (res.data.status === 'fail') {
+            try {
+                const res = await createUser(newUserData);
+                if (res.data.status === 'fail') {
+                    throw new Error('Unable to create user');
+                }
+
+                const data = await getUserByEmail(`/email/${newUserData.email}`);
+                setUser(data.data.data);
+                history.push(redirectUrl);
+
+            } catch (error) {
+                console.warn(error.message);
                 logOut();
             }
-
-            const data = await getUserByEmail(`/email/${newUserData.email}`);
-            setUser(data.data.data);
-            history.push(redirectUrl);
         }
     };
-
-    const handleGoogleSignIn = () => {
-        setIsLoading(true);
-        signInUsingGoogle()
-            .then(handleSavingUser)
-            .catch(error => console.warn(error.message))
-            .finally(() => setIsLoading(false));
-    }
 
     return (
         <Container className="text-center py-4" style={{ minHeight: '50vh' }}>
@@ -58,11 +57,7 @@ const Login = () => {
                 Please logout to login from another account.
             </QuickAlert>}
             <h5>Login with 3rd party</h5>
-            <Button
-                variant={user ? "secondary" : "outline-primary"}
-                onClick={handleGoogleSignIn}
-                disabled={user}
-            >Sign in with Google</Button>
+            <GoogleSignIn handleSavingUser={handleSavingUser} />
         </Container>
     );
 };
