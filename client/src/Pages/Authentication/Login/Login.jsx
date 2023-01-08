@@ -3,21 +3,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { Container } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router';
-import { createUser, getUserByEmail } from '../../../api/usersAPI';
 import useAuth from '../../../hooks/useAuth';
 import { backToTop } from '../../../utilities/utilities';
 import QuickAlert from '../../Shared/QuickAlert/QuickAlert';
 import GoogleSignIn from '../GoogleSignIn/GoogleSignIn';
+import LoginForm from '../LoginForm/LoginForm';
 
 const Login = () => {
     const [error, setError] = useState(null);
 
-    const { user, setUser, logOut } = useAuth();
+    const { user, handleSavingUser } = useAuth();
     const location = useLocation();
     const history = useHistory();
     const redirectUrl = location.state?.from || '/';
 
-    // back-to-top
     if (!location.hash) {
         backToTop();
     }
@@ -27,50 +26,26 @@ const Login = () => {
         setError(error);
     };
 
-    const handleSavingUser = async (result) => {
-        try {
-            const data = await getUserByEmail(`/email/${result.user.email}`);
-            setUser(data.data.data);
-            history.push(redirectUrl);
-
-        } catch (error) {
-            const newUserData = {};
-            newUserData.name = result.user.displayName;
-            newUserData.email = result.user.email;
-            if (result.user.photoURL) {
-                newUserData.imageURL = result.user.photoURL;
-            }
-
-            try {
-                const res = await createUser(newUserData);
-                if (res.data.status === 'fail') {
-                    throw new Error('Unable to create user');
-                }
-
-                const data = await getUserByEmail(`/email/${newUserData.email}`);
-                setUser(data.data.data);
-                history.push(redirectUrl);
-
-            } catch (error) {
-                onError({
-                    heading: 'Failed to login',
-                    message: error.message
-                });
-
-                logOut();
-            }
-        }
-    };
-
     return (
-        <Container className="text-center py-4" style={{ minHeight: '50vh' }}>
+        <Container className="py-4">
             {user && <QuickAlert variant="warning" heading="You're logged in already!" icon={<FontAwesomeIcon icon={faExclamationTriangle} />}>
                 Please logout to login from another account.
             </QuickAlert>}
             {error && <QuickAlert variant="danger" heading={error.heading} icon={<FontAwesomeIcon icon={faExclamationCircle} />}>
                 {error.message}
             </QuickAlert>}
-            <GoogleSignIn handleSavingUser={handleSavingUser} onError={onError} />
+            <div className="border p-4 mx-auto my-5 shadow-sm" style={{ maxWidth: 400 }}>
+                <LoginForm onError={onError} />
+                <div className="mt-4">
+                    <GoogleSignIn
+                        className="w-100"
+                        handleSavingUser={result => handleSavingUser(result,
+                            () => history.push(redirectUrl),
+                            onError)}
+                        onError={onError}
+                    />
+                </div>
+            </div>
         </Container>
     );
 };
