@@ -23,7 +23,7 @@ const GoogleSignIn = ({ onSuccess, onError, ...rest }) => {
             try {
                 const res = await createUser(newUserData);
                 if (res.data.status === 'fail') {
-                    throw new Error('Unable to create user');
+                    throw new Error(res.data.message);
                 }
 
                 const data = await getUserByEmail(`/email/${newUserData.email}`);
