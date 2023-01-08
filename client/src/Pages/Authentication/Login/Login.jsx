@@ -12,7 +12,7 @@ import LoginForm from '../LoginForm/LoginForm';
 const Login = () => {
     const [error, setError] = useState(null);
 
-    const { user, handleSavingUser } = useAuth();
+    const { user } = useAuth();
     const location = useLocation();
     const history = useHistory();
     const redirectUrl = location.state?.from || '/';
@@ -39,9 +39,7 @@ const Login = () => {
                 <div className="mt-4">
                     <GoogleSignIn
                         className="w-100"
-                        handleSavingUser={result => handleSavingUser(result,
-                            () => history.push(redirectUrl),
-                            onError)}
+                        onSuccess={() => history.push(redirectUrl)}
                         onError={onError}
                     />
                 </div>
