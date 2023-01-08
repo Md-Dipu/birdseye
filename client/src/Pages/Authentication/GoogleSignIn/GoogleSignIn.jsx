@@ -1,9 +1,45 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { createUser, getUserByEmail } from '../../../api/usersAPI';
 import useAuth from '../../../hooks/useAuth';
 
-const GoogleSignIn = ({ handleSavingUser, onError, ...rest }) => {
-    const { user, signInUsingGoogle, setIsLoading } = useAuth();
+const GoogleSignIn = ({ onSuccess, onError, ...rest }) => {
+    const { user, setUser, signInUsingGoogle, setIsLoading, logOut } = useAuth();
+
+    const handleSavingUser = async (result) => {
+        try {
+            const data = await getUserByEmail(`/email/${result.user.email}`);
+            setUser(data.data.data);
+            onSuccess();
+
+        } catch (error) {
+            const newUserData = {};
+            newUserData.name = result.user.displayName;
+            newUserData.email = result.user.email;
+            if (result.user.photoURL) {
+                newUserData.imageURL = result.user.photoURL;
+            }
+
+            try {
+                const res = await createUser(newUserData);
+                if (res.data.status === 'fail') {
+                    throw new Error('Unable to create user');
+                }
+
+                const data = await getUserByEmail(`/email/${newUserData.email}`);
+                setUser(data.data.data);
+                onSuccess();
+
+            } catch (error) {
+                onError({
+                    heading: 'Failed to login',
+                    message: error.message
+                });
+
+                logOut();
+            }
+        }
+    };
 
     const handleGoogleSignIn = () => {
         setIsLoading(true);
