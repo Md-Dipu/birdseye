@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getAuth, signInWithPopup, signOut, GoogleAuthProvider, onAuthStateChanged, getIdToken } from "firebase/auth";
 import { firebaseAppInitializer } from "../config/Firebase/firebase.init";
-import { getUserByEmail } from '../api/usersAPI';
+import { createUser, getUserByEmail } from '../api/usersAPI';
 
 // initialize firebase for this App
 firebaseAppInitializer();
@@ -51,7 +51,42 @@ const useFirebase = () => {
             .finally(() => setIsLoading(false));
     }
 
-    return { user, isLoading, setUser, setIsLoading, signInUsingGoogle, logOut };
+    const handleSavingUser = async (result, onSuccess, onError) => {
+        try {
+            const data = await getUserByEmail(`/email/${result.user.email}`);
+            setUser(data.data.data);
+            onSuccess();
+
+        } catch (error) {
+            const newUserData = {};
+            newUserData.name = result.user.displayName;
+            newUserData.email = result.user.email;
+            if (result.user.photoURL) {
+                newUserData.imageURL = result.user.photoURL;
+            }
+
+            try {
+                const res = await createUser(newUserData);
+                if (res.data.status === 'fail') {
+                    throw new Error('Unable to create user');
+                }
+
+                const data = await getUserByEmail(`/email/${newUserData.email}`);
+                setUser(data.data.data);
+                onSuccess();
+
+            } catch (error) {
+                onError({
+                    heading: 'Failed to login',
+                    message: error.message
+                });
+
+                logOut();
+            }
+        }
+    };
+
+    return { user, isLoading, setUser, setIsLoading, signInUsingGoogle, logOut, handleSavingUser };
 }
 
 export default useFirebase;
