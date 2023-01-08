@@ -1,28 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
-const LoginForm = () => {
-    const [isConfirm, setIsConfirm] = useState(false);
+const LoginForm = ({ onError }) => {
+    const formRef = useRef(null);
+    const { register, handleSubmit } = useForm();
+    const onSubmit = (data) => {
+        console.log(data);
+    };
+
+    useEffect(() => {
+        const element = formRef.current;
+
+        element.addEventListener('submit', handleSubmit(onSubmit));
+        return () => element.removeEventListener('submit', handleSubmit(onSubmit));
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <Form>
-            <div className="h4 bold text-center text-uppercase">Log in</div>
+        <Form ref={formRef}>
+            <div className="h4 bold text-center text-uppercase"><span className="text-primary">Log</span> in</div>
             <Form.Group className="mb-3">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" required />
+                <Form.Control type="email" placeholder="Enter email" {...register('email', { required: true })} />
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" required />
+                <Form.Control type="password" placeholder="Password" {...register('password', { required: true })} />
             </Form.Group>
-            <Form.Group className="mb-3">
-                <Form.Check onChange={e => setIsConfirm(e.target.checked)} type="checkbox" label="Are you agree with terms?" />
-            </Form.Group>
-            <Button variant="success" type="submit" size="sm" disabled={!isConfirm}>
+            <Button as={Link} to="/register" variant="link" className="mb-3 d-block px-0 text-decoration-none text-start">Don't have an account create now.</Button>
+            <Button variant="success" type="submit">
                 Log in
             </Button>{" "}
-            <Button variant="outline-secondary" type="reset" size="sm">
+            <Button variant="outline-secondary" type="reset">
                 Cancel
             </Button>
         </Form>
