@@ -4,8 +4,11 @@ import { faExclamationTriangle, faExclamationCircle } from '@fortawesome/free-so
 import { Container } from 'react-bootstrap';
 import QuickAlert from '../../Shared/QuickAlert/QuickAlert';
 import GoogleSignIn from '../GoogleSignIn/GoogleSignIn';
+import useAuth from '../../../hooks/useAuth';
 
-const AuthLayout = ({ children, user, error, onError, onSuccess }) => {
+const AuthLayout = ({ children, error, onError, onSuccess }) => {
+    const { user } = useAuth();
+
     return (
         <Container className="py-4">
             {user && <QuickAlert variant="warning" heading="You're logged in already!" icon={<FontAwesomeIcon icon={faExclamationTriangle} />}>
