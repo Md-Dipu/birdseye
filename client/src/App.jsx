@@ -13,6 +13,7 @@ import MyOrders from './Pages/MyOrders/MyOrders/MyOrders';
 import ManageAllOrders from './Pages/ManageAllOrders/ManageAllOrders/ManageAllOrders';
 import AboutUs from './Pages/AboutUs/AboutUs';
 import PlaceOrder from './Pages/PlaceOrder/PlaceOrder';
+import Register from './Pages/Authentication/Register/Register';
 
 function App() {
     return (
@@ -40,6 +41,9 @@ function App() {
                     </PrivateRoute>
                     <Route path="/about-us">
                         <AboutUs />
+                    </Route>
+                    <Route path="/register">
+                        <Register />
                     </Route>
                     <Route path="/login">
                         <Login />
