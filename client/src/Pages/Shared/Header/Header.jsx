@@ -19,7 +19,7 @@ const Header = () => {
                         <Nav.Link as={Link} to="/about-us">About us</Nav.Link>
                         {!user ? <>
                             <Nav.Link as={Link} to="/login" variant="link"><FontAwesomeIcon icon={faSignInAlt} /> Login</Nav.Link>
-                            <Nav.Link className="p-0">
+                            <Nav.Link as="li" className="p-0">
                                 <Button as={Link} variant="secondary" to="/register" className="rounded-pill">Register</Button>
                             </Nav.Link>
                         </> : <NavDropdown title={<><FontAwesomeIcon icon={faUser} /> {user.name}</>} menuVariant="dark" id="basic-nav-dropdown">
