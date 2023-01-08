@@ -29,7 +29,14 @@ const LoginForm = ({ onError }) => {
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Password" {...register('password', { required: true })} />
             </Form.Group>
-            <Button as={Link} to="/register" variant="link" className="mb-3 d-block px-0 text-decoration-none text-start">Don't have an account create now.</Button>
+            <Button
+                as={Link}
+                to="/register"
+                variant="link"
+                className="mb-3 d-block px-0 text-decoration-none text-start"
+            >
+                Don't have an account? Create now.
+            </Button>
             <Button variant="success" type="submit">
                 Log in
             </Button>{" "}
