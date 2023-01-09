@@ -3,13 +3,41 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { createUser } from '../../../api/usersAPI';
+import useAuth from '../../../hooks/useAuth';
 
 const RegistrationForm = ({ onError, onSuccess }) => {
     const [isConfirm, setIsConfirm] = useState(false);
 
+    const { user, setIsLoading, signUpUsingEmailAndPassword, updateUserOnFirebase, logOut } = useAuth();
     const { register, handleSubmit } = useForm();
-    const onSubmit = (data) => {
-        console.log(data);
+
+    const onSubmit = ({ name, email, password, contactNumber }) => {
+        setIsLoading(true);
+        createUser({ name, email, contactNumber }).then(async res => {
+            try {
+                if (res.data.status === 'fail') {
+                    throw new Error(res.data.message);
+                }
+
+                await signUpUsingEmailAndPassword(email, password);
+                await updateUserOnFirebase({ displayName: name });
+                onSuccess();
+
+            } catch (error) {
+                onError({
+                    heading: 'Failed to sign up',
+                    message: error.message
+                });
+
+                if (user) {
+                    logOut();
+                }
+            }
+        }).catch(({ message }) => onError({
+            heading: 'Failed to sign up',
+            message
+        })).finally(() => setIsLoading(false));
     };
 
     return (
