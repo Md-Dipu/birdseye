@@ -7,6 +7,7 @@ const dbConnection = require("./utils/dbConnection");
 const plansRoutes = require("./routes/v1/plans.route");
 const bookingsRoutes = require("./routes/v1/bookings.route");
 const usersRoutes = require("./routes/v1/users.route");
+const reviewsRoutes = require("./routes/v1/reviews.route");
 
 const app = express();
 const port = config.app.port;
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use("/api/v1/plans", plansRoutes);
 app.use("/api/v1/bookings", bookingsRoutes);
 app.use("/api/v1/users", usersRoutes);
+app.use("/api/v1/reviews", reviewsRoutes);
 
 app.get("/", (req, res) => {
     res.status(200).json({
