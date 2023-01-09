@@ -7,7 +7,8 @@ import {
     onAuthStateChanged,
     getIdToken,
     createUserWithEmailAndPassword,
-    updateProfile
+    updateProfile,
+    signInWithEmailAndPassword
 } from "firebase/auth";
 import { firebaseAppInitializer } from "../config/Firebase/firebase.init";
 import { getUserByEmail } from '../api/usersAPI';
@@ -36,6 +37,12 @@ const useFirebase = () => {
 
     const updateUserOnFirebase = (data) => {
         return updateProfile(auth.currentUser, data);
+    };
+
+    // log in using email and password
+    const logInUsingEmailAndPassword = (email, password) => {
+        setIsLoading(true);
+        return signInWithEmailAndPassword(auth, email, password);
     };
 
     // state change from firebase
@@ -77,6 +84,7 @@ const useFirebase = () => {
         signInUsingGoogle,
         signUpUsingEmailAndPassword,
         updateUserOnFirebase,
+        logInUsingEmailAndPassword,
         logOut
     };
 }

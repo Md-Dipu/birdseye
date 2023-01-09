@@ -1,25 +1,25 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 
-const LoginForm = ({ onError }) => {
-    const formRef = useRef(null);
+const LoginForm = ({ onError, onSuccess }) => {
+    const { setIsLoading, logInUsingEmailAndPassword } = useAuth();
     const { register, handleSubmit } = useForm();
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = ({ email, password }) => {
+        logInUsingEmailAndPassword(email, password)
+            .then(() => onSuccess())
+            .catch(({ message }) => onError({
+                heading: 'Failed to login',
+                message
+            }))
+            .finally(() => setIsLoading(false));
     };
 
-    useEffect(() => {
-        const element = formRef.current;
-
-        element.addEventListener('submit', handleSubmit(onSubmit));
-        return () => element.removeEventListener('submit', handleSubmit(onSubmit));
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
     return (
-        <Form ref={formRef}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div className="h4 bold text-center text-uppercase"><span className="text-primary">Log</span> in</div>
             <Form.Group className="mb-3">
                 <Form.Label>Email address</Form.Label>
@@ -43,7 +43,7 @@ const LoginForm = ({ onError }) => {
             <Button variant="outline-secondary" type="reset">
                 Cancel
             </Button>
-        </Form>
+        </form>
     );
 };
 
