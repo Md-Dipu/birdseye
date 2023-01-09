@@ -1,0 +1,46 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "start",
+			"path": "client",
+			"problemMatcher": [],
+			"label": "Start Client",
+			"detail": "react-scripts start"
+		},
+		{
+			"type": "npm",
+			"script": "build",
+			"path": "client",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Build Client",
+			"detail": "react-scripts build"
+		},
+		{
+			"type": "npm",
+			"script": "start",
+			"path": "server",
+			"problemMatcher": [],
+			"label": "Start Production Server",
+			"detail": "NODE_ENV=production node index.js"
+		},
+		{
+			"type": "npm",
+			"script": "start-local",
+			"path": "server",
+			"problemMatcher": [],
+			"label": "Start Local Server",
+			"detail": "NODE_ENV=local node index.js"
+		},
+		{
+			"type": "npm",
+			"script": "start-dev",
+			"path": "server",
+			"problemMatcher": [],
+			"label": "Start Development Server",
+			"detail": "NODE_ENV=dev nodemon index.js"
+		}
+	]
+}
