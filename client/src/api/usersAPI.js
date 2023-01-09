@@ -11,3 +11,8 @@ export const getUserByEmail = async (email) => {
     const user = await userAPI.get(`/${email}`);
     return user;
 };
+
+export const getUsers = async (extension) => {
+    const users = await userAPI.get(extension || '');
+    return users;
+};
