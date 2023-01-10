@@ -1,19 +1,21 @@
 import React from 'react';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Container, Pagination } from 'react-bootstrap';
 
-const Pagination = (props) => {
+const PaginationContainer = ({ numberOfButtons, currentPage, onClick, ...rest }) => {
     return (
-        <ButtonGroup className="text-center">
-            {[...Array(props.numberOfButtons).keys()]
-                .map(page => (
-                    <Button
-                        key={page}
-                        variant={(page + 1) === props.currentPage ? 'primary' : 'outline-primary'}
-                        onClick={() => props.changePage(page + 1)}
-                    >{page + 1}</Button>
-                ))}
-        </ButtonGroup>
+        <Container fluid {...rest}>
+            <Pagination className="justify-content-center">
+                {[...Array(numberOfButtons).keys()]
+                    .map(page => (
+                        <Pagination.Item
+                            key={page}
+                            active={(page + 1) === currentPage}
+                            onClick={() => onClick(page + 1)}
+                        >{page + 1}</Pagination.Item>
+                    ))}
+            </Pagination>
+        </Container>
     );
 };
 
-export default Pagination;
+export default PaginationContainer;
