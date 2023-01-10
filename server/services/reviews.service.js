@@ -45,3 +45,16 @@ exports.createNewReviewService = async (data) => {
     const result = db("reviews").insertOne(data);
     return result;
 };
+
+exports.getReviewsService = async (filters, queries) => {
+    const reviews = await db("reviews").find(filters)
+        .sort(queries.sortby)
+        .limit(queries.limit)
+        .skip(queries.skip)
+        .project(queries.fields)
+        .toArray();
+
+    const count = await db("reviews").countDocuments(filters);
+
+    return { reviews, count };
+};
