@@ -7,8 +7,8 @@ const { db } = require("../utils/dbConnection");
  * 
  * @typedef {object} Review
  * @property {"site" | "plan" | "manager"} to - Website review or plan
- * @property {ObjectId} planId - Reviewed plan id
- * @property {ObjectId} managerId - Reviewed manager id
+ * @property {string} planId - Reviewed plan id
+ * @property {string} managerId - Reviewed manager id
  * @property {string} message - Review message
  * @property {number} rating - Review rating out of 5
  * @property {User} user - Reviewer user
@@ -16,7 +16,7 @@ const { db } = require("../utils/dbConnection");
  * @property {Date} updatedAt - Updating time 
  * 
  * @typedef {object} User
- * @property {ObjectId} id - User ObjectId
+ * @property {string} id - User ObjectId
  * @property {string} name - User name
  * @property {string} email - User unique email address
  * 
@@ -35,7 +35,15 @@ exports.createNewReviewService = async (data) => {
         throw new Error("Manager id isn't valid");
     }
 
-    if (await db("reviews").countDocuments({ "user.id": data.user.id }) > 0) {
+    // checking existence 
+    let query = { to: data.to };
+    if (data.to === "plan") {
+        query.planId = data.planId;
+    } else if (data.to === "manager") {
+        query.managerId === data.managerId;
+    }
+
+    if (await db("reviews").countDocuments({ ...query, "user.id": data.user.id }) > 0) {
         throw new Error("Already reviewed by user:" + data.user.id);
     }
 
