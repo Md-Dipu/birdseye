@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import { Carousel, Col, Container, Row } from 'react-bootstrap';
 import { getPlans } from '../../../api/plansAPI';
+import { getReviews } from '../../../api/reviewsAPI';
 import { getUsers } from '../../../api/usersAPI';
 
 const reducer = (state, action) => {
@@ -12,7 +13,7 @@ const reducer = (state, action) => {
             return { ...state, users: action.value };
 
         case 'set-high-rated-reviews-count':
-            return { ...state, highRatedReviews: action.value };
+            return { ...state, highRatedSiteReviews: action.value };
 
         case 'set-high-5-views':
             return { ...state, high5Reviews: action.value };
@@ -43,6 +44,16 @@ const HappyClient = () => {
                     value: (await getUsers('?role=user&fields=_id')).data.count
                 });
 
+                dispatch({
+                    type: 'set-high-rated-reviews-count',
+                    value: (await getReviews('?to=site&rating[gte]=3&fields=_id')).data.count
+                });
+
+                dispatch({
+                    type: 'set-high-5-views',
+                    value: (await getReviews('?to=site&rating[gte]=3&sort=-rating&limit=5&fields=message,user.name')).data.data
+                });
+
             } catch (error) {
                 console.warn(error.message)
             }
@@ -69,9 +80,9 @@ const HappyClient = () => {
                 </Col>
                 <Col className="shadow rounded d-flex">
                     <Carousel variant="dark" controls={false} className="p-3 text-center">
-                        {state.high5Reviews.map((quote, _idx) => <Carousel.Item key={_idx}>
-                            <h4>{quote.clientName}</h4>
-                            <blockquote className="fst-italic fs-5">"{quote.quote}"</blockquote>
+                        {state.high5Reviews.map((review) => <Carousel.Item key={review._id}>
+                            <h4>{review.user.name}</h4>
+                            <blockquote className="fst-italic fs-5">"{review.message}"</blockquote>
                         </Carousel.Item>)}
                     </Carousel>
                 </Col>
