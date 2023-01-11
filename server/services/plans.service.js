@@ -20,9 +20,9 @@ exports.getPlanByIdService = async (id) => {
         throw new Error("Plan Id isn't valid");
     }
 
-    const planData = await db("plans").findOne({
+    const planData = await db("plans").findOneAndUpdate({
         _id: ObjectId(id)
-    });
+    }, { $inc: { views: 1 } });
 
     return planData;
 };
