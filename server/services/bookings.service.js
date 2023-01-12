@@ -5,11 +5,11 @@ const { db } = require("../utils/dbConnection");
  * Insert new booking on database
  * 
  * @typedef {object} Booking
- * @property {ObjectId} planId - Plan object id of mongodb
+ * @property {string} planId - Plan object id of mongodb
  * @property {string} planName - Name of plan
  * @property {number} price - Cost of per ticket
  * @property {number} quantity - Number of tickets 
- * @property {number} cost - Products of prices of tickets
+ * @property {number} payableAmount - Sum of prices of tickets
  * @property {number} discount - In percentages
  * @property {User} user - Booking placer user
  * @property {Payment | null} payment - Booking payment
@@ -18,13 +18,13 @@ const { db } = require("../utils/dbConnection");
  * @property {Date} updatedAt - updating time
  * 
  * @typedef {object} User
- * @property {ObjectId} userId - User object id of mongodb
+ * @property {string} userId - User object id of mongodb
  * @property {string} name - User name
  * @property {string} email - User email
  * @property {string} contactNumber - User contact number
  * 
  * @typedef {object} Payment
- * @property {ObjectId} paymentId - Payment object id of mongodb 
+ * @property {string} paymentId - Payment object id of mongodb 
  * @property {number} amount - Payment amount
  * 
  * @typedef {object} Cancelation
