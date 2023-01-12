@@ -50,7 +50,7 @@ exports.getPlanByIdService = async (id) => {
  * 
  * @typedef Description
  * @property {string} title - Title of description
- * @property {string} text - Description details text
+ * @property {string} contentText - Description details text
  * 
  * @typedef {object} User
  * @property {ObjectId} userId - User object id of mongodb
