@@ -8,12 +8,29 @@ const Search = ({ text }) => {
     const textRef = useRef(null);
     const sortRef = useRef(null);
     const history = useHistory();
-    const handleSearch = () => history.replace(`?search=${textRef.current.value}&sort=${sortRef.current.value}`);
+
+    const handleSearch = () => {
+        let str = '?';
+        if (textRef.current.value) {
+            str += `search=${textRef.current.value}`;
+        }
+        if (sortRef.current.value) {
+            if (textRef.current.value) str += '&';
+            str += `sort=${sortRef.current.value}`;
+        }
+
+        history.replace(str);
+    }
+
+    const onSubmit = e => {
+        e.preventDefault();
+        handleSearch();
+    }
 
     return (
         <Row className="my-4 justify-content-center">
             <Col md="10" lg="8">
-                <Form onSubmit={e => { e.preventDefault(); handleSearch(); }} className="mb-3">
+                <Form onSubmit={onSubmit} className="mb-3">
                     <InputGroup size="sm">
                         <Form.Select ref={sortRef} onChange={handleSearch}>
                             <option value="">Default</option>
