@@ -12,7 +12,7 @@ import AddPlan from './Pages/AddPlan/MainForm/AddPlan';
 import MyOrders from './Pages/MyOrders/MyOrders/MyOrders';
 import ManageAllOrders from './Pages/ManageAllOrders/ManageAllOrders/ManageAllOrders';
 import AboutUs from './Pages/AboutUs/AboutUs';
-import PlaceOrder from './Pages/PlaceOrder/PlaceOrder';
+import PlaceOrder from './Pages/PlaceOrder/Container/PlaceOrder';
 import Register from './Pages/Authentication/Register/Register';
 
 function App() {
@@ -27,9 +27,9 @@ function App() {
                     <Route exact path="/plans">
                         <Plans />
                     </Route>
-                    <PrivateRoute path="/plans/:planId">
+                    <Route path="/plans/:planId">
                         <PlaceOrder />
-                    </PrivateRoute>
+                    </Route>
                     <PrivateRoute path="/my-orders">
                         <MyOrders />
                     </PrivateRoute>
