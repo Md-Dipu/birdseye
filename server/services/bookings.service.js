@@ -7,6 +7,7 @@ const { db } = require("../utils/dbConnection");
  * @typedef {object} Booking
  * @property {string} planId - Plan object id of mongodb
  * @property {string} planName - Name of plan
+ * @property {string} coverImageURL - Cover image of plan
  * @property {number} price - Cost of per ticket
  * @property {number} quantity - Number of tickets 
  * @property {number} payableAmount - Sum of prices of tickets
