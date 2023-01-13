@@ -31,7 +31,10 @@ const PlaceOrder = () => {
     return (
         <Container>
             <Banner handleShowForm={setShowForm} {...data} />
-            <PlaceOrderForm show={showForm} />
+            {showForm && <PlaceOrderForm
+                onClose={() => setShowForm(false)}
+                {...data}
+            />}
         </Container>
     );
 };
