@@ -1,12 +1,14 @@
 import React from 'react';
-import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import useAuth from '../../../hooks/useAuth';
+import DashboardMenu from '../../Dashboard/DashboardMenu/DashboardMenu';
+import AuthNavMenu from '../../Authentication/AuthNavMenu/AuthNavMenu';
 
 const Header = () => {
-    const { user, logOut } = useAuth();
+    const { user } = useAuth();
     return (
         <Navbar variant="dark" bg="dark" expand="lg">
             <Container>
@@ -15,6 +17,7 @@ const Header = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
+                        {user && <DashboardMenu />}
                         <Nav.Link as={Link} to="/plans">Plans</Nav.Link>
                         <Nav.Link as={Link} to="/about-us">About us</Nav.Link>
                         {!user ? <>
@@ -22,13 +25,7 @@ const Header = () => {
                             <Nav.Link as="li" className="p-0">
                                 <Button as={Link} variant="secondary" to="/register" className="rounded-pill">Register</Button>
                             </Nav.Link>
-                        </> : <NavDropdown title={<><FontAwesomeIcon icon={faUser} /> {user.name}</>} menuVariant="dark" id="basic-nav-dropdown">
-                            <NavDropdown.Item as={Link} to="/my-orders">My Orders</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/manage-all-orders">Manage All Orders</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/add-new-plan">Add a New Plan</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item as={Button} variant="link" onClick={logOut}><FontAwesomeIcon icon={faSignOutAlt} /> Log out</NavDropdown.Item>
-                        </NavDropdown>}
+                        </> : <AuthNavMenu />}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
