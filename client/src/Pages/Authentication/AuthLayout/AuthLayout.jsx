@@ -19,7 +19,9 @@ const AuthLayout = ({ children, error, onError }) => {
     }
 
     if (user) {
-        history.push(redirectUrl);
+        setTimeout(() => {
+            history.push(redirectUrl);
+        });
     }
 
     return (
