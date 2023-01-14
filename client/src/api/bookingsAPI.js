@@ -6,3 +6,8 @@ export const createBooking = async (data) => {
     const booking = bookingAPI.post(data);
     return booking;
 };
+
+export const getBookings = async (extension) => {
+    const bookings = await bookingAPI.get(extension || '');
+    return bookings;
+};
