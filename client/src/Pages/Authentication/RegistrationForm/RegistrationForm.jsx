@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { createUser } from '../../../api/usersAPI';
 import useAuth from '../../../hooks/useAuth';
 
-const RegistrationForm = ({ onError, onSuccess }) => {
+const RegistrationForm = ({ onError }) => {
     const [isConfirm, setIsConfirm] = useState(false);
 
     const { user, setIsLoading, signUpUsingEmailAndPassword, updateUserOnFirebase, logOut } = useAuth();
@@ -22,7 +22,6 @@ const RegistrationForm = ({ onError, onSuccess }) => {
 
                 await signUpUsingEmailAndPassword(email, password);
                 await updateUserOnFirebase({ displayName: name });
-                onSuccess();
 
             } catch (error) {
                 onError({

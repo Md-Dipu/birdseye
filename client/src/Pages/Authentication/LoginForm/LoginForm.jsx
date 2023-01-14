@@ -5,12 +5,12 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 
-const LoginForm = ({ onError, onSuccess }) => {
+const LoginForm = ({ onError }) => {
     const { setIsLoading, logInUsingEmailAndPassword } = useAuth();
     const { register, handleSubmit } = useForm();
     const onSubmit = ({ email, password }) => {
         logInUsingEmailAndPassword(email, password)
-            .then(() => onSuccess())
+            .then(() => { })
             .catch(({ message }) => onError({
                 heading: 'Failed to login',
                 message

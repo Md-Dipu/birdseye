@@ -3,14 +3,13 @@ import { Button } from 'react-bootstrap';
 import { createUser, getUserByEmail } from '../../../api/usersAPI';
 import useAuth from '../../../hooks/useAuth';
 
-const GoogleSignIn = ({ onSuccess, onError, ...rest }) => {
+const GoogleSignIn = ({ onError, ...rest }) => {
     const { user, setUser, signInUsingGoogle, setIsLoading, logOut } = useAuth();
 
     const handleSavingUser = async (result) => {
         try {
             const data = await getUserByEmail(`/email/${result.user.email}`);
             setUser(data.data.data);
-            onSuccess();
 
         } catch (error) {
             const newUserData = {};
@@ -28,7 +27,6 @@ const GoogleSignIn = ({ onSuccess, onError, ...rest }) => {
 
                 const data = await getUserByEmail(`/email/${newUserData.email}`);
                 setUser(data.data.data);
-                onSuccess();
 
             } catch (error) {
                 onError({

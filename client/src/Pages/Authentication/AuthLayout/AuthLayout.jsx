@@ -5,9 +5,22 @@ import { Container } from 'react-bootstrap';
 import QuickAlert from '../../Shared/QuickAlert/QuickAlert';
 import GoogleSignIn from '../GoogleSignIn/GoogleSignIn';
 import useAuth from '../../../hooks/useAuth';
+import { useHistory, useLocation } from 'react-router-dom';
+import { backToTop } from '../../../utilities/utilities';
 
-const AuthLayout = ({ children, error, onError, onSuccess }) => {
+const AuthLayout = ({ children, error, onError }) => {
     const { user } = useAuth();
+    const location = useLocation();
+    const history = useHistory();
+    const redirectUrl = location.state?.from || '/';
+
+    if (!location.hash) {
+        backToTop();
+    }
+
+    if (user) {
+        history.push(redirectUrl);
+    }
 
     return (
         <Container className="py-4">
@@ -22,7 +35,6 @@ const AuthLayout = ({ children, error, onError, onSuccess }) => {
                 <div className="mt-4">
                     <GoogleSignIn
                         className="w-100"
-                        onSuccess={onSuccess}
                         onError={onError}
                     />
                 </div>
