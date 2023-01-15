@@ -11,3 +11,8 @@ export const getBookings = async (extension) => {
     const bookings = await bookingAPI.get(extension || '');
     return bookings;
 };
+
+export const getBookingById = async (bookingId) => {
+    const booking = await bookingAPI.get(`/${bookingId}`);
+    return booking;
+};
