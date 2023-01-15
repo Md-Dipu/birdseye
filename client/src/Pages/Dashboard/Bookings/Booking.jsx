@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import './Booking.css';
 
 const Booking = (props) => {
     return (
-        <Card className="mb-3 overflow-hidden" style={{ width: '49%' }}>
+        <Card className="mb-3 overflow-hidden be-booking-card">
             <Card.Body className="p-2">
                 <div className="d-flex">
                     <img

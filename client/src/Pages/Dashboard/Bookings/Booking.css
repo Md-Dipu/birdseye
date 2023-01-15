@@ -1,0 +1,9 @@
+.be-booking-card {
+    width: calc(50% - .5rem);
+}
+
+@media only screen and (max-width: 992px) {
+    .be-booking-card {
+        width: 100%;
+    }
+}
