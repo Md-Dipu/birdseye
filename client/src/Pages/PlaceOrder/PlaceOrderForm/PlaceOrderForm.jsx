@@ -16,6 +16,7 @@ const PlaceOrderForm = ({ onClose, ...data }) => {
             price: data.price,
             quantity,
             payableAmount: data.payable * quantity,
+            discount: data.globalDiscount,
             user: {
                 userId: user._id,
                 name: user.name,
