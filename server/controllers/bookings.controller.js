@@ -35,7 +35,8 @@ exports.getAllBookingsController = async (req, res) => {
         res.status(200).json({
             status: "success",
             message: "Bookings found successfully",
-            data: result
+            data: result.bookings,
+            count: result.count
         });
 
     } catch (error) {

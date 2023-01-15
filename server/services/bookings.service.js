@@ -51,14 +51,16 @@ exports.createNewBookingService = async (data) => {
 };
 
 exports.getAllBookingsService = async (filters, queries) => {
-    const results = await db("bookings").find(filters)
+    const bookings = await db("bookings").find(filters)
         .sort(queries.sortby)
         .limit(queries.limit)
         .skip(queries.skip)
         .project(queries.fields)
         .toArray();
 
-    return results;
+    const count = await db("bookings").countDocuments(filters);
+
+    return { bookings, count };
 };
 
 exports.getBookingByIdService = async (bookingId) => {
