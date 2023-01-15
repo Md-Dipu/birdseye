@@ -18,7 +18,7 @@ const Booking = (props) => {
                         <Card.Subtitle as={Link} to={`/plans/${props.planId}`} className="text-decoration-none text-secondary fw-bold">{props.planName}</Card.Subtitle>
                         <Card.Subtitle className="text-secondary">Cost: ${props.payableAmount.toFixed(2)}</Card.Subtitle>
                         <Card.Subtitle className="text-secondary">Quantity: {props.quantity}</Card.Subtitle>
-                        <Button variant="link" size="sm" className="px-0">View details</Button>
+                        <Button variant="link" size="sm" className="px-0" onClick={props.onClick}>View details</Button>
                     </div>
                 </div>
             </Card.Body>
