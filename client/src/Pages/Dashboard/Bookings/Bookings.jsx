@@ -17,14 +17,14 @@ const Bookings = () => {
     const limit = 12;
 
     useEffect(() => {
-        getBookings(`?user.userId=${user._id}&limit=${limit}&`)
+        getBookings(`?user.userId=${user._id}&limit=${limit}&page=${currentPage}&fields=planId,planName,coverImageURL,quantity,payableAmount`)
             .then(res => {
                 setDate(res.data.data);
                 setTotalData(res.data.count);
             })
             .catch(console.warn)
             .finally(() => setIsLoading(false));
-    }, [user]);
+    }, [user, currentPage]);
 
     if (isLoading) {
         <Loading height="60" />
