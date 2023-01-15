@@ -2,6 +2,7 @@ import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { scrollToSectionStart } from '../../../utilities/utilities';
 
 const Footer = () => {
     const { register, handleSubmit, reset } = useForm();
@@ -14,11 +15,11 @@ const Footer = () => {
             <Container>
                 <Row xs={1} md={2}>
                     <Col>
-                        <h3>About Birdeye</h3>
+                        <h3>About Birdseye</h3>
                         <p style={{ color: '#626262' }}>Birdeye is one of the most popular travel agenci in Bangladesh. Because of services and awesome plans. If you want to join our next tour book one or more tickets now. If your have any question please contact us.</p>
                     </Col>
                     <Col>
-                        <Row  xs={1} md={2}>
+                        <Row xs={1} md={2}>
                             <Col>
                                 <h4>Quick Link</h4>
                                 <ul type="square" className="text-decoration-none">
@@ -26,13 +27,10 @@ const Footer = () => {
                                     <li><Link to="/plans" className="text-decoration-none">Plans</Link></li>
                                     <li><Link to="/about-us" className="text-decoration-none">About</Link></li>
                                     <li>
-                                        <Link 
-                                            to="/about-us#contact" 
+                                        <Link
+                                            to="/about-us#contact"
                                             className="text-decoration-none"
-                                            onClick={() => 
-                                                setTimeout(() => 
-                                                    document.getElementById('contact')
-                                                        .scrollIntoView({ block: "start" }))}
+                                            onClick={scrollToSectionStart('contact')}
                                         >Contact</Link>
                                     </li>
                                 </ul>
