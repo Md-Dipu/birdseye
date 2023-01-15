@@ -5,16 +5,23 @@ import Loading from '../../Shared/Loading/Loading';
 import useAuth from '../../../hooks/useAuth';
 import Booking from './Booking';
 import SideBanner from './SideBanner';
+import Pagination from '../../Shared/Pagination/Pagination';
 
 const Bookings = () => {
     const [data, setDate] = useState([]);
+    const [totalData, setTotalData] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
 
     const { user } = useAuth();
+    const limit = 12;
 
     useEffect(() => {
-        getBookings(`?user.userId=${user._id}`)
-            .then(res => setDate(res.data.data))
+        getBookings(`?user.userId=${user._id}&limit=${limit}&`)
+            .then(res => {
+                setDate(res.data.data);
+                setTotalData(res.data.count);
+            })
             .catch(console.warn)
             .finally(() => setIsLoading(false));
     }, [user]);
@@ -26,8 +33,16 @@ const Bookings = () => {
     return (
         <Container>
             <Row>
-                <Col xs="12" md="8" className="mt-3 d-flex flex-wrap justify-content-between">
-                    {data.map(booking => <Booking key={booking._id} {...booking} />)}
+                <Col xs="12" md="8" className="mt-3">
+                    <div className="h5 text-uppercase">All bookings</div>
+                    <div className="d-flex flex-wrap justify-content-between">
+                        {data.map(booking => <Booking key={booking._id} {...booking} />)}
+                    </div>
+                    {(totalData > limit) && <Pagination
+                        numberOfButtons={Math.ceil(totalData / limit)}
+                        currentPage={currentPage}
+                        onClick={setCurrentPage}
+                    />}
                 </Col>
                 <Col xs="12" md="4" className="mt-3">
                     <SideBanner />
