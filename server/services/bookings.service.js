@@ -50,8 +50,14 @@ exports.createNewBookingService = async (data) => {
     return result;
 };
 
-exports.getAllBookingsService = async () => {
-    const results = await db("bookings").find({}).toArray();
+exports.getAllBookingsService = async (filters, queries) => {
+    const results = await db("bookings").find(filters)
+        .sort(queries.sortby)
+        .limit(queries.limit)
+        .skip(queries.skip)
+        .project(queries.fields)
+        .toArray();
+
     return results;
 };
 

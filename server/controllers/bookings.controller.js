@@ -5,6 +5,7 @@ const {
     updateBookingByIdService,
     deleteBookingByIdService
 } = require("../services/bookings.service");
+const { queryParser } = require("../utils/queryParser");
 
 exports.createNewBookingController = async (req, res) => {
     try {
@@ -26,8 +27,10 @@ exports.createNewBookingController = async (req, res) => {
 };
 
 exports.getAllBookingsController = async (req, res) => {
+    const [filters, queries] = queryParser(req.query);
+
     try {
-        const result = await getAllBookingsService();
+        const result = await getAllBookingsService(filters, queries);
 
         res.status(200).json({
             status: "success",
