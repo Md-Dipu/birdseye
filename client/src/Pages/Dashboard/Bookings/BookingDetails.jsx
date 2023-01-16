@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Badge, Button, Card, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { getBookingById } from '../../../api/bookingsAPI';
+import { getBookingById, sendBookingCancelRequest } from '../../../api/bookingsAPI';
 
 const BookingDetails = ({ id, onClose }) => {
     const [data, setData] = useState({});
@@ -27,6 +27,11 @@ const BookingDetails = ({ id, onClose }) => {
             .catch(console.warn);
     }, [id]);
 
+    const handleCancelation = () => {
+        sendBookingCancelRequest(id)
+            .then(onClose).catch(console.warn);
+    };
+
     return (
         <Card className="bg-white shadow position-fixed top-50 start-50 translate-middle" style={{ width: '18rem' }}>
             <Card.Img variant="top" src={data.coverImageURL} />
@@ -40,7 +45,7 @@ const BookingDetails = ({ id, onClose }) => {
                     <Form.Text className="d-block fw-bold">Payable amount: <span className="text-success">${data.payableAmount?.toFixed(2)}</span></Form.Text>
 
                     <Button variant="success" size="sm" className="mt-3" disabled={data.paid}>Pay</Button>{" "}
-                    <Button variant="warning" size="sm" className="mt-3" disabled={data.cancelation}>Cancel</Button>{" "}
+                    <Button variant="warning" size="sm" className="mt-3" disabled={data.cancelation} onClick={handleCancelation}>Cancel</Button>{" "}
                     <Button variant="outline-secondary" size="sm" className="mt-3" onClick={onClose}>Close</Button>
                 </Form>
             </Card.Body>
