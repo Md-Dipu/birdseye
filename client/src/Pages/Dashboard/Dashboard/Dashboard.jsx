@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
+import NotFound from '../../NotFound/NotFound';
 import Bookings from '../Bookings/Bookings';
 
 const Dashboard = () => {
@@ -12,6 +13,9 @@ const Dashboard = () => {
             </Route>
             <Route exact path={`${path}/bookings`}>
                 <Bookings />
+            </Route>
+            <Route exact path={`${path}/*`}>
+                <NotFound />
             </Route>
         </Switch>
     );
