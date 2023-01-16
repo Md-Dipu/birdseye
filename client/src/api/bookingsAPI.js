@@ -16,3 +16,13 @@ export const getBookingById = async (bookingId) => {
     const booking = await bookingAPI.get(`/${bookingId}`);
     return booking;
 };
+
+export const sendBookingCancelRequest = async (bookingId) => {
+    const result = await bookingAPI.patch(`/${bookingId}`, {
+        cancelation: {
+            requestSended: true
+        }
+    });
+
+    return result;
+};
