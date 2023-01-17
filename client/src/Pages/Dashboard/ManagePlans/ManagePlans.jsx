@@ -6,18 +6,25 @@ import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import { getPlans } from '../../../api/plansAPI';
 import useAuth from '../../../hooks/useAuth';
 import Loading from '../../Shared/Loading/Loading';
+import Pagination from '../../Shared/Pagination/Pagination';
 
 const ManagePlans = () => {
     const [plans, setPlans] = useState([]);
+    const [totalPlans, setTotalPlans] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
 
     const history = useHistory();
     const { search } = useLocation();
     const query = useMemo(() => new URLSearchParams(search), [search]);
+
+    const handelPageChange = (page) => setCurrentPage(page);
+
     const handleOnClick = (filter) => () => {
         filter ? query.set('filter', filter) : query.delete('filter');
         history.replace(`?${query.toString()}`);
     };
+
 
     const { user } = useAuth();
     const { url } = useRouteMatch();
@@ -39,11 +46,15 @@ const ManagePlans = () => {
         }
 
         setIsLoading(true);
-        getPlans(`?limit=${limit}&page=${1}${queryText}`)
-            .then(res => setPlans(res.data.data))
+        getPlans(`?limit=${limit}&page=${currentPage}${queryText}&fields=name,price,rating,views,status`)
+            .then(res => res.data)
+            .then(res => {
+                setPlans(res.data);
+                setTotalPlans(res.count);
+            })
             .catch(console.warn)
             .finally(() => setIsLoading(false));
-    }, [query, user]);
+    }, [currentPage, query, user]);
 
     return (
         <Container>
@@ -81,6 +92,11 @@ const ManagePlans = () => {
                                 </tr>)}
                             </tbody>
                         </Table>}
+                    {totalPlans > limit && <Pagination
+                        numberOfButtons={Math.ceil(totalPlans / limit)}
+                        currentPage={currentPage}
+                        onClick={handelPageChange}
+                    />}
                 </Col>
             </Row>
         </Container>
