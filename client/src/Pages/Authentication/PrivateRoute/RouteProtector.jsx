@@ -2,14 +2,24 @@ import React from 'react';
 import { Redirect, Route } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import Loading from '../../Shared/Loading/Loading';
+import Unauthorized from '../Unauthorized/Unauthorized';
 
-const PrivateRoute = ({ children, ...rest }) => {
+const PrivateRoute = ({ children, allowedRoles, ...rest }) => {
     const { user, isLoading } = useAuth();
+
+    if (allowedRoles) {
+        const roles = allowedRoles.split(',');
+        if (!roles.find(role => role === user.role)) {
+            return <Unauthorized />
+        }
+    }
+
     if (isLoading) {
         return (
             <Loading height="60" />
         );
     }
+
     return (
         <Route
             {...rest}
