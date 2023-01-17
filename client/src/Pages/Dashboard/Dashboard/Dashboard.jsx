@@ -4,6 +4,7 @@ import PrivateRoute from '../../Authentication/PrivateRoute/RouteProtector';
 import NotFound from '../../NotFound/NotFound';
 import Bookings from '../Bookings/Bookings';
 import PlanDetails from '../PlanDetails/PlanDetails';
+import AddPlan from '../AddPlan/MainForm/AddPlan';
 import ManagePlans from '../ManagePlans/ManagePlans';
 
 const Dashboard = () => {
@@ -19,6 +20,9 @@ const Dashboard = () => {
             </Route>
             <PrivateRoute allowedRoles="admin,manager" exact path={`${path}/manage-plans`}>
                 <ManagePlans />
+            </PrivateRoute>
+            <PrivateRoute allowedRoles="admin" exact path={`${path}/manage-plans/add-new-plan`}>
+                <AddPlan />
             </PrivateRoute>
             <PrivateRoute allowedRoles="admin,manager" exact path={`${path}/manage-plans/:planId`}>
                 <PlanDetails />
