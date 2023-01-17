@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
 import Pagination from '../../Shared/Pagination/Pagination';
 import Loading from '../../Shared/Loading/Loading';
-import Plan from '../../Shared/Plan/Plan';
+import Plan from '../Plan/Plan';
 import Search from '../Search/Search';
 import { backToTop } from '../../../utilities/utilities';
 import { getPlans } from '../../../api/plansAPI';

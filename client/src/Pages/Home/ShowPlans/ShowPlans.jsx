@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { getPlans } from '../../../api/plansAPI';
+import Plan from '../../Plans/Plan/Plan';
 import Loading from '../../Shared/Loading/Loading';
-import Plan from '../../Shared/Plan/Plan';
 
 const ShowPlans = () => {
     const [plans, setPlans] = useState([]);
