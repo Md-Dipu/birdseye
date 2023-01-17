@@ -3,6 +3,7 @@ import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import PrivateRoute from '../../Authentication/PrivateRoute/RouteProtector';
 import NotFound from '../../NotFound/NotFound';
 import Bookings from '../Bookings/Bookings';
+import PlanDetails from '../PlanDetails/PlanDetails';
 import ManagePlans from '../ManagePlans/ManagePlans';
 
 const Dashboard = () => {
@@ -18,6 +19,9 @@ const Dashboard = () => {
             </Route>
             <PrivateRoute allowedRoles="admin,manager" exact path={`${path}/manage-plans`}>
                 <ManagePlans />
+            </PrivateRoute>
+            <PrivateRoute allowedRoles="admin,manager" exact path={`${path}/manage-plans/:planId`}>
+                <PlanDetails />
             </PrivateRoute>
             <Route exact path={`${path}/*`}>
                 <NotFound />
