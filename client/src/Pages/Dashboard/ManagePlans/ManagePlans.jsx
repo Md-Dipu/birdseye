@@ -82,7 +82,7 @@ const ManagePlans = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {plans.map((plan, index) => <tr onClick={() => history.push(`${url}/${plan._id}`)}>
+                                {plans.map((plan, index) => <tr key={plan._id} onClick={() => history.push(`${url}/${plan._id}`)}>
                                     <td>{index + 1}</td>
                                     <td>{plan.name}</td>
                                     <td>${plan.price}</td>
