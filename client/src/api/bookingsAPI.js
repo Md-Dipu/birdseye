@@ -36,3 +36,8 @@ export const approveBookingCancelRequest = async (bookingId) => {
 
     return result;
 };
+
+export const deleteBookingById = async (bookingId) => {
+    const result = await bookingAPI.delete(`/${bookingId}`);
+    return result;
+};
