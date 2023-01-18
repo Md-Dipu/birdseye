@@ -1,0 +1,9 @@
+.be-unauthorized-image {
+    width: 50%;
+}
+
+@media only screen and (max-width: 767px) {
+    .be-unauthorized-image {
+        width: 100%;
+    }
+}
