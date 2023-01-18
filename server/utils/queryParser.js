@@ -50,26 +50,30 @@ exports.queryParser = (requestQueryObject) => {
  */
 exports.filtersObjectParser = (filters) => {
     let filterStr = JSON.stringify(filters);
-    filterStr = filterStr.replace(/\b(gt|gte|lt|lte)\b/g, match => `$${match}`);
+    filterStr = filterStr.replace(/\b(gt|gte|lt|lte|not|type)\b/g, match => `$${match}`);
     filters = JSON.parse(filterStr);
 
-    // digits string check
-    const digitsStringParser = (object) => {
+    // some different types like number, boolean and null string checker
+    const specialStringParser = (object) => {
         for (const key in object) {
             if (Object.hasOwnProperty.call(object, key)) {
                 const element = object[key];
                 if (!isNaN(element)) {
                     object[key] = parseFloat(element);
-                }
-
-                if (typeof element === "object") {
-                    digitsStringParser(object[key]);
+                } else if (element === "null") {
+                    object[key] = null;
+                } else if (element === "true") {
+                    object[key] = true;
+                } else if (element === "false") {
+                    object[key] = false;
+                } else if (typeof element === "object") {
+                    specialStringParser(object[key]);
                 }
             }
         }
     };
 
-    digitsStringParser(filters);
+    specialStringParser(filters);
     return filters;
 };
 
