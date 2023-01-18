@@ -26,3 +26,13 @@ export const sendBookingCancelRequest = async (bookingId) => {
 
     return result;
 };
+
+export const approveBookingCancelRequest = async (bookingId) => {
+    const result = await bookingAPI.patch(`/${bookingId}`, {
+        cancelation: {
+            requestApproved: true
+        }
+    });
+
+    return result;
+};
