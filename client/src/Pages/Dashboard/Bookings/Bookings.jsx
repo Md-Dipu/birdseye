@@ -19,7 +19,7 @@ const Bookings = () => {
     const limit = 12;
 
     useEffect(() => {
-        getBookings(`?user.userId=${user._id}&limit=${limit}&page=${currentPage}&fields=planId,planName,coverImageURL,quantity,payableAmount`)
+        getBookings(`?user.userId=${user._id}&limit=${limit}&page=${currentPage}&cancelation.requestApproved[$exists]=false&fields=planId,planName,coverImageURL,quantity,payableAmount`)
             .then(res => {
                 setDate(res.data.data);
                 setTotalData(res.data.count);
