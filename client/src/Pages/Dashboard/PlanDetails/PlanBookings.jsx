@@ -26,7 +26,7 @@ const PlanBookings = ({ planId, filter }) => {
         }
 
         setIsLoading(true);
-        getBookings(`?planId=${planId}&limit=${limit}&page=${currentPage}${queryText}`)
+        getBookings(`?planId=${planId}&limit=${limit}&page=${currentPage}${queryText}&fields=price,quantity,payableAmount,user.name,payment.amount`)
             .then(res => {
                 if (res.data.data.length === 0) {
                     setTimeout(() => {
