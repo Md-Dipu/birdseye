@@ -2,13 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { getBookings } from '../../../api/bookingsAPI';
 import Loading from '../../Shared/Loading/Loading';
+import Pagination from '../../Shared/Pagination/Pagination';
 import BookingDetails from './BookingDetails';
 
 const PlanBookings = ({ planId, filter }) => {
     const [bookings, setBookings] = useState([]);
+    const [totalBookings, setTotalBookings] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
     const [showBooking, setShowBooking] = useState(null);
     const [updateBookings, setUpdateBookings] = useState(0);
+
+    const limit = 12;
 
     useEffect(() => {
         let queryText = '';
@@ -21,15 +26,24 @@ const PlanBookings = ({ planId, filter }) => {
         }
 
         setIsLoading(true);
-        getBookings(`?planId=${planId}${queryText}`)
-            .then(res => res.data.data.map(data => {
-                data.discountAmount = (data.price * data.quantity) - data.payableAmount;
-                return data;
-            }))
+        getBookings(`?planId=${planId}&limit=${limit}&page=${currentPage}${queryText}`)
+            .then(res => {
+                if (res.data.data.length === 0) {
+                    setTimeout(() => {
+                        setCurrentPage(currentPage - 1);
+                    });
+                }
+
+                setTotalBookings(res.data.count);
+                return res.data.data.map(data => {
+                    data.discountAmount = (data.price * data.quantity) - data.payableAmount;
+                    return data;
+                })
+            })
             .then(data => setBookings(data))
             .catch(console.warn)
             .finally(() => setIsLoading(false));
-    }, [filter, planId, updateBookings]);
+    }, [currentPage, filter, planId, updateBookings]);
 
     return (
         <>
@@ -62,6 +76,11 @@ const PlanBookings = ({ planId, filter }) => {
                 id={showBooking}
                 onClose={() => setShowBooking(null)}
                 onDelete={() => setUpdateBookings(updateBookings + 1)}
+            />}
+            {totalBookings > limit && <Pagination
+                numberOfButtons={Math.ceil(totalBookings / limit)}
+                currentPage={currentPage}
+                onClick={(page) => setCurrentPage(page)}
             />}
         </>
     );
