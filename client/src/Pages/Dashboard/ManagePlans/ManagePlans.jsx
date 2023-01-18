@@ -70,7 +70,7 @@ const ManagePlans = () => {
                 </Col>
                 <Col>
                     {isLoading ? <Loading height="60" /> :
-                        <Table striped hover>
+                        <Table striped hover responsive>
                             <thead>
                                 <tr>
                                     <th>#</th>

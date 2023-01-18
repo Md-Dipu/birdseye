@@ -48,7 +48,7 @@ const PlanBookings = ({ planId, filter }) => {
     return (
         <>
             {isLoading ? <Loading height="60" /> :
-                <Table striped hover>
+                <Table striped hover responsive>
                     <thead>
                         <tr>
                             <th>#</th>
