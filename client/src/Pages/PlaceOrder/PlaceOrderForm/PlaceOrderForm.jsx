@@ -27,7 +27,7 @@ const PlaceOrderForm = ({ onClose, ...data }) => {
     };
 
     return (
-        <Form onSubmit={onSubmit} className="bg-white border p-3 shadow position-absolute top-50 start-50 translate-middle" style={{ width: 300 }}>
+        <Form onSubmit={onSubmit} className="bg-white border p-3 shadow position-fixed top-50 start-50 translate-middle" style={{ width: 300 }}>
             <Form.Text className="fs-6 fw-bold d-block">{data.name}</Form.Text>
             <Form.Text className="d-block">On {new Date(data.startingDate).toDateString()} | {data.tourDays} Days</Form.Text>
             <Form.Text className="d-block">Price: ${data.price}</Form.Text>
