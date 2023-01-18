@@ -8,6 +8,7 @@ const PlanBookings = ({ planId, filter }) => {
     const [bookings, setBookings] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [showBooking, setShowBooking] = useState(null);
+    const [updateBookings, setUpdateBookings] = useState(0);
 
     useEffect(() => {
         let queryText = '';
@@ -28,7 +29,7 @@ const PlanBookings = ({ planId, filter }) => {
             .then(data => setBookings(data))
             .catch(console.warn)
             .finally(() => setIsLoading(false));
-    }, [filter, planId]);
+    }, [filter, planId, updateBookings]);
 
     return (
         <>
@@ -60,6 +61,7 @@ const PlanBookings = ({ planId, filter }) => {
             {showBooking && <BookingDetails
                 id={showBooking}
                 onClose={() => setShowBooking(null)}
+                onDelete={() => setUpdateBookings(updateBookings + 1)}
             />}
         </>
     );
