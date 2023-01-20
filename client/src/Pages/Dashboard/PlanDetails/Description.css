@@ -1,0 +1,15 @@
+.be-description-edit-form {
+    width: 50%;
+}
+
+@media only screen and (max-width: 992px) {
+    .be-description-edit-form {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .be-description-edit-form {
+        width: 95%;
+    }
+}

@@ -21,3 +21,11 @@ export const updatePlanById = async (id, data) => {
     const result = await planAPI.patch(`/${id}`, data);
     return result;
 };
+
+export const updatePlanDescriptionById = async (id, data) => {
+    const result = await planAPI.patch(`/${id}`, {
+        description: data
+    });
+
+    return result;
+};

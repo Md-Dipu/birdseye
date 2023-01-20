@@ -3,6 +3,7 @@ import { Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { getPlanById } from '../../../api/plansAPI';
 import Loading from '../../Shared/Loading/Loading';
+import Description from './Description';
 import GeneralDetails from './GeneralDetails';
 import PlanBookings from './PlanBookings';
 
@@ -30,6 +31,8 @@ const PlanDetails = () => {
         history.replace(`?${query.toString()}`);
     };
 
+    const handleUpdate = () => setUpdated(updated + 1);
+
     useEffect(() => {
         setIsLoading(true);
         getPlanById(planId)
@@ -50,7 +53,8 @@ const PlanDetails = () => {
                 return (
                     isLoading ? <Loading height="60" /> :
                         <>
-                            <GeneralDetails onUpdate={() => setUpdated(updated + 1)} {...plan} />
+                            <GeneralDetails onUpdate={handleUpdate} {...plan} />
+                            <Description id={planId} description={plan.description} onUpdate={handleUpdate} />
                         </>
                 );
         }
