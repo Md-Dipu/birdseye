@@ -86,7 +86,7 @@ exports.createNewPlanService = async (data) => {
  * @returns {object} Updating status
  */
 exports.updatePlanByIdService = async (id, data) => {
-    data?.imageURLs.forEach(url => {
+    data.imageURLs?.forEach(url => {
         if (!validator.isURL(url)) {
             new Error("\"" + url + "\" isn't valid url");
         }
@@ -98,6 +98,6 @@ exports.updatePlanByIdService = async (id, data) => {
         }
     }
 
-    const result = await db("plans").updateOne({ _id: ObjectId(id) }, data);
+    const result = await db("plans").updateOne({ _id: ObjectId(id) }, { $set: data });
     return result;
 };
