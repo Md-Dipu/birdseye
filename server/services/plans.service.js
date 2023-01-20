@@ -98,6 +98,7 @@ exports.updatePlanByIdService = async (id, data) => {
         }
     }
 
+    data.updatedAt = new Date();
     const result = await db("plans").updateOne({ _id: ObjectId(id) }, { $set: data });
     return result;
 };

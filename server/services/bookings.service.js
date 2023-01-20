@@ -77,6 +77,7 @@ exports.updateBookingByIdService = async (bookingId, data) => {
         throw new Error("Booking isn't valid.");
     }
 
+    data.updatedAt = new Date();
     const result = await db("bookings").updateOne({
         _id: ObjectId(bookingId)
     }, {
