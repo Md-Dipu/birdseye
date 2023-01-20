@@ -16,3 +16,8 @@ export const getPlanById = async (id) => {
     const plan = await planAPI.get(`/${id}`);
     return plan;
 };
+
+export const updatePlanById = async (id, data) => {
+    const result = await planAPI.patch(`/${id}`, data);
+    return result;
+};
