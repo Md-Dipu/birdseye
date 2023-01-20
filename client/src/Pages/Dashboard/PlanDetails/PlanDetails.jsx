@@ -1,16 +1,16 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Button, Col, Container, ListGroup, Row } from 'react-bootstrap';
+import { Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { getPlanById } from '../../../api/plansAPI';
-import useAuth from '../../../hooks/useAuth';
 import Loading from '../../Shared/Loading/Loading';
+import GeneralDetails from './GeneralDetails';
 import PlanBookings from './PlanBookings';
 
 const PlanDetails = () => {
     const [plan, setPlan] = useState({});
+    const [updated, setUpdated] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
 
-    const { user } = useAuth();
     const { planId } = useParams();
     const history = useHistory();
     const { search } = useLocation();
@@ -36,7 +36,7 @@ const PlanDetails = () => {
             .then(res => setPlan(res.data.data.value))
             .catch(console.warn)
             .finally(() => setIsLoading(false));
-    }, [planId]);
+    }, [planId, updated]);
 
     const showRoute = () => {
         switch (query.get('show')) {
@@ -49,26 +49,9 @@ const PlanDetails = () => {
             default:
                 return (
                     isLoading ? <Loading height="60" /> :
-                        <div className="my-3">
-                            <div>
-                                <div className="d-flex justify-content-between">
-                                    <div className="h5 text-secondary">General</div>
-                                    {user.role === 'admin' && <Button variant="link">Edit</Button>}
-                                </div>
-                                <table>
-                                    {[
-                                        ['Name', plan.name],
-                                        ['Short Description', plan.shortDescription],
-                                        ['Price', `$${plan.price}`],
-                                        ['Tour days', `${plan.tourDays} Days`],
-                                        ['Starting date', new Date(plan.startingDate).toDateString().replace(' ', ', ')]
-                                    ].map(item => <tr>
-                                        <th className="text-nowrap pe-3" style={{ verticalAlign: 'baseline' }}>{item[0]}:</th>
-                                        <td>{item[1]}</td>
-                                    </tr>)}
-                                </table>
-                            </div>
-                        </div>
+                        <>
+                            <GeneralDetails onUpdate={() => setUpdated(updated + 1)} {...plan} />
+                        </>
                 );
         }
     };
