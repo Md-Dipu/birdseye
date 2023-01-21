@@ -14,7 +14,7 @@ const Description = ({ id, description, onUpdate }) => {
     const { user } = useAuth();
 
     useEffect(() => {
-        if (Array.isArray(description) && description.length > 1) {
+        if (Array.isArray(description) && description.length > 0) {
             setItems(description);
         }
     }, [description]);
