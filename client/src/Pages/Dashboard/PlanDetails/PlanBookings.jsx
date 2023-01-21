@@ -62,7 +62,7 @@ const PlanBookings = ({ planId, filter }) => {
                     </thead>
                     <tbody>
                         {bookings.map((booking, index) => <tr key={booking._id} onClick={() => setShowBooking(booking._id)}>
-                            <td>{index + 1}</td>
+                            <td>{index + 1 + (limit * (currentPage - 1))}</td>
                             <td>{booking.user?.name}</td>
                             <td>${booking.price}</td>
                             <td>{booking.quantity}</td>

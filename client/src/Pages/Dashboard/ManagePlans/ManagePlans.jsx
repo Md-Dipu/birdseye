@@ -83,7 +83,7 @@ const ManagePlans = () => {
                             </thead>
                             <tbody>
                                 {plans.map((plan, index) => <tr key={plan._id} onClick={() => history.push(`${url}/${plan._id}`)}>
-                                    <td>{index + 1}</td>
+                                    <td>{index + 1 + (limit * (currentPage - 1))}</td>
                                     <td>{plan.name}</td>
                                     <td>${plan.price}</td>
                                     <td>{plan.rating}</td>
