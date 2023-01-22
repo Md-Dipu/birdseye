@@ -4,6 +4,7 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { getPlanById } from '../../../api/plansAPI';
 import Loading from '../../Shared/Loading/Loading';
 import Description from './Description';
+import DiscountDetails from './DiscountDetails';
 import GeneralDetails from './GeneralDetails';
 import PlanBookings from './PlanBookings';
 
@@ -55,6 +56,7 @@ const PlanDetails = () => {
                         <>
                             <GeneralDetails onUpdate={handleUpdate} {...plan} />
                             <Description id={planId} description={plan.description} onUpdate={handleUpdate} />
+                            <DiscountDetails id={planId} globalDiscount={plan.globalDiscount} promoCode={plan.promoCode} onUpdate={handleUpdate} />
                         </>
                 );
         }
