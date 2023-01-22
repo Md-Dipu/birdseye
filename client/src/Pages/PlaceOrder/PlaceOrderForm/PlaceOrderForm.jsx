@@ -57,7 +57,7 @@ const PlaceOrderForm = ({ onClose, ...data }) => {
             <Form.Text className="fs-6 fw-bold d-block">{data.name}</Form.Text>
             <Form.Text className="d-block">On {new Date(data.startingDate).toDateString()} | {data.tourDays} Days</Form.Text>
             <Form.Text className="d-block">Price: ${data.price}</Form.Text>
-            {discount && <Form.Text className="d-block">Discount: {discount}%</Form.Text>}
+            {discount ? <Form.Text className="d-block">Discount: {discount}%</Form.Text> : null}
             <hr />
 
             <Form.Text className="d-block fw-bold mb-2">Quantity</Form.Text>
