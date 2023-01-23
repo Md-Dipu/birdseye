@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Form, InputGroup } from 'react-bootstrap';
+import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { updatePlanById } from '../../../api/plansAPI';
 import useAuth from '../../../hooks/useAuth';
 import { filterUniqueProperties, parseDigitStrings } from '../../../utilities/utilities';
+import UpdateCoverImage from './UpdateCoverImage';
 
 const GeneralDetails = ({ onUpdate, ...plan }) => {
     const [editData, setEditData] = useState(false);
@@ -35,20 +36,27 @@ const GeneralDetails = ({ onUpdate, ...plan }) => {
                 <div className="h5 text-secondary">General</div>
                 {user.role === 'admin' && <Button variant="link" onClick={() => setEditData(true)}>Edit</Button>}
             </div>
-            <table>
-                <tbody>
-                    {[
-                        ['Name', plan.name],
-                        ['Short Description', plan.shortDescription],
-                        ['Price', `$${plan.price}`],
-                        ['Tour days', `${plan.tourDays} Days`],
-                        ['Starting date', new Date(plan.startingDate).toDateString().replace(' ', ', ')]
-                    ].map((item, idx) => <tr key={idx}>
-                        <th className="text-nowrap pe-3" style={{ verticalAlign: 'baseline' }}>{item[0]}:</th>
-                        <td>{item[1]}</td>
-                    </tr>)}
-                </tbody>
-            </table>
+            <Row>
+                <Col md={3}>
+                    <UpdateCoverImage id={plan._id} coverImageURL={plan.coverImageURL} onUpdate={onUpdate} />
+                </Col>
+                <Col md={9}>
+                    <table>
+                        <tbody>
+                            {[
+                                ['Name', plan.name],
+                                ['Short Description', plan.shortDescription],
+                                ['Price', `$${plan.price}`],
+                                ['Tour days', `${plan.tourDays} Days`],
+                                ['Starting date', new Date(plan.startingDate).toDateString().replace(' ', ', ')]
+                            ].map((item, idx) => <tr key={idx}>
+                                <th className="text-nowrap pe-3" style={{ verticalAlign: 'baseline' }}>{item[0]}:</th>
+                                <td>{item[1]}</td>
+                            </tr>)}
+                        </tbody>
+                    </table>
+                </Col>
+            </Row>
             {editData && <Form className="bg-white shadow position-fixed top-50 start-50 translate-middle border rounded p-3" style={{ width: '25rem', maxWidth: '98%' }} onSubmit={handleSubmit(onSubmit)}>
                 <Form.Text className="d-block text-center mb-3 fw-bold fs-6">Edit General Information</Form.Text>
                 <Form.Group className="mb-3">

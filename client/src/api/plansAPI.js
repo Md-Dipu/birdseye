@@ -29,3 +29,11 @@ export const updatePlanDescriptionById = async (id, data) => {
 
     return result;
 };
+
+export const updatePlanCoverImageURLById = async (id, url) => {
+    const result = await planAPI.patch(`/${id}`, {
+        coverImageURL: url
+    });
+
+    return result;
+};

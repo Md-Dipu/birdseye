@@ -1,0 +1,8 @@
+.be-show {
+    display: none;
+}
+
+.be-hover:hover .be-show.be-flex {
+    display: flex;
+    ;
+}
