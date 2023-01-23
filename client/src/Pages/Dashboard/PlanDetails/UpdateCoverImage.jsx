@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { Button, Form, ProgressBar } from 'react-bootstrap';
 import { storage } from '../../../config/Firebase/firebase.init';
-import './UpdateCoverImage.css';
 import { updatePlanCoverImageURLById } from '../../../api/plansAPI';
+import './UpdateCoverImage.css';
 
 const UpdateCoverImage = ({ id, coverImageURL, onUpdate }) => {
     const [data, setData] = useState(null);
@@ -21,6 +21,7 @@ const UpdateCoverImage = ({ id, coverImageURL, onUpdate }) => {
                 })
                 .catch(error => console.warn(error.message))
                 .finally(() => {
+                    setData(null);
                     setProgress(null);
                     setEdit(false);
                 });
