@@ -2,7 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { getPlanById } from '../../../api/plansAPI';
+import useAuth from '../../../hooks/useAuth';
 import Loading from '../../Shared/Loading/Loading';
+import DangerZone from './DangerZone';
 import Description from './Description';
 import DiscountDetails from './DiscountDetails';
 import GeneralDetails from './GeneralDetails';
@@ -13,6 +15,7 @@ const PlanDetails = () => {
     const [updated, setUpdated] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
 
+    const { user } = useAuth();
     const { planId } = useParams();
     const history = useHistory();
     const { search } = useLocation();
@@ -35,7 +38,6 @@ const PlanDetails = () => {
     const handleUpdate = () => setUpdated(updated + 1);
 
     useEffect(() => {
-        setIsLoading(true);
         getPlanById(planId)
             .then(res => setPlan(res.data.data.value))
             .catch(console.warn)
@@ -57,6 +59,7 @@ const PlanDetails = () => {
                             <GeneralDetails onUpdate={handleUpdate} {...plan} />
                             <Description id={planId} description={plan.description} onUpdate={handleUpdate} />
                             <DiscountDetails id={planId} globalDiscount={plan.globalDiscount} promoCode={plan.promoCode} onUpdate={handleUpdate} />
+                            {user.role === 'admin' && <DangerZone id={planId} status={plan.status} />}
                         </>
                 );
         }
