@@ -37,3 +37,11 @@ export const updatePlanCoverImageURLById = async (id, url) => {
 
     return result;
 };
+
+export const updatePlanStatusById = async (id, status) => {
+    const result = await planAPI.patch(`/${id}`, {
+        status
+    });
+
+    return result;
+};

@@ -25,7 +25,12 @@ const DangerZone = ({ id, status, onUpdate }) => {
                 <p className="text-secondary me-3">{item.message}</p>
                 <Button variant={item.buttonVariant} onClick={item.action}>{item.buttonValue}</Button>
             </div>)}
-            {show === 'status' && <ChangeStatus id={id} onUpdate={onUpdate} />}
+            {show === 'status' && <ChangeStatus
+                id={id}
+                status={status}
+                onUpdate={onUpdate}
+                onClose={() => setShow(null)}
+            />}
         </div>
     );
 };
