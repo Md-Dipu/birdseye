@@ -59,7 +59,7 @@ const PlanDetails = () => {
                             <GeneralDetails onUpdate={handleUpdate} {...plan} />
                             <Description id={planId} description={plan.description} onUpdate={handleUpdate} />
                             <DiscountDetails id={planId} globalDiscount={plan.globalDiscount} promoCode={plan.promoCode} onUpdate={handleUpdate} />
-                            {user.role === 'admin' && <DangerZone id={planId} status={plan.status} />}
+                            {user.role === 'admin' && <DangerZone id={planId} status={plan.status} onUpdate={handleUpdate} />}
                         </>
                 );
         }
