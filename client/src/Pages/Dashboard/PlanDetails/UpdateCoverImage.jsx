@@ -51,7 +51,7 @@ const UpdateCoverImage = ({ id, coverImageURL, onUpdate }) => {
 
     return (
         <div className="position-relative mt-2 be-hover">
-            <img src={coverImageURL} alt="" className="w-100" />
+            <img src={coverImageURL} alt="" className="w-100 rounded" />
             <div className="position-absolute top-0 start-0 end-0 bottom-0 justify-content-center align-items-center be-show be-flex">
                 <Button variant="primary" size="sm" onClick={() => setEdit(true)}>Update</Button>
             </div>
