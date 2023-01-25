@@ -3,13 +3,16 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { Button, Form, ProgressBar } from 'react-bootstrap';
 import { storage } from '../../../config/Firebase/firebase.init';
 import { updatePlanCoverImageURLById } from '../../../api/plansAPI';
+import useAuth from '../../../hooks/useAuth';
 import './UpdateCoverImage.css';
 
 const UpdateCoverImage = ({ id, coverImageURL, onUpdate }) => {
     const [data, setData] = useState(null);
     const [edit, setEdit] = useState(false);
     const [progress, setProgress] = useState(null);
+
     const imageRef = useRef(null);
+    const { user } = useAuth();
 
     useEffect(() => {
         if (data) {
@@ -52,9 +55,9 @@ const UpdateCoverImage = ({ id, coverImageURL, onUpdate }) => {
     return (
         <div className="position-relative mt-2 be-hover">
             <img src={coverImageURL} alt="" className="w-100 rounded" />
-            <div className="position-absolute top-0 start-0 end-0 bottom-0 justify-content-center align-items-center be-show be-flex">
+            {user.role === 'admin' && <div className="position-absolute top-0 start-0 end-0 bottom-0 justify-content-center align-items-center be-show be-flex">
                 <Button variant="primary" size="sm" onClick={() => setEdit(true)}>Update</Button>
-            </div>
+            </div>}
             {edit && <Form className="bg-white shadow position-fixed top-50 start-50 translate-middle border rounded p-3" style={{ width: '25rem', maxWidth: '98%' }} onSubmit={handleSubmit}>
                 <Form.Text className="d-block text-center mb-3 fw-bold fs-6">Edit General Information</Form.Text>
                 <Form.Group className="mb-3">
