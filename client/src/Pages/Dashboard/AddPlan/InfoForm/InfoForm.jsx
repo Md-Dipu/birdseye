@@ -1,6 +1,8 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 const InfoForm = props => {
+    const history = useHistory();
     const { register, handleSubmit, onSubmit } = props;
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -17,8 +19,17 @@ const InfoForm = props => {
             <textarea className="form-control mb-3" placeholder="Short Description" rows="6" {...register('shortDescription', { required: true })} />
 
             <div>
-                <input type="submit" value="Done" className="btn btn-primary" />{" "}
-                <input type="reset" value="Cancel" className="btn btn-outline-secondary" />
+                <input
+                    type="submit"
+                    value="Done"
+                    className="btn btn-primary"
+                />{" "}
+                <input
+                    type="reset"
+                    value="Cancel"
+                    className="btn btn-outline-secondary"
+                    onClick={() => history.goBack()}
+                />
             </div>
         </form>
     );
