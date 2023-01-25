@@ -2,7 +2,8 @@ const {
     getAllPlansService,
     getPlanByIdService,
     createNewPlanService,
-    updatePlanByIdService
+    updatePlanByIdService,
+    deletePlanByIdService
 } = require("../services/plans.service");
 const { queryParser } = require("../utils/queryParser");
 
@@ -80,6 +81,25 @@ exports.updatePlanByIdController = async (req, res) => {
         res.status(400).json({
             status: "fail",
             message: "Couldn't able to update data",
+            error: error.message
+        });
+    }
+};
+
+exports.deletePlanByIdController = async (req, res) => {
+    try {
+        const result = await deletePlanByIdService(req.params.id);
+
+        res.status(200).json({
+            status: "success",
+            message: "Plan deleted successfully",
+            data: result
+        });
+
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            message: "Couldn't able to delete plan",
             error: error.message
         });
     }

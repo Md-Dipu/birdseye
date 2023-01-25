@@ -102,3 +102,18 @@ exports.updatePlanByIdService = async (id, data) => {
     const result = await db("plans").updateOne({ _id: ObjectId(id) }, { $set: data });
     return result;
 };
+
+/**
+ * Delete plan from database
+ * 
+ * @param {string} id - Object id string of plan document
+ * @returns {object} Deleting status 
+ */
+exports.deletePlanByIdService = async (id) => {
+    if (!ObjectId.isValid(id)) {
+        throw new Error("Plan ID isn't valid");
+    }
+
+    const result = await db("plans").deleteOne({ _id: ObjectId(id) });
+    return result;
+};

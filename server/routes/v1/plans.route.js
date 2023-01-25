@@ -9,6 +9,7 @@ router.route("/")
 
 router.route("/:id")
     .get(plansControllers.getPlanByIdController)
-    .patch(plansControllers.updatePlanByIdController);
+    .patch(plansControllers.updatePlanByIdController)
+    .delete(plansControllers.deletePlanByIdController);
 
 module.exports = router;
