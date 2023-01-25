@@ -21,6 +21,7 @@ const ManagePlans = () => {
     const handelPageChange = (page) => setCurrentPage(page);
 
     const handleOnClick = (filter) => () => {
+        setCurrentPage(1);
         filter ? query.set('filter', filter) : query.delete('filter');
         history.replace(`?${query.toString()}`);
     };
