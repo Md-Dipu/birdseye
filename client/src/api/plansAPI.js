@@ -46,6 +46,14 @@ export const updatePlanStatusById = async (id, status) => {
     return result;
 };
 
+export const updateManagerId = async (id, manager) => {
+    const result = await planAPI.patch(`/${id}`, {
+        manager
+    });
+
+    return result;
+};
+
 export const deletePlan = async (id) => {
     const result = await planAPI.delete(`/${id}`);
     return result;

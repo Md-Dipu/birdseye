@@ -8,6 +8,7 @@ import DangerZone from './DangerZone';
 import Description from './Description';
 import DiscountDetails from './DiscountDetails';
 import GeneralDetails from './GeneralDetails';
+import ManagerDisplay from './ManagerDisplay';
 import PlanBookings from './PlanBookings';
 
 const PlanDetails = () => {
@@ -59,7 +60,10 @@ const PlanDetails = () => {
                             <GeneralDetails onUpdate={handleUpdate} {...plan} />
                             <Description id={planId} description={plan.description} onUpdate={handleUpdate} />
                             <DiscountDetails id={planId} globalDiscount={plan.globalDiscount} promoCode={plan.promoCode} onUpdate={handleUpdate} />
-                            {user.role === 'admin' && <DangerZone id={planId} status={plan.status} onUpdate={handleUpdate} />}
+                            {user.role === 'admin' && <>
+                                <ManagerDisplay id={planId} manager={plan.manager} onUpdate={handleUpdate} />
+                                <DangerZone id={planId} status={plan.status} onUpdate={handleUpdate} />
+                            </>}
                         </>
                 );
         }
