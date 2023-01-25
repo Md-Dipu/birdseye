@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
 import { updateManagerId } from '../../../api/plansAPI';
 import { getUsers } from '../../../api/usersAPI';
+import './ManagerDisplay.css';
 
 const ManagerDisplay = ({ id, manager, onUpdate }) => {
     const [edit, setEdit] = useState(false);
@@ -66,7 +67,8 @@ const ManagerDisplay = ({ id, manager, onUpdate }) => {
                     <Form.Control type="search" placeholder="Find manager..." value={data?.name || searchText} onChange={e => setSearchText(e.target.value)} />
                     {managers.length > 0 && <div className="position-absolute bg-white border rounded mt-1" style={{ width: 'calc(100% - 2rem)', zIndex: 1 }}>
                         {managers.map(item => <Form.Text
-                            className="d-block p-2 m-0"
+                            as="span"
+                            className="d-block p-2 m-0 be-manager-list-item-hover"
                             onClick={() => {
                                 setSearchText(null);
                                 setData(item);
