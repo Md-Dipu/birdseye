@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import ChangeStatus from './ChangeStatus';
+import DeletePlan from './DeletePlan';
 
 const DangerZone = ({ id, status, onUpdate }) => {
     const [show, setShow] = useState(null); // status, delete
@@ -29,6 +30,10 @@ const DangerZone = ({ id, status, onUpdate }) => {
                 id={id}
                 status={status}
                 onUpdate={onUpdate}
+                onClose={() => setShow(null)}
+            />}
+            {show === 'delete' && <DeletePlan
+                id={id}
                 onClose={() => setShow(null)}
             />}
         </div>
