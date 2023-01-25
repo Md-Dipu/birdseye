@@ -30,7 +30,9 @@ const PlanBookings = ({ planId, filter }) => {
             .then(res => {
                 if (res.data.data.length === 0) {
                     setTimeout(() => {
-                        setCurrentPage(currentPage - 1);
+                        if (currentPage > 1) {
+                            setCurrentPage(currentPage - 1);
+                        }
                     });
                 }
 
