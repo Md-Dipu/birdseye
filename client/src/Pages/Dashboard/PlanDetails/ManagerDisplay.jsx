@@ -77,7 +77,7 @@ const ManagerDisplay = ({ id, manager, onUpdate }) => {
                     </div>}
                 </Form.Group>
                 <Button variant="success" size="sm" type="submit" disabled={!data}>Update</Button>{" "}
-                <Button variant="outline-secondary" size="sm" onClick={oncancel}>Cancel</Button>
+                <Button variant="outline-secondary" size="sm" onClick={onCancel}>Cancel</Button>
             </Form>}
         </div>
     );
