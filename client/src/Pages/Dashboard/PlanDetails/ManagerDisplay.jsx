@@ -56,11 +56,22 @@ const ManagerDisplay = ({ id, manager, onUpdate }) => {
                 <div className="h5 text-secondary">Manager</div>
                 <Button variant="link" onClick={() => setEdit(true)}>Edit</Button>
             </div>
-            <Card style={{ width: '18rem' }}>
+            {manager ? <Card style={{ width: '18rem' }}>
                 <Card.Body>
-                    <Card.Text>{manager?.name}</Card.Text>
+                    <table>
+                        <tbody>
+                            {[
+                                ['Name', manager.name],
+                                ['Email', manager.email],
+                                ['Contact', manager.contactNumber]
+                            ].map(item => <tr>
+                                <th className="pe-2">{item[0]}:</th>
+                                <td>{item[1]}</td>
+                            </tr>)}
+                        </tbody>
+                    </table>
                 </Card.Body>
-            </Card>
+            </Card> : <div className="text-secondary">Manager not added</div>}
             {edit && <Form className="bg-white shadow position-fixed top-50 start-50 translate-middle border rounded p-3" style={{ width: '18rem', maxWidth: '95%' }} onSubmit={onSubmit}>
                 <Form.Text className="d-block text-center mb-3 fw-bold fs-6">Edit manager</Form.Text>
                 <Form.Group className="mb-3">
