@@ -5,6 +5,7 @@ import { getPlanById } from '../../../api/plansAPI';
 import Loading from '../../Shared/Loading/Loading';
 import Banner from '../Banner/Banner';
 import PlaceOrderForm from '../PlaceOrderForm/PlaceOrderForm';
+import PlanDescription from '../PlanDescription/PlanDescription';
 
 const PlaceOrder = () => {
     const [data, setData] = useState(null);
@@ -35,6 +36,7 @@ const PlaceOrder = () => {
                 onClose={() => setShowForm(false)}
                 {...data}
             />}
+            <PlanDescription description={data.description} />
         </Container>
     );
 };
