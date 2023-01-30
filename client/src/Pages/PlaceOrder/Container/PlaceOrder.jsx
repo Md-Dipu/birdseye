@@ -6,6 +6,7 @@ import Loading from '../../Shared/Loading/Loading';
 import Banner from '../Banner/Banner';
 import PlaceOrderForm from '../PlaceOrderForm/PlaceOrderForm';
 import PlanDescription from '../PlanDescription/PlanDescription';
+import Reviews from '../PlanReviews/Reviews';
 
 const PlaceOrder = () => {
     const [data, setData] = useState(null);
@@ -19,9 +20,7 @@ const PlaceOrder = () => {
             const data = res.data.data.value;
             data.payable = data.price - (data.price * ((data.globalDiscount || 0) / 100));
             return data;
-        }).then(data => {
-            setData(data);
-        }).catch(error => console.warn(error.message))
+        }).then(setData).catch(error => console.warn(error.message))
             .finally(() => setLoading(false));
     }, [planId]);
 
@@ -37,6 +36,7 @@ const PlaceOrder = () => {
                 {...data}
             />}
             <PlanDescription description={data.description} />
+            <Reviews />
         </Container>
     );
 };
