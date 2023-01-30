@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Col, Container, Image, Row } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router';
 import { backToTop } from '../../utilities/utilities';
+import ReviewWebsite from './ReviewWebsite';
 
 const AboutUs = () => {
     const history = useHistory();
@@ -20,14 +21,15 @@ const AboutUs = () => {
                             <p>Tourism is travel for pleasure or business; also the theory and practice of touring, the business of attracting, accommodating, and entertaining tourists, and the business of operating tours.</p>
                             <h6 className="text-uppercase text-secondary">why our service?</h6>
                             <ul>
-                                <li>Carefull and good services.</li>
+                                <li>Careful and good services.</li>
                                 <li>Rich hight quality foods.</li>
-                                <li>Historical and beautiful Plance</li>
+                                <li>Historical and beautiful Place.</li>
                             </ul>
                             <Button
                                 variant="primary"
                                 onClick={() => history.push('/plans')}
-                            >Book a ticket now</Button>
+                            >Book a ticket now</Button>{" "}
+                            <ReviewWebsite />
                         </Col>
                         <Col xs={12} md={6} className="my-3">
                             <Row className="justify-content-center">
