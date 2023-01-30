@@ -79,10 +79,10 @@ const HappyClient = () => {
                     </Container>
                 </Col>
                 <Col className="shadow rounded d-flex">
-                    <Carousel variant="dark" controls={false} className="p-3 text-center">
+                    <Carousel variant="dark" controls={false} className="p-3 text-start w-100">
                         {state.high5Reviews.map((review) => <Carousel.Item key={review._id}>
-                            <h4>{review.user.name}</h4>
-                            <blockquote className="fst-italic fs-5">"{review.message}"</blockquote>
+                            <div className="h5">{review.user.name}</div>
+                            <blockquote className="fst-italic text-secondary fs-6">"{review.message}"</blockquote>
                         </Carousel.Item>)}
                     </Carousel>
                 </Col>
