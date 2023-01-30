@@ -21,7 +21,12 @@ const Review = ({ planId, onClose, onUpdate }) => {
 
             postReview(data).then(res => {
                 if (res.data.status === 'success') {
-                    onUpdate();
+                    onUpdate({
+                        _id: res.data.data.insertedId,
+                        rating: data.rating,
+                        message: data.message,
+                        user: { name: user.name }
+                    });
                 }
             }).catch(error => console.warn(error.message))
                 .finally(onClose);
