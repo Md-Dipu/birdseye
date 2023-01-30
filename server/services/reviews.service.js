@@ -3,6 +3,32 @@ const validator = require("validator");
 const { db } = require("../utils/dbConnection");
 
 /**
+ * Update plan rating
+ * 
+ * @typedef {object} ReviewQueryObject
+ * @property {"site" | "plan" | "manager"} to 
+ * @property {string} planId
+ * 
+ * @param {ReviewQueryObject} query 
+ * @returns Updating response from db
+ */
+const updatePlanRating = async (query) => {
+    const ratings = await db("reviews")
+        .find(query)
+        .project({
+            rating: 1
+        })
+        .toArray();
+
+    const totalRatings = ratings.reduce((previous, current) => previous + current.rating, 0);
+    const count = await db("reviews").countDocuments(query);
+    const avg = totalRatings / count;
+
+    const result = await db("plans").updateOne({ _id: ObjectId(query.planId) }, { "$set": { rating: avg } });
+    return result;
+};
+
+/**
  * Insert review on database
  * 
  * @typedef {object} Review
@@ -50,7 +76,13 @@ exports.createNewReviewService = async (data) => {
     data.createdAt = new Date();
     data.updatedAt = data.createdAt;
 
-    const result = db("reviews").insertOne(data);
+    const result = await db("reviews").insertOne(data);
+
+    // updating average rating of plan after posting new review
+    if (query.to === "plan") {
+        await updatePlanRating(query);
+    }
+
     return result;
 };
 
