@@ -10,6 +10,7 @@ import DiscountDetails from './DiscountDetails';
 import GeneralDetails from './GeneralDetails';
 import ManagerDisplay from './ManagerDisplay';
 import PlanBookings from './PlanBookings';
+import PlanReviews from './PlanReviews';
 
 const PlanDetails = () => {
     const [plan, setPlan] = useState({});
@@ -51,6 +52,12 @@ const PlanDetails = () => {
                 return <PlanBookings
                     planId={planId}
                     filter={query.get('filter')}
+                />;
+
+            case 'reviews':
+                return <PlanReviews
+                    planId={planId}
+                    rating={plan.rating}
                 />;
 
             default:
