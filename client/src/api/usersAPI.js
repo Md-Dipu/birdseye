@@ -16,3 +16,8 @@ export const getUsers = async (extension) => {
     const users = await userAPI.get(extension || '');
     return users;
 };
+
+export const updateUserById = async (userId, data) => {
+    const result = await userAPI.patch(`/id/${userId}`, data);
+    return result;
+};
