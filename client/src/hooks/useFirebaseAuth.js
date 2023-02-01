@@ -8,7 +8,8 @@ import {
     getIdToken,
     createUserWithEmailAndPassword,
     updateProfile,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    deleteUser
 } from "firebase/auth";
 import { firebaseAppInitializer } from "../config/Firebase/firebase.init";
 import { getUserByEmail } from '../api/usersAPI';
@@ -43,6 +44,11 @@ const useFirebase = () => {
     const logInUsingEmailAndPassword = (email, password) => {
         setIsLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
+    };
+
+    // delete current user
+    const deleteCurrentUser = () => {
+        return deleteUser(auth.currentUser);
     };
 
     // state change from firebase
@@ -85,6 +91,7 @@ const useFirebase = () => {
         signUpUsingEmailAndPassword,
         updateUserOnFirebase,
         logInUsingEmailAndPassword,
+        deleteCurrentUser,
         logOut
     };
 }

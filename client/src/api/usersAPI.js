@@ -21,3 +21,8 @@ export const updateUserById = async (userId, data) => {
     const result = await userAPI.patch(`/id/${userId}`, data);
     return result;
 };
+
+export const deleteUserById = async (userId) => {
+    const result = await userAPI.delete(`/id/${userId}`);
+    return result;
+};
