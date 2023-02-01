@@ -13,16 +13,17 @@ const ReviewWebsite = () => {
     const { user } = useAuth();
 
     useEffect(() => {
-        getReviews(`?to=site&user.id=${user._id}`)
-            .then(res => {
-                if (res.data.count === 0) {
-                    setReviewable(true);
-                }
-            }).catch(error => {
-                console.warn(error.message);
-                setReviewable(false);
-            });
-    }, [user._id]);
+        if (user) {
+            getReviews(`?to=site&user.id=${user._id}`)
+                .then(res => {
+                    if (res.data.count === 0) {
+                        setReviewable(true);
+                    } else {
+                        setReviewable(false);
+                    }
+                }).catch(error => console.warn(error.message));
+        }
+    }, [user]);
 
     useEffect(() => {
         if (success) {
