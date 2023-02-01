@@ -61,7 +61,7 @@ const ManagePlans = () => {
         <Container>
             <Row>
                 <Col xs="12" md="3">
-                    <ListGroup variant="flush">
+                    <ListGroup variant="flush" className="position-sticky top-0">
                         <ListGroup.Item action onClick={handleOnClick()}>{user.role === 'admin' ? 'All' : 'My'} plans</ListGroup.Item>
                         <ListGroup.Item action onClick={handleOnClick('active')}>Active plans</ListGroup.Item>
                         <ListGroup.Item action onClick={handleOnClick('inactive')}>Inactive plans</ListGroup.Item>

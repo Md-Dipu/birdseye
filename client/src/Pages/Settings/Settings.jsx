@@ -11,7 +11,7 @@ const Settings = () => {
         <Container>
             <Row>
                 <Col xs="12" md="3" lg="2">
-                    <ListGroup variant="flush">
+                    <ListGroup variant="flush" className="position-sticky top-0">
                         <ListGroup.Item as={Link} to="#account" onClick={scrollToSectionStart('account')} action>Account</ListGroup.Item>
                         <ListGroup.Item as={Link} to="#role-request" onClick={scrollToSectionStart('role-request')} action>Role request</ListGroup.Item>
                         <ListGroup.Item as={Link} to="#delete-account" onClick={scrollToSectionStart('delete-account')} action>Delete</ListGroup.Item>

@@ -80,7 +80,7 @@ const PlanDetails = () => {
         <Container>
             <Row>
                 <Col md="3">
-                    <ListGroup variant="flush">
+                    <ListGroup variant="flush" className="position-sticky top-0">
                         <ListGroup.Item action onClick={handleDetailsLinks}>Plan details</ListGroup.Item>
                         <ListGroup.Item action onClick={handleBookingLinks()}>Bookings</ListGroup.Item>
                         <ListGroup.Item action onClick={handleBookingLinks('cancelation')}>Cancel requests</ListGroup.Item>
