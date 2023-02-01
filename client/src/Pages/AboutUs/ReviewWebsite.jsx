@@ -1,13 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { postReview } from '../../api/reviewsAPI';
+import { getReviews, postReview } from '../../api/reviewsAPI';
 import useAuth from '../../hooks/useAuth';
 import ReviewForm from '../Shared/Review/ReviewForm';
 import img from '../../assets/images/done-icon.png';
 
 const ReviewWebsite = () => {
+    const [reviewable, setReviewable] = useState(false);
     const [showForm, setShowForm] = useState(false);
     const [success, setSuccess] = useState(false);
+
+    const { user } = useAuth();
+
+    useEffect(() => {
+        getReviews(`?to=site&user.id=${user._id}`)
+            .then(res => {
+                if (res.data.count === 0) {
+                    setReviewable(true);
+                }
+            }).catch(error => {
+                console.warn(error.message);
+                setReviewable(false);
+            });
+    }, [user._id]);
 
     useEffect(() => {
         if (success) {
@@ -16,8 +31,6 @@ const ReviewWebsite = () => {
             }, 3000);
         }
     }, [success]);
-
-    const { user } = useAuth();
 
     const onClose = () => setShowForm(false);
     const onSubmit = (data) => {
@@ -39,7 +52,7 @@ const ReviewWebsite = () => {
     };
 
     return (
-        user ? <>
+        reviewable ? <>
             <Button
                 variant="outline-light"
                 onClick={() => setShowForm(true)}
