@@ -2,7 +2,8 @@ const {
     createNewUserService,
     updateUserByIdService,
     getUserByEmailService,
-    getUsersService
+    getUsersService,
+    deleteUserByIdService
 } = require("../services/users.service");
 const { queryParser } = require("../utils/queryParser");
 
@@ -80,6 +81,25 @@ exports.getUsersController = async (req, res) => {
         res.status(400).json({
             status: "fail",
             message: "Couldn't able to find users",
+            error: error.message
+        });
+    }
+};
+
+exports.deleteUserByIdController = async (req, res) => {
+    try {
+        const result = await deleteUserByIdService(req.params.id);
+
+        res.status(200).json({
+            status: "success",
+            message: "User deleted successfully",
+            data: result
+        });
+
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            message: "Couldn't able to delete user",
             error: error.message
         });
     }

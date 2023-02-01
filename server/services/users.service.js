@@ -72,3 +72,18 @@ exports.getUsersService = async (filters, queries) => {
 
     return { users, count };
 };
+
+/**
+ * Delete user from database
+ * 
+ * @param {string} id - Object id string of mongodb document
+ * @returns {object} Deleting status of mongodb
+ */
+exports.deleteUserByIdService = async (id) => {
+    if (!ObjectId.isValid(id)) {
+        throw new Error("Object Id isn't valid");
+    }
+
+    const result = await db("users").deleteOne({ _id: ObjectId(id) });
+    return result;
+};
