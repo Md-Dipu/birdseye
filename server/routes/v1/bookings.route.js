@@ -1,7 +1,11 @@
 const express = require("express");
 const bookingsController = require("../../controllers/bookings.controller");
+const authorization = require("../../middleware/authorization");
+const verifyToken = require("../../middleware/verifyToken");
 
 const router = express.Router();
+
+router.use(verifyToken);
 
 router.route("/")
     .post(bookingsController.createNewBookingController)
@@ -10,6 +14,6 @@ router.route("/")
 router.route("/:id")
     .get(bookingsController.getBookingByIdController)
     .patch(bookingsController.updateBookingByIdController)
-    .delete(bookingsController.deleteBookingByIdController);
+    .delete(authorization("admin"), bookingsController.deleteBookingByIdController);
 
 module.exports = router;
