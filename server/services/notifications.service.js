@@ -14,7 +14,7 @@ const { db } = require("../utils/dbConnection");
  * @property {Date} updatedAt - updating time
  * 
  * @typedef {object} SendTo
- * @property {string} showBy - show by role or id or specific users
+ * @property {'role' | 'user'} showBy - show by role or id or specific users
  * @property {string[]} ids - array of object id
  * 
  * @param {Notification} data 
