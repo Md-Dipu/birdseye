@@ -69,6 +69,7 @@ const useFirebase = () => {
             else {
                 setUser(null)
                 setIsLoading(false);
+                localStorage.removeItem('idToken');
             }
         });
         return () => unsubscribed;
