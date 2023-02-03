@@ -5,7 +5,8 @@ const { db } = require("../utils/dbConnection");
  * Insert new notification on db
  * 
  * @typedef {object} Notification
- * @property {SendTo} to - reviewable user or users identities 
+ * @property {SendTo} to - viewable user or users identities 
+ * @property {SendFrom | null} from - sender identity
  * @property {'web-mail' | 'role-request' | 'confirmation' | 'error'} type - notification type
  * @property {string} title - notification title 
  * @property {string} message - notification message 
@@ -14,9 +15,13 @@ const { db } = require("../utils/dbConnection");
  * @property {Date} updatedAt - updating time
  * 
  * @typedef {object} SendTo
- * @property {'role' | 'user'} showBy - show by role or id or specific users
+ * @property {'role' | 'user'} sendBy - show by role or id or specific users
  * @property {string[]} ids - array of object id
  * @property {string[]} roles - array of allowed role
+ * 
+ * @typedef {object} SendFrom
+ * @property {string} name - name of sender
+ * @property {string} email - email address of sender
  * 
  * @param {Notification} data 
  * @returns Inserting status from mongodb
