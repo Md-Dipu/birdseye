@@ -28,10 +28,6 @@ const { db } = require("../utils/dbConnection");
  * @returns Inserting status from mongodb
  */
 exports.createNotificationService = async (data) => {
-    data.seenBy = [];
-    data.createdAt = new Date();
-    data.updatedAt = data.createdAt;
-
     if (data.to.ids) {
         data.to.ids.forEach(id => {
             if (!ObjectId.isValid(id)) {
@@ -39,6 +35,16 @@ exports.createNotificationService = async (data) => {
             }
         });
     }
+
+    if (data.from) {
+        if (!validator.isEmail(data.from.email)) {
+            throw new Error("Email isn't valid");
+        }
+    }
+
+    data.seenBy = [];
+    data.createdAt = new Date();
+    data.updatedAt = data.createdAt;
 
     const result = await db("notifications").insertOne(data);
     return result;
