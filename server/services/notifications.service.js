@@ -1,3 +1,4 @@
+const validator = require("validator");
 const { ObjectId } = require("mongodb");
 const { db } = require("../utils/dbConnection");
 
@@ -40,5 +41,43 @@ exports.createNotificationService = async (data) => {
     }
 
     const result = await db("notifications").insertOne(data);
+    return result;
+};
+
+/**
+ * Insert new web-mail
+ * 
+ * @typedef {object} WebMail
+ * @property {string} name - sender name
+ * @property {string} email - sender email
+ * @property {string} message - message
+ * 
+ * @param {WebMail} data 
+ * @returns 
+ */
+exports.createAnonymousWebMailService = async (data) => {
+    if (!validator.isEmail(data.email)) {
+        throw new Error("Email isn't valid");
+    }
+
+    /** 
+     * @type {Notification} 
+     * @description new data for insert operation
+     */
+    const webMail = {
+        to: "admin",
+        from: {
+            name: data.name,
+            email: data.email
+        },
+        type: "web-mail",
+        message: data.message,
+        seenBy: []
+    };
+
+    webMail.createdAt = new Date();
+    webMail.updatedAt = webMail.createdAt;
+
+    const result = await db("notifications").insertOne(webMail);
     return result;
 };

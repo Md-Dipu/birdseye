@@ -7,5 +7,6 @@ const router = express.Router();
 router.use(verifyToken);
 
 router.route("/").post(notificationControllers.createNotificationController);
+router.route("/web-mail").post(notificationControllers.createWebMailController);
 
 module.exports = router;
