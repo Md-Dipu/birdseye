@@ -71,7 +71,10 @@ exports.createAnonymousWebMailService = async (data) => {
      * @description new data for insert operation
      */
     const webMail = {
-        to: "admin",
+        to: {
+            sendBy: "role",
+            roles: ["admin"]
+        },
         from: {
             name: data.name,
             email: data.email
