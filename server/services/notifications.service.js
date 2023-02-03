@@ -16,6 +16,7 @@ const { db } = require("../utils/dbConnection");
  * @typedef {object} SendTo
  * @property {'role' | 'user'} showBy - show by role or id or specific users
  * @property {string[]} ids - array of object id
+ * @property {string[]} roles - array of allowed role
  * 
  * @param {Notification} data 
  * @returns Inserting status from mongodb
