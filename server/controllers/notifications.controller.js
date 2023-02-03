@@ -1,7 +1,8 @@
 const {
     createNotificationService,
     createAnonymousWebMailService,
-    getNotificationsService
+    getNotificationsService,
+    getNotificationByIdService
 } = require("../services/notifications.service");
 const { queryParser } = require("../utils/queryParser");
 
@@ -66,6 +67,25 @@ exports.getNotificationsController = async (req, res) => {
         res.status(400).json({
             status: "fail",
             message: "Couldn't able to find notifications",
+            error: error.message
+        });
+    }
+};
+
+exports.getNotificationByIdController = async (req, res) => {
+    try {
+        const result = await getNotificationByIdService(req.params.id, req.user._id.toString());
+
+        res.status(200).json({
+            status: "success",
+            message: "Notification found successfully",
+            data: result
+        });
+
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            message: "Couldn't able to find notification",
             error: error.message
         });
     }

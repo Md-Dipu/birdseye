@@ -11,5 +11,6 @@ router.route("/")
     .get(notificationControllers.getNotificationsController);
 
 router.route("/web-mail").post(notificationControllers.createWebMailController);
+router.route("/:id").get(notificationControllers.getNotificationByIdController);
 
 module.exports = router;

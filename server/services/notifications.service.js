@@ -114,3 +114,23 @@ exports.getNotificationsService = async (filters, queries) => {
 
     return { notifications, count };
 };
+
+/** 
+ * @param {string} id - object id of document
+ * @returns {object} Document
+ */
+exports.getNotificationByIdService = async (id, userId) => {
+    if (!ObjectId.isValid(id)) {
+        throw new Error("Notification Id isn't valid");
+    }
+    const filter = { _id: ObjectId(id) };
+    const notification = await db("notifications").findOne(filter);
+    if (!notification.seenBy.includes(userId)) {
+        await db("notifications").updateOne(filter, {
+            $push: { seenBy: userId },
+            $set: { updatedAt: new Date() }
+        });
+    }
+
+    return notification;
+};
