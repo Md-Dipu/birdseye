@@ -87,3 +87,27 @@ exports.createAnonymousWebMailService = async (data) => {
     const result = await db("notifications").insertOne(webMail);
     return result;
 };
+
+/**
+ * @typedef {object} Query 
+ * @property {number} limit - limit per page 
+ * @property {number} page - page number
+ * @property {number} skip - number skipping documents
+ * @property {*} fields - projection fields
+ * 
+ * @param {*} filters
+ * @param {Query} queries 
+ * @returns {object} Find status from database
+ */
+exports.getNotificationsService = async (filters, queries) => {
+    const notifications = await db("notifications").find(filters)
+        .sort(queries.sortby)
+        .limit(queries.limit)
+        .skip(queries.skip)
+        .project(queries.fields)
+        .toArray();
+
+    const count = await db("notifications").countDocuments(filters);
+
+    return { notifications, count };
+};

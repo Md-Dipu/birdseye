@@ -6,7 +6,10 @@ const router = express.Router();
 
 router.use(verifyToken);
 
-router.route("/").post(notificationControllers.createNotificationController);
+router.route("/")
+    .post(notificationControllers.createNotificationController)
+    .get(notificationControllers.getNotificationsController);
+
 router.route("/web-mail").post(notificationControllers.createWebMailController);
 
 module.exports = router;

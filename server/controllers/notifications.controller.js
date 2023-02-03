@@ -1,7 +1,9 @@
 const {
     createNotificationService,
-    createAnonymousWebMailService
+    createAnonymousWebMailService,
+    getNotificationsService
 } = require("../services/notifications.service");
+const { queryParser } = require("../utils/queryParser");
 
 exports.createNotificationController = async (req, res) => {
     try {
@@ -36,6 +38,34 @@ exports.createWebMailController = async (req, res) => {
         res.status(400).json({
             status: "fail",
             message: "Couldn't able to send web-mail",
+            error: error.message
+        });
+    }
+};
+
+exports.getNotificationsController = async (req, res) => {
+    const queries = queryParser(req.query)[1];
+    const filters = {
+        "$or": [
+            { "to.sendBy": "role", "to.roles": { "$elemMatch": { "$eq": req.user.role } } },
+            { "to.sendBy": "user", "to.ids": { "$elemMatch": { "$eq": req.user._id.toString() } } }
+        ]
+    };
+
+    try {
+        const result = await getNotificationsService(filters, queries);
+
+        res.status(200).json({
+            status: "success",
+            message: "Notifications found successfully",
+            data: result.notifications,
+            count: result.count
+        });
+
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            message: "Couldn't able to find notifications",
             error: error.message
         });
     }
