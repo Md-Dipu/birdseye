@@ -9,6 +9,7 @@ const { db } = require("../utils/dbConnection");
  * @property {SendTo} to - viewable user or users identities 
  * @property {SendFrom | null} from - sender identity
  * @property {'web-mail' | 'role-request' | 'confirmation' | 'error'} type - notification type
+ * @property {Request} requestData - request sended data
  * @property {string} title - notification title 
  * @property {string} message - notification message 
  * @property {string[]} seenBy - object id of users
@@ -23,6 +24,10 @@ const { db } = require("../utils/dbConnection");
  * @typedef {object} SendFrom
  * @property {string} name - name of sender
  * @property {string} email - email address of sender
+ * 
+ * @typedef {object} Request 
+ * @property {string} userId - document object id of request sender user
+ * @property {string} role - requested role
  * 
  * @param {Notification} data 
  * @returns Inserting status from mongodb
