@@ -1,13 +1,17 @@
 import axios from "axios";
 
-const axiosConfig = () => {
-    const headers = {};
+const token = () => {
     const idToken = localStorage.getItem('idToken');
-    if (idToken) {
-        headers.authorization = `Bearer ${localStorage.getItem('idToken')}`;
+    if (!idToken) {
+        // returning undefined on token not found
+        return;
     }
 
-    return { headers };
+    return {
+        headers: {
+            authorization: `Bearer ${idToken}`
+        }
+    };
 };
 
 class API {
@@ -18,25 +22,29 @@ class API {
     /** get api */
     get(extension) {
         const apiURL = this.serverRouteURL + extension;
-        return axios.get(apiURL, axiosConfig());
+        return axios.get(apiURL, token());
     }
 
     /** post api */
-    post(data) {
-        const apiURL = this.serverRouteURL;
-        return axios.post(apiURL, data, axiosConfig());
+    post(extension, data) {
+        if (!data) {
+            [extension, data] = [data, extension];
+        }
+
+        const apiURL = `${this.serverRouteURL}${extension || ''}`;
+        return axios.post(apiURL, data, token());
     }
 
     /** patch api */
     patch(extension, data) {
         const apiURL = this.serverRouteURL + extension;
-        return axios.patch(apiURL, data, axiosConfig());
+        return axios.patch(apiURL, data, token());
     }
 
     /** delete api */
     delete(extension) {
         const apiURL = this.serverRouteURL + extension;
-        return axios.delete(apiURL, axiosConfig());
+        return axios.delete(apiURL, token());
     }
 }
 
