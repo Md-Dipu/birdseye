@@ -18,8 +18,8 @@ const RoleRequest = () => {
 
     const onSubmit = data => {
         data.userId = user._id;
-        roleRequest(data).then(onClose)
-            .catch(error => console.warn(error.message));
+        roleRequest(`Role request from ${user.name} for role ${data.role}. Approve the request as soon as possible.`, data)
+            .then(onClose).catch(error => console.warn(error.message));
     };
 
     return (
