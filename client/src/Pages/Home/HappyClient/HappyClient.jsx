@@ -78,7 +78,7 @@ const HappyClient = () => {
                         </Row>
                     </Container>
                 </Col>
-                <Col className="shadow rounded d-flex">
+                <Col className="shadow rounded d-flex" style={{ minHeight: 250 }}>
                     <Carousel variant="dark" controls={false} className="p-3 text-start w-100">
                         {state.high5Reviews.map((review) => <Carousel.Item key={review._id}>
                             <div className="h5">{review.user.name}</div>
