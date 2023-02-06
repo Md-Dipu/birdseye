@@ -6,6 +6,7 @@ import Bookings from '../Bookings/Bookings';
 import PlanDetails from '../PlanDetails/PlanDetails';
 import AddPlan from '../AddPlan/MainForm/AddPlan';
 import ManagePlans from '../ManagePlans/ManagePlans';
+import Notifications from '../Notifications/Notifications';
 
 const Dashboard = () => {
     const { path, url } = useRouteMatch();
@@ -17,6 +18,9 @@ const Dashboard = () => {
             </Route>
             <Route exact path={`${path}/bookings`}>
                 <Bookings />
+            </Route>
+            <Route exact path={`${path}/notifications`}>
+                <Notifications />
             </Route>
             <PrivateRoute allowedRoles="admin,manager" exact path={`${path}/manage-plans`}>
                 <ManagePlans />

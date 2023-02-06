@@ -21,3 +21,13 @@ export const roleRequest = async (message, data) => {
 
     return result;
 };
+
+export const getNotifications = async (extension) => {
+    const result = notificationsAPI.get(extension || '');
+    return result;
+};
+
+export const getNotificationById = async (id) => {
+    const result = notificationsAPI.get(`/${id}`);
+    return result;
+};
