@@ -33,7 +33,7 @@ const BookingDetails = ({ id, onClose }) => {
     };
 
     return (
-        <Card className="bg-white shadow position-fixed top-50 start-50 translate-middle" style={{ width: '18rem' }}>
+        <Card className="bg-white shadow position-fixed top-50 start-50 translate-middle" style={{ width: '18rem', zIndex: 1 }}>
             <Card.Img variant="top" src={data.coverImageURL} />
             <Card.Body>
                 <Form>
