@@ -69,13 +69,15 @@ const Notifications = () => {
                         {(data.type === 'role-request') && <div>
                             <div className="fw-bold">Request</div>
                             <table className="mb-3">
-                                {[
-                                    ['User id', data.requestData.userId],
-                                    ['Role', data.requestData.role],
-                                ].map((item, idx) => <tr key={idx}>
-                                    <th className="text-nowrap pe-3" style={{ verticalAlign: 'baseline' }}>{item[0]}:</th>
-                                    <td>{item[1]}</td>
-                                </tr>)}
+                                <tbody>
+                                    {[
+                                        ['User id', data.requestData.userId],
+                                        ['Role', data.requestData.role],
+                                    ].map((item, idx) => <tr key={idx}>
+                                        <th className="text-nowrap pe-3" style={{ verticalAlign: 'baseline' }}>{item[0]}:</th>
+                                        <td>{item[1]}</td>
+                                    </tr>)}
+                                </tbody>
                             </table>
                             <Button variant="success" size="sm" className="rounded-0" onClick={e => handleRoleRequest(e, data.requestData.userId, data.requestData.role)}>Approve</Button>
                         </div>}
