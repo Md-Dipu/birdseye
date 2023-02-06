@@ -30,7 +30,7 @@ const Search = ({ text }) => {
     return (
         <Row className="my-4 justify-content-center">
             <Col md="10" lg="8">
-                <Form onSubmit={onSubmit} className="mb-3">
+                <Form onSubmit={onSubmit}>
                     <InputGroup size="sm">
                         <Form.Select ref={sortRef} onChange={handleSearch}>
                             <option value="">Default</option>
@@ -44,7 +44,7 @@ const Search = ({ text }) => {
                         <Form.Control
                             type="text"
                             ref={textRef}
-                            style={{ minWidth: '75%' }}
+                            style={{ minWidth: '70%' }}
                             defaultValue={text}
                         />
                         <Button
