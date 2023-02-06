@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { getNotificationById, getNotifications } from '../../../api/notificationsAPI';
+import { updateUserById } from '../../../api/usersAPI';
 import useAuth from '../../../hooks/useAuth';
 
 const Notifications = () => {
@@ -32,6 +33,11 @@ const Notifications = () => {
         }
     }, [showNotification]);
 
+    const handleRoleRequest = (event, userId, role) => {
+        updateUserById(userId, { role }).then(() => event.target.disabled = true)
+            .catch(error => console.warn(error.message));
+    };
+
     return (
         <Container className="my-3">
             <Row>
@@ -59,7 +65,20 @@ const Notifications = () => {
                 <Col id="notification-area">
                     {data ? <div className="text-secondary">
                         <div className="fw-bold">{data.title || '<no subject added>'}</div>
-                        <div>{data.message}</div>
+                        <div className="mb-3">{data.message}</div>
+                        {(data.type === 'role-request') && <div>
+                            <div className="fw-bold">Request</div>
+                            <table className="mb-3">
+                                {[
+                                    ['User id', data.requestData.userId],
+                                    ['Role', data.requestData.role],
+                                ].map((item, idx) => <tr key={idx}>
+                                    <th className="text-nowrap pe-3" style={{ verticalAlign: 'baseline' }}>{item[0]}:</th>
+                                    <td>{item[1]}</td>
+                                </tr>)}
+                            </table>
+                            <Button variant="success" size="sm" className="rounded-0" onClick={e => handleRoleRequest(e, data.requestData.userId, data.requestData.role)}>Approve</Button>
+                        </div>}
                     </div> : 'Data not found'}
                 </Col>
             </Row>
