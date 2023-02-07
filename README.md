@@ -1,26 +1,41 @@
-# Birdseye: Tourism Related site
+# Birdseye
+## _Tourism related website_
 
-View live website: [Birdseye](https://tourism-client.web.app/).
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-## About Projects (Client)
+Birdseye is a tourism website. It is built using the popular MERN Stack technologies. This demo website is a full-stack website. It is built for the purpose of learning `React`, `Node.js`, `MongoDB`, and others tools and development packages.
 
--   This a React.js projects.
--   React Bootstrap 5 added as a CSS framework.
--   Hosting on firebase.
--   firebase authenticator system (Google authenticator).
+> **Demo:** This project is deployed using the 
+> firebase hosting service. To visit the demo 
+> [Click](https://birdseye-travel-planner.web.app/)
+> here or manually visit the URL 
+> https://birdseye-travel-planner.web.app.
 
-## About Projects (Server)
+## Features
 
--   This a Node.js, Express.js projects.
--   Mongodb used as database.
--   Hosting on heroku.
--   Database container server is mongodb atlas.
--   GET, POST, PUT methods are added here.
+- Responsive webpages
+- Authentication and Authorization
+- File hosting
+- REST api
+- Database management
+- Sorting and search plans
+- Add new plans (Admin only)
+- Editing plan details (Admin only)
+- Make bookings
+- Booking management
+- User role management
 
-## About Website
+This website is a fully responsive application. Attempts have been made to implement all basic concepts/services. 
 
--   This is website side made for show off plans and booking plan's ticket.
--   Plans maybe add from add new plan page.
--   User is able to book ticket.
--   If user face any problem able to update them.
--   And also able to cancel the plan or plans.
+## Tech
+
+This project uses a number of open-source projects/packages to work properly:
+
+### _Frontend_
+- [Axios](https://axios-http.com/) - Promise based HTTP client for the browser and node.js.
+- [Bootstrap](https://getbootstrap.com/) - Bootstrap is a powerful, feature-packed frontend toolkit.
+- [Firebase](https://firebase.google.com/) - Firebase is an app development platform that helps to build apps and games.
+- [React](https://reactjs.org/) - A JavaScript library for building user interfaces.
+- [React-bootstrap](https://react-bootstrap.github.io/) - The most popular front-end framework.
+- [React-hook-form](https://react-hook-form.com/) - Performant, flexible and extensible forms with easy-to-use validation.
+- [React-router](https://reactrouter.com/) - React Router is a standard library for routing in React.

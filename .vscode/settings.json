@@ -1,3 +1,6 @@
 {
-    "git.enableCommitSigning": true
+    "git.enableCommitSigning": true,
+    "cSpell.words": [
+        "MERN"
+    ]
 }
