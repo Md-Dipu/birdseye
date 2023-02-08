@@ -1,6 +1,12 @@
 {
     "git.enableCommitSigning": true,
     "cSpell.words": [
-        "MERN"
+        "APIKEY",
+        "AUTHDOMAIN",
+        "MERN",
+        "MESSAGINGSENDERID",
+        "PROJECTID",
+        "STORAGEBUCKET",
+        "unopinionated"
     ]
 }
