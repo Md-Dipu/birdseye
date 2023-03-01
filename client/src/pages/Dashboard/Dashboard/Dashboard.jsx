@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import PrivateRoute from '../../Authentication/PrivateRoute/RouteProtector';
-import NotFound from '../../NotFound/NotFound';
+import NotFound from '../../NotFound';
 import Bookings from '../Bookings/Bookings';
 import PlanDetails from '../PlanDetails/PlanDetails';
 import AddPlan from '../AddPlan/MainForm/AddPlan';

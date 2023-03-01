@@ -3,7 +3,7 @@ import Header from './pages/Shared/Header/Header';
 import Home from './pages/Home';
 import Login from './pages/Authentication/Login/Login';
 import Plans from './pages/Plans/Plans/Plans';
-import NotFound from './pages/NotFound/NotFound';
+import NotFound from './pages/NotFound';
 import Footer from './pages/Shared/Footer/Footer';
 import AuthProvider from './context/AuthProvider';
 import PrivateRoute from './pages/Authentication/PrivateRoute/RouteProtector';
