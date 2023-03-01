@@ -1,17 +1,17 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Header from './Pages/Shared/Header/Header';
-import Home from './Pages/Home/Home/Home';
-import Login from './Pages/Authentication/Login/Login';
-import Plans from './Pages/Plans/Plans/Plans';
-import NotFound from './Pages/NotFound/NotFound';
-import Footer from './Pages/Shared/Footer/Footer';
+import Header from './pages/Shared/Header/Header';
+import Home from './pages/Home/Home/Home';
+import Login from './pages/Authentication/Login/Login';
+import Plans from './pages/Plans/Plans/Plans';
+import NotFound from './pages/NotFound/NotFound';
+import Footer from './pages/Shared/Footer/Footer';
 import AuthProvider from './context/AuthProvider';
-import PrivateRoute from './Pages/Authentication/PrivateRoute/RouteProtector';
-import AboutUs from './Pages/AboutUs/AboutUs';
-import PlaceOrder from './Pages/PlaceOrder/Container/PlaceOrder';
-import Register from './Pages/Authentication/Register/Register';
-import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
-import Settings from './Pages/Settings/Settings';
+import PrivateRoute from './pages/Authentication/PrivateRoute/RouteProtector';
+import AboutUs from './pages/AboutUs/AboutUs';
+import PlaceOrder from './pages/PlaceOrder/Container/PlaceOrder';
+import Register from './pages/Authentication/Register/Register';
+import Dashboard from './pages/Dashboard/Dashboard/Dashboard';
+import Settings from './pages/Settings/Settings';
 
 function App() {
     return (
