@@ -5,8 +5,8 @@ import { Col, Container, ListGroup, Row, Table } from 'react-bootstrap';
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import { getPlans } from '../../../api/plansAPI';
 import useAuth from '../../../hooks/useAuth';
-import Loading from '../../Shared/Loading/Loading';
-import Pagination from '../../Shared/Pagination/Pagination';
+import Loading from '../../Shared/Loading';
+import Pagination from '../../Shared/Pagination';
 
 const ManagePlans = () => {
     const [plans, setPlans] = useState([]);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { getPlanById } from '../../../api/plansAPI';
-import Loading from '../../Shared/Loading/Loading';
+import Loading from '../../Shared/Loading';
 import Banner from '../Banner/Banner';
 import PlaceOrderForm from '../PlaceOrderForm/PlaceOrderForm';
 import PlanDescription from '../PlanDescription/PlanDescription';

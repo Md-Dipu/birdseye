@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getReviews } from '../../../api/reviewsAPI';
-import Loading from '../../Shared/Loading/Loading';
+import Loading from '../../Shared/Loading';
 import Stars from '../../Shared/Review/Stars';
 
 const PlanReviews = ({ planId, rating }) => {

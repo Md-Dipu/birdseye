@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { Container } from 'react-bootstrap';
-import QuickAlert from '../../Shared/QuickAlert/QuickAlert';
+import QuickAlert from '../../Shared/QuickAlert';
 import GoogleSignIn from '../GoogleSignIn/GoogleSignIn';
 import useAuth from '../../../hooks/useAuth';
 import { useHistory, useLocation } from 'react-router-dom';

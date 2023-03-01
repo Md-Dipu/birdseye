@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { getBookings } from '../../../api/bookingsAPI';
-import Loading from '../../Shared/Loading/Loading';
+import Loading from '../../Shared/Loading';
 import useAuth from '../../../hooks/useAuth';
 import Booking from './Booking';
 import SideBanner from './SideBanner';
-import Pagination from '../../Shared/Pagination/Pagination';
+import Pagination from '../../Shared/Pagination';
 import BookingDetails from './BookingDetails';
 
 const Bookings = () => {

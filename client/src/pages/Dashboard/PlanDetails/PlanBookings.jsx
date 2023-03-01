@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { getBookings } from '../../../api/bookingsAPI';
-import Loading from '../../Shared/Loading/Loading';
-import Pagination from '../../Shared/Pagination/Pagination';
+import Loading from '../../Shared/Loading';
+import Pagination from '../../Shared/Pagination';
 import BookingDetails from './BookingDetails';
 
 const PlanBookings = ({ planId, filter }) => {

@@ -3,7 +3,7 @@ import { Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { getPlanById } from '../../../api/plansAPI';
 import useAuth from '../../../hooks/useAuth';
-import Loading from '../../Shared/Loading/Loading';
+import Loading from '../../Shared/Loading';
 import DangerZone from './DangerZone';
 import Description from './Description';
 import DiscountDetails from './DiscountDetails';

@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
-import Pagination from '../../Shared/Pagination/Pagination';
-import Loading from '../../Shared/Loading/Loading';
+import Pagination from '../../Shared/Pagination';
+import Loading from '../../Shared/Loading';
 import Plan from '../Plan/Plan';
 import Search from '../Search/Search';
 import { backToTop } from '../../../utilities/utilities';
