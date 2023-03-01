@@ -1,12 +1,12 @@
 import React from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
-import PrivateRoute from '../../Authentication/PrivateRoute';
-import NotFound from '../../NotFound';
-import Bookings from '../Bookings/Bookings';
-import PlanDetails from '../PlanDetails/PlanDetails';
-import AddPlan from '../AddPlan/MainForm/AddPlan';
-import ManagePlans from '../ManagePlans/ManagePlans';
-import Notifications from '../Notifications/Notifications';
+import NotFound from '../NotFound';
+import PrivateRoute from '../Authentication/PrivateRoute';
+import AddPlan from './AddPlan';
+import Bookings from './Bookings';
+import ManagePlans from './ManagePlans';
+import Notifications from './Notifications';
+import PlanDetails from './PlanDetails';
 
 const Dashboard = () => {
     const { path, url } = useRouteMatch();

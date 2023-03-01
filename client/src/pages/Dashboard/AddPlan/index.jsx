@@ -3,10 +3,10 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { Col, Container, ProgressBar, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useHistory, useLocation } from 'react-router-dom';
-import { storage } from '../../../../config/Firebase/firebase.init';
-import { backToTop } from '../../../../utilities/utilities';
-import { postPlan } from '../../../../api/plansAPI';
-import InfoForm from '../InfoForm/InfoForm';
+import { storage } from '../../../config/Firebase/firebase.init';
+import { backToTop } from '../../../utilities/utilities';
+import { postPlan } from '../../../api/plansAPI';
+import InfoForm from './InfoForm';
 
 const AddPlan = () => {
     const [data, setData] = useState(null);

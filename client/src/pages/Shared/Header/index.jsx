@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import useAuth from '../../../hooks/useAuth';
-import DashboardMenu from '../../Dashboard/DashboardMenu/DashboardMenu';
+import DashboardMenu from '../../Dashboard/DashboardMenu';
 import AuthNavMenu from '../../Authentication/AuthNavMenu';
 
 const Header = () => {
