@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
-import PrivateRoute from '../../Authentication/PrivateRoute/RouteProtector';
+import PrivateRoute from '../../Authentication/PrivateRoute';
 import NotFound from '../../NotFound';
 import Bookings from '../Bookings/Bookings';
 import PlanDetails from '../PlanDetails/PlanDetails';

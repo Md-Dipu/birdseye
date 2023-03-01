@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import useAuth from '../../../hooks/useAuth';
 import DashboardMenu from '../../Dashboard/DashboardMenu/DashboardMenu';
-import AuthNavMenu from '../../Authentication/AuthNavMenu/AuthNavMenu';
+import AuthNavMenu from '../../Authentication/AuthNavMenu';
 
 const Header = () => {
     const { user } = useAuth();

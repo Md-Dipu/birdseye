@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import LoginForm from '../LoginForm/LoginForm';
-import AuthLayout from '../AuthLayout/AuthLayout';
+import RegistrationForm from '../RegistrationForm';
+import AuthLayout from '../AuthLayout';
 
-const Login = () => {
+const Register = () => {
     const [error, setError] = useState(null);
 
     const onError = (error) => {
@@ -12,9 +12,9 @@ const Login = () => {
 
     return (
         <AuthLayout error={error} onError={onError} >
-            <LoginForm onError={onError} />
+            <RegistrationForm onError={onError} />
         </AuthLayout>
     );
 };
 
-export default Login;
+export default Register;

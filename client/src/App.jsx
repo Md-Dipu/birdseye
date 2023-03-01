@@ -1,15 +1,15 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './pages/Shared/Header';
 import Home from './pages/Home';
-import Login from './pages/Authentication/Login/Login';
+import Login from './pages/Authentication/Login';
 import Plans from './pages/Plans';
 import NotFound from './pages/NotFound';
 import Footer from './pages/Shared/Footer';
 import AuthProvider from './context/AuthProvider';
-import PrivateRoute from './pages/Authentication/PrivateRoute/RouteProtector';
+import PrivateRoute from './pages/Authentication/PrivateRoute';
 import AboutUs from './pages/AboutUs';
 import PlaceOrder from './pages/PlaceOrder';
-import Register from './pages/Authentication/Register/Register';
+import Register from './pages/Authentication/Register';
 import Dashboard from './pages/Dashboard/Dashboard/Dashboard';
 import Settings from './pages/Settings';
 
