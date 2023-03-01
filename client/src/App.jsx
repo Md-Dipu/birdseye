@@ -11,7 +11,7 @@ import AboutUs from './pages/AboutUs';
 import PlaceOrder from './pages/PlaceOrder';
 import Register from './pages/Authentication/Register/Register';
 import Dashboard from './pages/Dashboard/Dashboard/Dashboard';
-import Settings from './pages/Settings/Settings';
+import Settings from './pages/Settings';
 
 function App() {
     return (
