@@ -3,7 +3,7 @@ import { postReview } from '../../../api/reviewsAPI';
 import useAuth from '../../../hooks/useAuth';
 import ReviewForm from '../../Shared/Review/ReviewForm';
 
-const Review = ({ planId, onClose, onUpdate }) => {
+const PlanReview = ({ planId, onClose, onUpdate }) => {
     const [data, setData] = useState(null);
     const { user } = useAuth();
 
@@ -41,4 +41,4 @@ const Review = ({ planId, onClose, onUpdate }) => {
     );
 };
 
-export default Review;
+export default PlanReview;

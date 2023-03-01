@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { getReviews } from '../../../api/reviewsAPI';
 import useAuth from '../../../hooks/useAuth';
 import Stars from '../../Shared/Review/Stars';
-import Review from './Review';
+import PlanReview from './PlanReview';
 
 const Reviews = () => {
     const [reviews, setReviews] = useState([]);
@@ -58,7 +58,7 @@ const Reviews = () => {
                 key={review._id}
                 {...review}
             />) : <div className="text-secondary">No reviews added</div>}
-            {showForm && <Review
+            {showForm && <PlanReview
                 planId={planId}
                 onClose={() => setShowForm(false)}
                 onUpdate={onUpdate}

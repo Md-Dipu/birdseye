@@ -8,7 +8,7 @@ import Footer from './pages/Shared/Footer';
 import AuthProvider from './context/AuthProvider';
 import PrivateRoute from './pages/Authentication/PrivateRoute/RouteProtector';
 import AboutUs from './pages/AboutUs';
-import PlaceOrder from './pages/PlaceOrder/Container/PlaceOrder';
+import PlaceOrder from './pages/PlaceOrder';
 import Register from './pages/Authentication/Register/Register';
 import Dashboard from './pages/Dashboard/Dashboard/Dashboard';
 import Settings from './pages/Settings/Settings';
