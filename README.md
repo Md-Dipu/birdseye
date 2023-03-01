@@ -1,7 +1,7 @@
 # Birdseye
 ## _Tourism related website_
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)
 
 Birdseye is a tourism website. It is built using the popular MERN Stack technologies. This demo website is a full-stack website. It is built for the purpose of learning `React`, `Node.js`, `MongoDB`, and others tools and development packages.
 
