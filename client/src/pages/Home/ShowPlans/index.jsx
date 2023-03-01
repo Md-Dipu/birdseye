@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { getPlans } from '../../../api/plansAPI';
-import Plan from '../../Plans/Plan/Plan';
+import Plan from '../../Plans/Plan';
 import Loading from '../../Shared/Loading';
 
 const ShowPlans = () => {
