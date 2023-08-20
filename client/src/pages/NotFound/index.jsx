@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, ButtonGroup, Image } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router';
 import { backToTop } from '../../utilities/utilities';
+import { Helmet } from 'react-helmet-async';
 
 const NotFound = () => {
     const history = useHistory();
@@ -12,6 +13,7 @@ const NotFound = () => {
 
     return (
         <div>
+            <Helmet title="Page Not Found" />
             <Image src="https://i.ibb.co/BfFjb2r/404.jpg" className="d-block mx-auto" fluid />
             <div className="text-center mb-3">
                 <h6>404: Page not found</h6>

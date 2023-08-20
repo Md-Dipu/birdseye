@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { getPlanById } from '../../api/plansAPI';
 import Loading from '../Shared/Loading';
 import Banner from './Banner';
@@ -24,12 +25,17 @@ const PlaceOrder = () => {
             .finally(() => setLoading(false));
     }, [planId]);
 
+    useEffect(() => {
+        console.log(data);
+    }, [data]);
+
     if (loading) {
-        return <Loading height="60" />
+        return <Loading height="60" />;
     }
 
     return (
         <Container>
+            <Helmet title={data.name} />
             <Banner handleShowForm={setShowForm} {...data} />
             {showForm && <PlaceOrderForm
                 onClose={() => setShowForm(false)}

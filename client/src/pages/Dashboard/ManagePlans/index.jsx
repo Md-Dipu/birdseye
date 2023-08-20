@@ -7,6 +7,7 @@ import { getPlans } from '../../../api/plansAPI';
 import useAuth from '../../../hooks/useAuth';
 import Loading from '../../Shared/Loading';
 import Pagination from '../../Shared/Pagination';
+import { Helmet } from 'react-helmet-async';
 
 const ManagePlans = () => {
     const [plans, setPlans] = useState([]);
@@ -59,6 +60,7 @@ const ManagePlans = () => {
 
     return (
         <Container>
+            <Helmet title="Manage Plans" />
             <Row>
                 <Col xs="12" md="3">
                     <ListGroup variant="flush" className="position-sticky top-0">

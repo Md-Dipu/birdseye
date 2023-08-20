@@ -5,10 +5,12 @@ import { scrollToSectionStart } from '../../utilities/utilities';
 import Account from './Account';
 import DeleteAccount from './DeleteAccount';
 import RoleRequest from './RoleRequest';
+import { Helmet } from 'react-helmet-async';
 
 const Settings = () => {
     return (
         <Container>
+            <Helmet title="Settings" />
             <Row>
                 <Col xs="12" md="3" lg="2">
                     <ListGroup variant="flush" className="position-sticky top-0">

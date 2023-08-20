@@ -7,6 +7,7 @@ import { storage } from '../../../config/Firebase/firebase.init';
 import { backToTop } from '../../../utilities/utilities';
 import { postPlan } from '../../../api/plansAPI';
 import InfoForm from './InfoForm';
+import { Helmet } from 'react-helmet-async';
 
 const AddPlan = () => {
     const [data, setData] = useState(null);
@@ -65,6 +66,7 @@ const AddPlan = () => {
 
     return (
         <Container className="my-3">
+            <Helmet title="Add New Plan" />
             <Row>
                 <Col xs={12} md={2} lg={3} />
                 <Col xs={12} md={8} lg={6}>

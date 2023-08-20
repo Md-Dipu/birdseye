@@ -3,6 +3,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import { getNotificationById, getNotifications } from '../../../api/notificationsAPI';
 import { updateUserById } from '../../../api/usersAPI';
 import useAuth from '../../../hooks/useAuth';
+import { Helmet } from 'react-helmet-async';
 
 const Notifications = () => {
     const [notifications, setNotifications] = useState([]);
@@ -40,6 +41,7 @@ const Notifications = () => {
 
     return (
         <Container className="my-3">
+            <Helmet title="Notifications" />
             <Row>
                 <Col md="3">
                     <div className="h6 fw-bold">Notifications</div>
@@ -86,6 +88,6 @@ const Notifications = () => {
             </Row>
         </Container>
     );
-}
+};
 
 export default Notifications;

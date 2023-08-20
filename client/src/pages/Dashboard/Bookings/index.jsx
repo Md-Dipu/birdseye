@@ -7,6 +7,7 @@ import Booking from './Booking';
 import SideBanner from './SideBanner';
 import Pagination from '../../Shared/Pagination';
 import BookingDetails from './BookingDetails';
+import { Helmet } from 'react-helmet-async';
 
 const Bookings = () => {
     const [data, setDate] = useState([]);
@@ -29,11 +30,12 @@ const Bookings = () => {
     }, [user, currentPage]);
 
     if (isLoading) {
-        <Loading height="60" />
+        <Loading height="60" />;
     }
 
     return (
         <Container>
+            <Helmet title="Bookings" />
             <Row>
                 <Col xs="12" md="8" className="mt-3">
                     <div className="h5 text-uppercase">All bookings</div>

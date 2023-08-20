@@ -4,6 +4,7 @@ import { useHistory, useLocation } from 'react-router';
 import { backToTop } from '../../utilities/utilities';
 import Contact from './Contact';
 import ReviewWebsite from './ReviewWebsite';
+import { Helmet } from 'react-helmet-async';
 
 const AboutUs = () => {
     const history = useHistory();
@@ -14,6 +15,7 @@ const AboutUs = () => {
 
     return (
         <>
+            <Helmet title="About us" />
             <div className="text-light" style={{ backgroundColor: "#113e55" }}>
                 <Container>
                     <Row className="align-items-center">

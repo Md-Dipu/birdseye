@@ -11,6 +11,7 @@ import GeneralDetails from './GeneralDetails';
 import ManagerDisplay from './ManagerDisplay';
 import PlanBookings from './PlanBookings';
 import PlanReviews from './PlanReviews';
+import { Helmet } from 'react-helmet-async';
 
 const PlanDetails = () => {
     const [plan, setPlan] = useState({});
@@ -78,6 +79,7 @@ const PlanDetails = () => {
 
     return (
         <Container>
+            <Helmet title={plan.name} />
             <Row>
                 <Col md="3">
                     <ListGroup variant="flush" className="position-sticky top-0">

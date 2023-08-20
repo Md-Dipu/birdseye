@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
+import { Helmet } from 'react-helmet-async';
 import { backToTop } from '../../utilities/utilities';
 import { getPlans } from '../../api/plansAPI';
 import Pagination from '../Shared/Pagination';
@@ -44,6 +45,7 @@ const Plans = () => {
 
     return (
         <Container>
+            <Helmet title="Plans" />
             <Search text={query.get('search')} />
             <Row xs={1} md={2} lg={3} className="g-4 mb-4">
                 {plans.map(plan => (
