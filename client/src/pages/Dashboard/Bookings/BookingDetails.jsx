@@ -40,7 +40,7 @@ const BookingDetails = ({ id, onClose }) => {
                     <Form.Text as={Link} to={`/plans/${data.planId}`} className="text-decoration-none text-secondary fs-6 fw-bold d-block">{data.planName}</Form.Text>
                     <Form.Text className="d-block">Price: ${data.price}</Form.Text>
                     <Form.Text className="d-block">Quantity: {data.quantity}</Form.Text>
-                    {data.discount && <Form.Text className="d-block">Discount: {data.discount}%</Form.Text>}
+                    {data.discount ? <Form.Text className="d-block">Discount: {data.discount}%</Form.Text> : null}
                     <Form.Text className="d-block">Total amount: ${data.totalAmount?.toFixed(2)}</Form.Text>
                     <Form.Text className="d-block fw-bold">Payable amount: <span className="text-success">${data.payableAmount?.toFixed(2)}</span></Form.Text>
 
