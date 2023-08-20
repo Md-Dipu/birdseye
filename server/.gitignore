@@ -1,3 +1,9 @@
-node_modules
+# Directories
+node_modules/
+
+# Environment
 .env
-tourism-client-firebase-adminsdk-qchz4-fbade17ac9.json
+
+# IDEs
+.vscode/
+.idea/
