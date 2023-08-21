@@ -8,7 +8,7 @@ export const createUser = async (data) => {
 };
 
 export const getUserByEmail = async (email) => {
-    const user = await userAPI.get(`/${email}`);
+    const user = await userAPI.get(`/email/${email}`);
     return user;
 };
 

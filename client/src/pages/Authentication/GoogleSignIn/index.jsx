@@ -8,7 +8,7 @@ const GoogleSignIn = ({ onError, ...rest }) => {
 
     const handleSavingUser = async (result) => {
         try {
-            const data = await getUserByEmail(`/email/${result.user.email}`);
+            const data = await getUserByEmail(result.user.email);
             setUser(data.data.data);
 
         } catch (error) {
@@ -25,7 +25,7 @@ const GoogleSignIn = ({ onError, ...rest }) => {
                     throw new Error(res.data.message);
                 }
 
-                const data = await getUserByEmail(`/email/${newUserData.email}`);
+                const data = await getUserByEmail(newUserData.email);
                 setUser(data.data.data);
 
             } catch (error) {

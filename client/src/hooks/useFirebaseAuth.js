@@ -56,7 +56,7 @@ const useFirebase = () => {
         const unsubscribed = onAuthStateChanged(auth, user => {
             if (user) {
                 getIdToken(user).then(idToken => localStorage.setItem('idToken', idToken));
-                getUserByEmail(`/email/${user.email}`).then(res => {
+                getUserByEmail(user.email).then(res => {
                     setUser(res.data.data);
                     setIsLoading(false);
                 }).catch(error => {
@@ -67,7 +67,7 @@ const useFirebase = () => {
                 });
             }
             else {
-                setUser(null)
+                setUser(null);
                 setIsLoading(false);
                 localStorage.removeItem('idToken');
             }
@@ -95,6 +95,6 @@ const useFirebase = () => {
         deleteCurrentUser,
         logOut
     };
-}
+};
 
 export default useFirebase;
