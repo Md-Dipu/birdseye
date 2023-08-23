@@ -5,14 +5,18 @@ import { getNotifications } from '../../../api/notificationsAPI';
 import Loading from '../../Shared/Loading';
 import Notification from './Notification';
 import PaginationContainer from '../../Shared/Pagination';
+import useAuth from '../../../hooks/useAuth';
+import { DetailsModal } from './DetailsModal';
 
 const Notifications = () => {
     const [count, setCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [notifications, setNotifications] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [id, setId] = useState(null);
 
     const limit = 10;
+    const { user } = useAuth();
 
     useEffect(() => {
         setIsLoading(true);
@@ -40,8 +44,14 @@ const Notifications = () => {
             {count ? (
                 <>
                     <Row xs={1}>
-                        {notifications.map(notification => <Col key={notification._id}>
-                            <Notification {...notification} />
+                        {notifications?.map((notification, index) => <Col key={notification._id}>
+                            <Notification
+                                {...notification}
+                                onClick={() => {
+                                    setId(notification._id);
+                                    notifications[index].seenBy.push(user._id);
+                                }}
+                            />
                         </Col>)}
                     </Row>
                     {count > limit && <PaginationContainer
@@ -51,6 +61,7 @@ const Notifications = () => {
                     />}
                 </>
             ) : <div className="text-secondary">No notifications found</div>}
+            <DetailsModal id={id} onClose={() => setId(null)} />
         </Container>
     );
 };
