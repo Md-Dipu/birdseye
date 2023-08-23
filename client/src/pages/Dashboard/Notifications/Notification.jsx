@@ -8,7 +8,7 @@ const Notification = props => {
 
     return (
         <Card className="my-1 p-3 rounded-0" style={{ borderLeft: `2px var(${isSeen ? '--bs-success' : '--bs-danger'}) solid` }}>
-            <Card.Subtitle className="fw-semibold text-secondary">{props.title} {!isSeen && <Badge pill bg="warning">New</Badge>}</Card.Subtitle>
+            <Card.Subtitle className="fw-semibold text-secondary">{props.title || props.from.name} {!isSeen && <Badge pill bg="warning">New</Badge>}</Card.Subtitle>
             <Card.Text className={`${isSeen ? '' : 'fw-semibold'} text-secondary text-truncate`}>{props.message}</Card.Text>
         </Card>
     );

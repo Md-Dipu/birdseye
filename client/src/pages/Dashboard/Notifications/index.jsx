@@ -4,20 +4,27 @@ import { Helmet } from 'react-helmet-async';
 import { getNotifications } from '../../../api/notificationsAPI';
 import Loading from '../../Shared/Loading';
 import Notification from './Notification';
+import PaginationContainer from '../../Shared/Pagination';
 
 const Notifications = () => {
     const [count, setCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
     const [notifications, setNotifications] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const limit = 10;
 
     useEffect(() => {
-        getNotifications()
+        setIsLoading(true);
+        getNotifications(`?sort=-createdAt&limit=${limit}&page=${currentPage}&fields=title,message,from.name,seenBy`)
             .then(({ data: res }) => {
                 setCount(res.count);
-                setNotifications(res.data.reverse());
+                setNotifications(res.data);
+                setIsLoading(false);
             });
-    }, []);
+    }, [currentPage]);
 
-    if (!notifications) {
+    if (isLoading) {
         return (
             <>
                 <Helmet title="Notifications" />
@@ -31,11 +38,18 @@ const Notifications = () => {
             <Helmet title="Notifications" />
             <div className="h3 text-secondary">Notifications</div>
             {count ? (
-                <Row xs={1}>
-                    {notifications.map(notification => <Col>
-                        <Notification {...notification} />
-                    </Col>)}
-                </Row>
+                <>
+                    <Row xs={1}>
+                        {notifications.map(notification => <Col key={notification._id}>
+                            <Notification {...notification} />
+                        </Col>)}
+                    </Row>
+                    {count > limit && <PaginationContainer
+                        currentPage={currentPage}
+                        numberOfButtons={Math.ceil(count / limit)}
+                        onClick={page => setCurrentPage(page)}
+                    />}
+                </>
             ) : <div className="text-secondary">No notifications found</div>}
         </Container>
     );
