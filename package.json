@@ -1,0 +1,23 @@
+{
+  "name": "birdseye",
+  "version": "1.0.0",
+  "description": "Tourism related website",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run start-dev",
+    "client": "cd client && npm start",
+    "client-install": "cd client && npm install",
+    "server-install": "cd server && npm install",
+    "postinstall": "npm run client-install && npm run server-install"
+  },
+  "keywords": [
+    "tourism",
+    "website",
+    "travel"
+  ],
+  "author": "Md. Dipu <srdipu@hotmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
