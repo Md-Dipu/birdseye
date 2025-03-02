@@ -153,9 +153,10 @@ npm start
 
 #### _Frontend_
 
-To start the frontend server, use the following command:
+To start the frontend server, change to the `client` directory and use the following command:
 
 ```sh
+cd client
 npm start
 ```
 
@@ -167,9 +168,10 @@ Other available scripts are:
 
 #### _Backend_
 
-To start the backend server, use one of the following commands based on the environment:
+To start the backend server, change to the `server` directory and use one of the following commands based on the environment:
 
 ```sh
+cd server
 npm run start-local
 ```
 
