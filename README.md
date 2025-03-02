@@ -67,52 +67,49 @@ This project uses a number of open-source projects/packages to work properly:
 
 ## Installation and Development
 
-Birdseye requires [Node.js](https://nodejs.org/) v10+ to run.
+### Installation Steps
 
-Install the dependencies and devDependencies and start.
-
-### _Frontend_
+First, clone the repository:
 
 ```sh
-# client
-cd birdseye/client/
+git clone https://github.com/Md-Dipu/birdseye.git
+cd birdseye
+```
+
+Ensure you are using the correct Node.js version:
+
+```sh
+nvm use
+```
+
+If the required Node.js version is not installed, use:
+
+```sh
+nvm install
+```
+
+Install the dependencies:
+
+```sh
 npm install
-npm start
 ```
 
-### _Backend_
+#### _Frontend_
+
+Optionally, you can install dependencies for the `client`:
 
 ```sh
-# server
-cd birdseye/server/
+cd client
 npm install
 ```
 
-For production environments...
+#### _Backend_
+
+Optionally, you can install dependencies for the `server`:
 
 ```sh
-npm start
-
-# or
-NODE_ENV=production node index.js
-```
-
-For local environments...
-
-```sh
-npm run start-local
-
-# or
-NODE_ENV=local node index.js
-```
-
-For development environments...
-
-```sh
-npm run start-dev
-
-# or
-NODE_ENV=dev nodemon index.js
+cd server
+npm install
 ```
 
 ### Environment variables
@@ -145,5 +142,41 @@ Enter all variables in the `server/.env` file.
 | DEV_URI | MongoDB uri for development |
 | PRODUCTION_URI | MongoDB uri for production |
 | FIREBASE_SERVICE_ACCOUNT_INFO | Firebase service account information |
+
+### Start Development
+
+After setting up the environment variables for both the client and server side, start the development server:
+
+```sh
+npm start
+```
+
+#### _Frontend_
+
+To start the frontend server, use the following command:
+
+```sh
+npm start
+```
+
+Other available scripts are:
+
+- `npm run build` - Builds the app for production.
+- `npm run test` - Runs the test watcher in an interactive mode.
+- `npm run eject` - Removes the single build dependency from your project.
+
+#### _Backend_
+
+To start the backend server, use one of the following commands based on the environment:
+
+```sh
+npm run start-local
+```
+
+Other available scripts are:
+
+- `npm start` - Starts the server in production mode.
+- `npm run start-local` - Starts the server in local mode.
+- `npm run start-dev` - Starts the server in development mode with nodemon.
 
 **Thank you!**
