@@ -179,4 +179,18 @@ Other available scripts are:
 - `npm run start-local` - Starts the server in local mode.
 - `npm run start-dev` - Starts the server in development mode with nodemon.
 
+## Contributing
+
+We welcome contributions to Birdseye! If you have suggestions for improvements or have found a bug, please open an issue or submit a pull request. Here are some basic guidelines to follow:
+
+1. **Fork the repository**: Create a personal fork of the project on GitHub.
+2. **Clone your fork**: Clone your forked repository to your local machine.
+3. **Create a branch**: Create a new branch for your changes.
+4. **Make changes**: Make your changes in the new branch.
+5. **Commit changes**: Commit your changes with a clear and concise commit message.
+6. **Push to GitHub**: Push your changes to your forked repository on GitHub.
+7. **Submit a pull request**: Open a pull request to merge your changes into the main repository.
+
+Please ensure your code follows the project's coding standards and includes appropriate tests.
+
 **Thank you!**
