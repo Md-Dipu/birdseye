@@ -1,6 +1,6 @@
 {
   "name": "birdseye-client",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -20,7 +20,6 @@
     "react-hook-form": "^7.20.2",
     "react-router-dom": "^5.3.4",
     "react-scripts": "^5.0.1",
-    "update-browserslist-db": "^1.0.11",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
