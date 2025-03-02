@@ -1,7 +1,4 @@
-# Birdseye
-## _Tourism related website_
-
-# Birdseye 🦅
+# Birdseye: Tourism related website
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/Md-Dipu/birdseye?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/Md-Dipu/birdseye?style=social)
@@ -11,11 +8,11 @@
 ![GitHub language](https://img.shields.io/github/languages/top/Md-Dipu/birdseye?color=blue)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Md-Dipu/birdseye?style=for-the-badge)
 
-Birdseye is a tourism website. It is built using the popular MERN Stack technologies. This demo website is a full-stack website. It is built for the purpose of learning `React`, `Node.js`, `MongoDB`, and others tools and development packages.
+Birdseye is a tourism website. It is built using the popular MERN Stack technologies. This demo website is a full-stack website. It is built for the purpose of learning `React`, `Node.js`, `MongoDB`, and other tools and development packages.
 
 ### Live Demo
 
-This project is deployed using the firebase hosting service. To visit the demo [Click](https://birdseye-travel-planner.web.app) here or manually visit the URL https://birdseye-travel-planner.web.app.
+This project is deployed using the Firebase hosting service. To visit the demo [Click here](https://birdseye-travel-planner.web.app) or manually visit the URL https://birdseye-travel-planner.web.app.
 
 #### Demo Accounts
 
@@ -32,7 +29,7 @@ This project is deployed using the firebase hosting service. To visit the demo [
 - Responsive webpages
 - Authentication and Authorization
 - File hosting
-- REST api
+- REST API
 - Database management
 - Sorting and search plans
 - Add new plans (Admin only)
@@ -41,14 +38,14 @@ This project is deployed using the firebase hosting service. To visit the demo [
 - Booking management
 - User role management
 
-This website is a fully responsive application. Attempts have been made to implement all basic concepts/services. 
+This website is a fully responsive application. Attempts have been made to implement all basic concepts/services.
 
 ## Tech
 
 This project uses a number of open-source projects/packages to work properly:
 
 ### _Frontend_
-- [Axios](https://axios-http.com/) - Promise based HTTP client for the browser and node.js.
+- [Axios](https://axios-http.com/) - Promise based HTTP client for the browser and Node.js.
 - [Bootstrap](https://getbootstrap.com/) - Bootstrap is a powerful, feature-packed frontend toolkit.
 - [Firebase](https://firebase.google.com/) - Firebase is an app development platform that helps to build apps and games.
 - [React](https://reactjs.org/) - A JavaScript library for building user interfaces.
@@ -57,12 +54,12 @@ This project uses a number of open-source projects/packages to work properly:
 - [React-router](https://reactrouter.com/) - React Router is a standard library for routing in React.
 
 ### _Backend_
-- [Colors](https://github.com/Marak/colors.js) - get colors in your node.js console.
+- [Colors](https://github.com/Marak/colors.js) - Get colors in your Node.js console.
 - [CORS](https://github.com/expressjs/cors#readme) - Node.js CORS middleware.
-- [Dotenv](https://github.com/motdotla/dotenv#readme) - Loads environment variables from .env for nodejs projects.
+- [Dotenv](https://github.com/motdotla/dotenv#readme) - Loads environment variables from .env for Node.js projects.
 - [Express](https://expressjs.com/) - Fast, unopinionated, minimalist web framework for Node.js.
 - [Firebase-admin](https://www.npmjs.com/package/firebase-admin) - Firebase Admin Node.js SDK.
-- [Mongodb](https://www.npmjs.com/package/mongodb) - MongoDB NodeJS Driver.
+- [MongoDB](https://www.npmjs.com/package/mongodb) - MongoDB Node.js Driver.
 - [Validator](https://github.com/validatorjs/validator.js) - A library of string validators and sanitizers.
 
 ## Installation and Development
@@ -112,7 +109,7 @@ cd server
 npm install
 ```
 
-### Environment variables
+### Environment Variables
 
 Before starting, the servers must set up some environment variables on both the `birdseye/client` and `birdseye/server`.
 
@@ -122,14 +119,13 @@ Enter all variables in the `client/.env.local` file.
 
 | Variables | Description |
 | ------ | ------ |
-| REACT_APP_FIREBASE_APIKEY | Firebase api key |
+| REACT_APP_FIREBASE_APIKEY | Firebase API key |
 | REACT_APP_FIREBASE_AUTHDOMAIN | Firebase auth domain |
 | REACT_APP_FIREBASE_PROJECTID | Firebase project ID |
 | REACT_APP_FIREBASE_STORAGEBUCKET | Firebase storage bucket |
 | REACT_APP_FIREBASE_MESSAGINGSENDERID | Firebase messaging sender ID |
 | REACT_APP_FIREBASE_APPID | Firebase APP ID |
-| REACT_APP_SERVER_BACKEND_API_URL | Server side URL of birdseye |
-
+| REACT_APP_SERVER_BACKEND_API_URL | Server side URL of Birdseye |
 
 #### _Backend_
 
@@ -138,9 +134,9 @@ Enter all variables in the `server/.env` file.
 | Variables | Description |
 | ------ | ------ |
 | PORT | Port number for local |
-| LOCAL_URI | MongoDB uri for local |
-| DEV_URI | MongoDB uri for development |
-| PRODUCTION_URI | MongoDB uri for production |
+| LOCAL_URI | MongoDB URI for local |
+| DEV_URI | MongoDB URI for development |
+| PRODUCTION_URI | MongoDB URI for production |
 | FIREBASE_SERVICE_ACCOUNT_INFO | Firebase service account information |
 
 ### Start Development
