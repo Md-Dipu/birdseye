@@ -4,9 +4,9 @@
 ![GitHub forks](https://img.shields.io/github/forks/Md-Dipu/birdseye?style=social)
 ![GitHub issues](https://img.shields.io/github/issues/Md-Dipu/birdseye)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Md-Dipu/birdseye)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Md-Dipu/birdseye?style=for-the-badge)
 ![GitHub license](https://img.shields.io/github/license/Md-Dipu/birdseye?style=for-the-badge)
 ![GitHub language](https://img.shields.io/github/languages/top/Md-Dipu/birdseye?color=blue)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/Md-Dipu/birdseye?style=for-the-badge)
 
 Birdseye is a tourism website. It is built using the popular MERN Stack technologies. This demo website is a full-stack website. It is built for the purpose of learning `React`, `Node.js`, `MongoDB`, and other tools and development packages.
 
