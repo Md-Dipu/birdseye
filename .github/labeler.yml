@@ -1,0 +1,83 @@
+# Label any file change in the repository root
+root:
+  - changed-files:
+      - any-glob-to-any-file: '*'
+
+# Label any change in the entire repository
+AnyChange:
+  - changed-files:
+      - any-glob-to-any-file: '**'
+
+# Label documentation-related changes:
+# - Files under the 'docs' and 'guides' directories
+# - Any Markdown file anywhere in the repo
+Documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'docs/**'
+          - 'guides/**'
+          - '**/*.md'
+
+# Label changes in client-side code
+client:
+  - changed-files:
+      - any-glob-to-any-file: 'client/src/**'
+
+# Label changes in server-side code
+server:
+  - changed-files:
+      - any-glob-to-any-file: 'server/src/**'
+
+# Label changes in test files (for both client and server tests)
+tests:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'client/tests/**'
+          - 'server/tests/**'
+          - 'tests/**'
+
+# Label configuration file changes (e.g. package files, build configs, and linting)
+config:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'package.json'
+          - 'yarn.lock'
+          - '*.config.js'
+          - 'client/parcel-config.js'
+          - 'server/*.config.js'
+          - '.eslintrc*'
+          - '.prettierrc*'
+          - 'tailwind.config.js'
+
+# Label styling changes (CSS, SCSS, and Tailwind config updates)
+styles:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'client/**/*.css'
+          - 'client/**/*.scss'
+          - 'client/tailwind.config.js'
+
+# Label CI/CD related changes, including GitHub Actions workflows
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/workflows/**'
+
+# Label dependency update changes (affecting lockfiles and package definitions)
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'package.json'
+          - 'yarn.lock'
+          - 'client/package.json'
+          - 'server/package.json'
+
+# Label PRs for feature work based on the head branch name containing or starting with "feature"
+feature:
+  - head-branch:
+      - '^feature'
+      - 'feature'
+
+# Label PRs intended for release when the base branch is 'main'
+release:
+  - base-branch: 'main'
