@@ -18,12 +18,12 @@ Documentation:
           - 'guides/**'
           - '**/*.md'
 
-# Label changes in client-side code
+# Label changes in client-side code (React components, utilities, etc.)
 client:
   - changed-files:
       - any-glob-to-any-file: 'client/src/**'
 
-# Label changes in server-side code
+# Label changes in server-side code (Express & MongoDB related)
 server:
   - changed-files:
       - any-glob-to-any-file: 'server/src/**'
@@ -41,21 +41,19 @@ config:
   - changed-files:
       - any-glob-to-any-file:
           - 'package.json'
-          - 'yarn.lock'
+          - 'package-lock.json'
           - '*.config.js'
-          - 'client/parcel-config.js'
-          - 'server/*.config.js'
+          - 'client/package.json'
+          - 'server/package.json'
           - '.eslintrc*'
           - '.prettierrc*'
-          - 'tailwind.config.js'
 
-# Label styling changes (CSS, SCSS, and Tailwind config updates)
+# Label styling changes (CSS, SCSS, and Bootstrap-related updates)
 styles:
   - changed-files:
       - any-glob-to-any-file:
           - 'client/**/*.css'
           - 'client/**/*.scss'
-          - 'client/tailwind.config.js'
 
 # Label CI/CD related changes, including GitHub Actions workflows
 ci:
@@ -68,7 +66,7 @@ dependencies:
   - changed-files:
       - any-glob-to-any-file:
           - 'package.json'
-          - 'yarn.lock'
+          - 'package-lock.json'
           - 'client/package.json'
           - 'server/package.json'
 
@@ -81,3 +79,85 @@ feature:
 # Label PRs intended for release when the base branch is 'main'
 release:
   - base-branch: 'main'
+
+# Label bugfix-related PRs
+bugfix:
+  - head-branch:
+      - '^bugfix'
+      - 'bugfix'
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'client/src/**'
+          - 'server/src/**'
+
+# Label hotfix-related PRs
+hotfix:
+  - head-branch:
+      - '^hotfix'
+      - 'hotfix'
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'client/src/**'
+          - 'server/src/**'
+
+# Label improvements or enhancements
+improvement:
+  - head-branch:
+      - '^improvement'
+      - 'improvement'
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'client/src/**'
+          - 'server/src/**'
+
+# Label core functionality updates (significant architectural or major refactors)
+core:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'server/src/core/**'
+          - 'client/src/core/**'
+          - 'server/src/middleware/**'
+
+# Label security-related changes (e.g., authentication, security patches)
+security:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'server/src/auth/**'
+          - 'server/src/security/**'
+          - 'client/src/auth/**'
+          - '**/auth/**'
+          - '**/security/**'
+
+# Label database changes (Migrations, schema updates, DB queries)
+database:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'server/src/db/**'
+          - 'server/src/models/**'
+          - 'server/src/migrations/**'
+
+# Label refactoring (significant code restructuring without adding features)
+refactor:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'client/src/**'
+          - 'server/src/**'
+  - head-branch:
+      - '^refactor'
+      - 'refactor'
+
+# Label experimental features under testing
+experimental:
+  - head-branch:
+      - '^experimental'
+      - 'experimental'
+
+# Label performance-related optimizations
+performance:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'client/src/**'
+          - 'server/src/**'
+  - head-branch:
+      - '^perf'
+      - 'performance'
