@@ -2,13 +2,14 @@
   "name": "birdseye",
   "version": "1.0.0",
   "description": "Tourism related website",
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd server && npm run start-dev",
-    "client": "cd client && npm start",
-    "client-install": "cd client && npm install",
-    "server-install": "cd server && npm install",
-    "postinstall": "npm run client-install && npm run server-install"
+    "client": "cd client && npm start"
   },
   "keywords": [
     "tourism",
